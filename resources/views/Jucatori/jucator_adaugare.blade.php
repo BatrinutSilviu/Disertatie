@@ -46,12 +46,39 @@
 				<option value="atacant">Atacant</option>
 			</select>
 		</div>
-		<div class="input-group mb-3">
+<!-- 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Echipa</span>
 			</div>
 			<input type="number" class="form-control" name="echipa_id" value="{{old('echipa_id')}}" required>
+		</div> -->
+<!-- 		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="Echipe">Echipa</label>
+			</div>
+			<select class="custom-select" id="Echipe" name="Echipa">
+				@foreach ($echipe as $echipa)
+					<option value="{{ $echipa->id }}">{{ $echipa->Nume }}</option>
+				@endforeach
+			</select>
+		</div> -->
+		<div class="form-group">
+			<input type="text" name="search" id="search" class="form-control" placeholder="Cauta echipa" />
 		</div>
+		<div class="table-responsive">
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+					<th>Nume</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+
+
+
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Echipa nationala</span>
@@ -70,5 +97,33 @@
 		</div>
 		@include('errors')
 	</form>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script>
+$(document).ready(function(){
+
+ fetch_customer_data();
+
+ function fetch_customer_data(query = '')
+ {
+  $.ajax({
+   url:"{{ route('live_search.action') }}",
+   method:'GET',
+   data:{query:query},
+   dataType:'json',
+   success:function(data)
+   {
+    $('tbody').html(data.table_data);
+    $('#total_records').text(data.total_data);
+   }
+  })
+ }
+
+ $(document).on('keyup', '#search', function(){
+  var query = $(this).val();
+  fetch_customer_data(query);
+ });
+});
+</script>
 
 @endsection

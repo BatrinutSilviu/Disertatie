@@ -17,10 +17,6 @@
        <thead>
         <tr>
          <th>Nume</th>
-         <th>Inaltime</th>
-         <th>Post</th>
-         <th>Picior preferat</th>
-         <th>Nationalitate</th>
         </tr>
        </thead>
        <tbody>

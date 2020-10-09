@@ -20,15 +20,15 @@ class LiveSearch extends Controller
       $query = $request->get('query');
       if($query != '')
       {
-       $data = DB::table('jucators')
+       $data = DB::table('echipas')
          ->where('Nume', 'like', '%'.$query.'%')
-         ->orderBy('Inaltime', 'desc')
+         ->orderBy('Tara', 'desc')
          ->get();         
       }
       else
       {
-       $data = DB::table('jucators')
-         ->orderBy('Inaltime', 'desc')
+       $data = DB::table('echipas')
+         ->orderBy('Tara', 'desc')
          ->get();
       }
       $total_row = $data->count();
