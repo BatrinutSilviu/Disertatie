@@ -55,4 +55,8 @@ class EchipaController extends Controller
 		// $jucatori = $echipa->jucatori();
 		return view('Echipe/echipa_jucatori', compact('echipa') );
 	}
+	public function afisare_echipa_mea()
+	{
+		return view('echipamea');
+	}
 }

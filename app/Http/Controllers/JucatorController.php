@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Jucator;
+use App\Echipa;
 
 class JucatorController extends Controller
 {
@@ -14,13 +15,17 @@ class JucatorController extends Controller
 	}
 	public function adaugare()
 	{
-		return view('Jucatori/jucator_adaugare');
+		//$echipe = Echipa::select('id','Nume')->get();
+
+		return view('Jucatori/jucator_adaugare');//, array('echipe' => $echipe));
 	}
 	public function salvare()
-	{
+	{		
+		dd(request('nationala_id'));
 		$validat=request()->validate(['Nume' => ['required','min:3','max:45'],
 			'Data_nasterii' => ['required','date','before:today'],
 			'echipa_id' => ['numeric'],
+			'nationala_id' => ['numeric'],
 			'Nationalitate' => ['required','min:2','max:2'],
 			'Inaltime'=> ['numeric','min:140','max:220'],
 			'Picior_preferat'=> 'in:stangul,dreptul,ambele',
@@ -47,12 +52,12 @@ class JucatorController extends Controller
  		 $validat=request()->validate(['Nume' => ['required','min:3','max:45'],
 			'Data_nasterii' => ['required','date','before:today'],
 			'echipa_id' => ['numeric'],
+			'nationala_id' => ['numeric'],
 			'Nationalitate' => ['required','min:2','max:2'],
 			'Inaltime'=> ['numeric','min:140','max:220'],
 			'Picior_preferat'=> 'in:stangul,dreptul,ambele',
 			'Post' => 'in:portar,fundas,mijlocas,atacant']);
 		 $jucator->update($validat);
-		// $jucator->Nume = request('Nume');
 		// $jucator->save();
 
 		return redirect('jucator');

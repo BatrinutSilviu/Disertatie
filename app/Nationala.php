@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Echipa extends Model
+class Nationala extends Model
 {
     protected $guarded=[];
     public function jucatori()

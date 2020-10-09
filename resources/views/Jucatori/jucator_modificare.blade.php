@@ -69,6 +69,24 @@
 		</div>
 @endif	
 
+@if(!empty($jucator->Nationala->Nume))
+		<div class="field">
+			<label class="label" for="Nationala">Nationala</label>
+
+			<div class="control">
+				<input type = "text" class="input" name="Nationala" placeholder="Nationala" value="{{$jucator->Nationala->Nume}}">
+			</div>
+		</div>
+		@else
+		<div class="field">
+			<label class="label" for="Nationala">Nationala</label>
+
+			<div class="control">
+				<input type = "text" class="input" name="Nationala" placeholder="Fara Nationala">
+			</div>
+		</div>
+@endif	
+
 		<div class="field">
 			<div class="control">
 				<button type="submit" class="button is-link">Modifica</button>

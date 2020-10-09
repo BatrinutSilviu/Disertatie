@@ -2,21 +2,17 @@
 
 namespace App;
 
-// use Spatie\Searchable\Searchable;
-// use Spatie\Searchable\SearchResult;
 use Illuminate\Database\Eloquent\Model;
 
-class Jucator extends Model// implements Searchable
+class Jucator extends Model
 {
     protected $guarded=[];
     public function echipa()
     {
     	return $this->belongsTo(Echipa::class);
     }
-    // public function getSearchResult(): SearchResult
-    // {
-    //    $url = route('members.show', $this->id);
-         
-    //    return new SearchResult($this, $this->Nume, $url);
-    // }
+    public function nationala()
+    {
+        return $this->belongsTo(Nationala::class);
+    }
 }

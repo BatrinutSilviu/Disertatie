@@ -22,6 +22,7 @@
 			</div>
 			<input type="number" class="form-control" name="Inaltime" value="{{old('Inaltime')}}" required>
 		</div>
+
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="selectPicior">Picior preferat</label>
@@ -49,7 +50,13 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">Echipa</span>
 			</div>
-			<input type="number" class="form-control" name="Echipa" value="{{old('echipa_id')}}" required>
+			<input type="number" class="form-control" name="echipa_id" value="{{old('echipa_id')}}" required>
+		</div>
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text">Echipa nationala</span>
+			</div>
+			<input type="number" class="form-control" name="nationala_id" value="{{old('nationala_id')}}" required>
 		</div>
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">

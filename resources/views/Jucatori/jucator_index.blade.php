@@ -12,6 +12,7 @@
             <th>Picior preferat</th>
             <th>Post</th>
             <th>Echipa</th>
+            <th>Nationala</th>
             @if( auth()->check() )
                 <th>Actiuni</th>
             @endif
@@ -32,6 +33,14 @@
                     </td>
                 @else
                     <td>Fara echipa</td>
+                @endif
+
+                @if ( !empty( $jucator->Nationala->Nume ) )
+                    <td>
+                        {{ $jucator->Nationala->Nume }}
+                    </td>
+                @else
+                    <td>Fara nationala</td>
                 @endif
 
                 @if( auth()->check() )
