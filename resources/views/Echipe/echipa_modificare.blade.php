@@ -52,7 +52,7 @@
 			@csrf
 			<div class="field">
 				<div class="control">
-					<button type="submit" class="btn btn-danger" onclick="return confirm('Sure Want Delete?')">Sterge</button>
+					<button type="submit" class="btn btn-danger" onclick="return confirm('Sunteti sigur ca doriti stergerea?')">Sterge</button>
 				</div>
 			</div>
 	</form>

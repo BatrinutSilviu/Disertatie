@@ -12,6 +12,18 @@ class NationalaController extends Controller
 		$nationale = \App\Nationala::all();
     	return view('Nationale/nationala_index',compact('nationale'));
     }
+	public function cauta(Request $request)
+	{
+		$cauta = $request->search;
+		$nationale = Nationala::orderby('Nume','asc')->select('id','Nume')->whereRaw('LOWER(`Nume`) LIKE ? ',['%'.strtolower($cauta).'%'])->limit(5)->get();
+
+		$response = array();
+		foreach($nationale as $nationala){
+			$response[] = array("value"=>$nationala->id,"label"=>$nationala->Nume);
+		}
+
+		return response()->json($response);
+	}
     public function adaugare()
 	{
 		return view('Nationale/nationala_adaugare');

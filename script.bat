@@ -1,4 +1,4 @@
 git add .
-git commit -m "merge dar cu eroare in consola"
+git commit -m "merge live search"
 git push origin master
 pause

@@ -21,7 +21,6 @@
             <tr>
                 <td>{{ $jucator->Nume }}</td>
                 <td>{{ $jucator->Data_Nasterii }}</td>
-                <!-- {{$jucator->Nationalitate}}.png -->
                 <td><img width="20px" class="img-circle" src="/images/{{$jucator->Nationalitate}}.png"></td>
                 <td>{{ $jucator->Inaltime }}</td>
                 <td>{{ $jucator->Picior_preferat }}</td>
@@ -34,7 +33,7 @@
                     <span class="material-icons">create</span>
                 </a>
                 <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Sterge jucator"
-                    href ="/echipa/{{$echipa->id}}/stergere">
+                    href ="/echipa/{{$echipa->id}}/stergere" onclick="return confirm('Sunteti sigur ca doriti stergerea?')">
                     <span class="material-icons">remove_circle_outline</span>
                 </a>
                     <!-- Remove comment for "edit player" option -->

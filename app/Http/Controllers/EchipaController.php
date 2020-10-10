@@ -7,11 +7,22 @@ use App\Echipa;
 
 class EchipaController extends Controller
 {
-    //
     public function index()
 	{
 		$echipe = \App\Echipa::all();
     	return view('Echipe/echipa_index',compact('echipe'));
+	}
+	public function cauta(Request $request)
+	{
+		$cauta = $request->search;
+		$echipe = Echipa::orderby('Nume','asc')->select('id','Nume')->whereRaw('LOWER(`Nume`) LIKE ? ',['%'.strtolower($cauta).'%'])->limit(5)->get();
+
+		$response = array();
+		foreach($echipe as $echipa){
+			$response[] = array("value"=>$echipa->id,"label"=>$echipa->Nume);
+		}
+
+		return response()->json($response);
 	}
 	public function adaugare()
 	{

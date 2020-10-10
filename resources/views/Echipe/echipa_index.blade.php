@@ -31,7 +31,7 @@
                                 <span class="material-icons">create</span>
                             </a>
                             <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Sterge echipa"
-                                href ="/echipa/{{$echipa->id}}/stergere" onclick="return confirm('Sure Want Delete?')">
+                                href ="/echipa/{{$echipa->id}}/stergere" onclick="return confirm('Sunteti sigur ca doriti stergerea?')">
                                 <span class="material-icons">remove_circle_outline</span>
                             </a>
                         </td>
