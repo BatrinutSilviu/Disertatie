@@ -90,7 +90,7 @@
 
 		<div class="field">
 			<div class="control">
-				<button type="submit" class="button is-link">Modifica</button>
+				<button type="submit" class="btn btn-primary">Modifica</button>
 			</div>
 		</div>
 @include('errors')
@@ -111,7 +111,7 @@
 			@csrf
 			<div class="field">
 				<div class="control">
-					<button type="submit" class="button is-link">Renuntare</button>
+					<button type="submit" class="btn btn-secondary">Renuntare</button>
 				</div>
 			</div>
 	</form>

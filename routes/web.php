@@ -43,7 +43,17 @@ Route::get('/nationala/{nationala_ID}/jucatori', 'NationalaController@getJucator
 Route::get('/nationala/{nationala_ID}/modificare', 'NationalaController@modificare')->middleware('auth');
 Route::get('/nationala/{nationala_ID}/stergere', 'NationalaController@stergere')->middleware('auth');
 
+Route::get('/meci', 'MeciController@index');
+Route::post('/meci', 'MeciController@salvare')->middleware('auth');
+Route::get('/meci/adaugare', 'MeciController@adaugare')->middleware('auth');
+// Route::get('/meci/cauta', 'MeciController@cauta')->name('nationala.cauta');
+Route::patch('/meci/{meci_ID}', 'MeciController@actualizare')->middleware('auth');
+Route::get('/meci/{meci_ID}/jucatori', 'MeciController@getJucatori');
+Route::get('/meci/{meci_ID}/modificare', 'MeciController@modificare')->middleware('auth');
+Route::get('/meci/{meci_ID}/stergere', 'MeciController@stergere')->middleware('auth');
+
 Route::get('/tara/cauta', 'TaraController@cauta')->name('tara.cauta');
+Route::get('/competitie/cauta', 'CompetitieController@cauta')->name('competitie.cauta');
 
 Auth::routes();
 

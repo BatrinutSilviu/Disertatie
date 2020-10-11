@@ -13,7 +13,7 @@
                 <th>Echipa</th>
                 <th>Nationala</th>
                 @if( auth()->check() )
-                <th>Actiuni</th>
+                    <th>Actiuni</th>
                 @endif
             </tr>
         </thead>
@@ -26,16 +26,24 @@
                 <td>{{ $jucator->Inaltime }}</td>
                 <td>{{ $jucator->Picior_preferat }}</td>
                 <td>{{ $jucator->Post }}</td>
-                <td>{{ $jucator->Echipa->Nume }}</td>
-                <td>{{ $jucator->Nationala->Nume }}</td>
+                @if( !empty( $jucator->Echipa->Nume ) )
+                    <td>{{ $jucator->Echipa->Nume }}</td>
+                @else
+                    <td>Fara echipa</td>
+                @endif
+                @if( !empty( $jucator->Nationala->Nume ) )
+                    <td>{{ $jucator->Nationala->Nume }}</td>
+                @else
+                    <td>Fara nationala</td>
+                @endif
                 @if( auth()->check() )
                 <td>
                 <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Modifica jucator"
-                    href ="/nationala/{{$nationala->id}}/modificare">
+                    href ="/jucator/{{$jucator->id}}/modificare">
                     <span class="material-icons">create</span>
                 </a>
                 <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Sterge jucator"
-                    href ="/nationala/{{$nationala->id}}/stergere" onclick="return confirm('Sunteti sigur ca doriti stergerea?')">
+                    href ="/jucator/{{$jucator->id}}/stergere" onclick="return confirm('Sunteti sigur ca doriti stergerea?')">
                     <span class="material-icons">remove_circle_outline</span>
                 </a>
                 </td>

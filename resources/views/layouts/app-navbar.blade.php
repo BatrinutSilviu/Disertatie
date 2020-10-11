@@ -67,6 +67,11 @@
                             </a>
                         </div>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/meci') }}" role="button">
+                            Meciuri
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>

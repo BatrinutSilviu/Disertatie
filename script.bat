@@ -1,4 +1,4 @@
 git add .
-git commit -m "mere tun"
+git commit -m "meci implementat partial"
 git push origin master
 pause
