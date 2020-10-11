@@ -21,7 +21,7 @@
                         <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Lot"
                             href ="/echipa/{{$echipa->id}}/jucatori">{{ $echipa->Nume }}</a>
                     </td>
-                    <td><img width="20px" class="img-circle" src="images/{{$echipa->Tara}}.png"></td>
+                    <td><img width="20px" class="img-circle" src="/images/{{$echipa->Tara}}.png"></td>
                     <td>{{ $echipa->Liga }}</td>
                     <td>{{ $echipa->Manager }}</td>
                     @if( auth()->check() )

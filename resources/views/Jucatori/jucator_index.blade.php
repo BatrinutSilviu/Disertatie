@@ -23,7 +23,7 @@
             <tr>
                 <td>{{ $jucator->Nume }}</td>
                 <td>{{ $jucator->Data_Nasterii }}</td>
-                <td><img width="20px" class="img-circle" src="images/{{$jucator->Nationalitate}}.png"></td>
+                <td><img width="20px" class="img-circle" src="/images/{{$jucator->Nationalitate}}.png"></td>
                 <td>{{ $jucator->Inaltime }}</td>
                 <td>{{ $jucator->Picior_preferat }}</td>
                 <td class="test">{{ $jucator->Post }}</td>

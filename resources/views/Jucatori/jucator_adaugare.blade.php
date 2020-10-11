@@ -45,17 +45,18 @@
 				<option value="atacant" {{ old('Post') == 'atacant' ? 'selected':"" }}>Atacant</option>
 			</select>
 		</div>
+
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Echipa</span>
 			</div>
-			<input type="text" name="Echipa" id="cauta_echipa" class="form-control" placeholder="Cauta echipa" value="{{old('Echipa')}}" />
+			<input type="text" name="echipa_id" id="cauta_echipa" class="form-control" placeholder="Cauta echipa" value="{{old('echipa_id')}}" />
 		</div>
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Echipa nationala</span>
 			</div>
-			<input type="text" name="Nationala" id="cauta_nationala" class="form-control" placeholder="Cauta echipa" value="{{old('Nationala')}}"/>
+			<input type="text" name="nationala_id" id="cauta_nationala" class="form-control" placeholder="Cauta echipa" value="{{old('nationala_id')}}"/>
 		</div>
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">

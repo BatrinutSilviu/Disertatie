@@ -57,4 +57,14 @@
 			</div>
 	</form>
 
+	<form method="POST" action="/echipa">
+			@method('GET')
+			@csrf
+			<div class="field">
+				<div class="control">
+					<button type="submit" class="button is-link">Renuntare</button>
+				</div>
+			</div>
+	</form>
+
 @endsection

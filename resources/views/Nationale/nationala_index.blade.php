@@ -20,7 +20,7 @@
                         <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Lot"
                             href ="/nationala/{{$nationala->id}}/jucatori">{{ $nationala->Nume }}</a>
                     </td>
-                    <td><img width="20px" class="img-circle" src="images/{{$nationala->Prescurtare}}.png"></td>
+                    <td><img width="20px" class="img-circle" src="/images/{{$nationala->Prescurtare}}.png"></td>
                     <td>{{ $nationala->Afiliere }}</td>
                     <td>{{ $nationala->Selectioner }}</td>
                     @if( auth()->check() )

@@ -24,8 +24,8 @@ class JucatorController extends Controller
 	{		
 		$validat=request()->validate(['Nume' => ['required','min:3','max:45'],
 			'Data_nasterii' => ['required','date','before:today'],
-			'echipa_id' => ['numeric'],
-			'nationala_id' => ['numeric'],
+			'echipa_id' => ['numeric','nullable','exists:echipas,id'],
+			'nationala_id' => ['numeric','nullable','exists:nationalas,id'],
 			'Nationalitate' => ['required','min:2','max:2'],
 			'Inaltime'=> ['numeric','min:140','max:220'],
 			'Picior_preferat'=> 'in:stangul,dreptul,ambele',
@@ -39,8 +39,8 @@ class JucatorController extends Controller
 		 $jucator = Jucator::findOrFail($id);
  		 $validat=request()->validate(['Nume' => ['required','min:3','max:45'],
 			'Data_nasterii' => ['required','date','before:today'],
-			'echipa_id' => ['numeric'],
-			'nationala_id' => ['numeric'],
+			'echipa_id' => ['numeric','nullable','exists:echipas,id'],
+			'nationala_id' => ['numeric','nullable','exists:nationalas,id'],
 			'Nationalitate' => ['required','min:2','max:2'],
 			'Inaltime'=> ['numeric','min:140','max:220'],
 			'Picior_preferat'=> 'in:stangul,dreptul,ambele',
