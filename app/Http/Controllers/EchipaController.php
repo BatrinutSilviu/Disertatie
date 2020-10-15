@@ -9,17 +9,17 @@ class EchipaController extends Controller
 {
     public function index()
 	{
-		$echipe = \App\Echipa::all();
+		$echipe = Echipa::all();
     	return view('Echipe/echipa_index',compact('echipe'));
 	}
 	public function cauta(Request $request)
 	{
 		$cauta = $request->search;
-		$echipe = Echipa::orderby('Nume','asc')->select('id','Nume')->whereRaw('LOWER(`Nume`) LIKE ? ',['%'.strtolower($cauta).'%'])->limit(5)->get();
+		$echipe = Echipa::orderby('Nume','asc')->select('Nume')->whereRaw('LOWER(`Nume`) LIKE ? ',['%'.strtolower($cauta).'%'])->limit(5)->get();
 
 		$response = array();
 		foreach($echipe as $echipa){
-			$response[] = array("value"=>$echipa->id,"label"=>$echipa->Nume);
+			$response[] = array("value"=>$echipa->Nume,"label"=>$echipa->Nume);
 		}
 
 		return response()->json($response);
@@ -63,7 +63,6 @@ class EchipaController extends Controller
 	public function getJucatori( $id )
 	{
 		$echipa = Echipa::findOrFail($id);
-		// $jucatori = $echipa->jucatori();
 		return view('Echipe/echipa_jucatori', compact('echipa') );
 	}
 	public function afisare_echipa_mea()

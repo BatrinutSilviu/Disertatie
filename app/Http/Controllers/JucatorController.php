@@ -5,18 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Jucator;
 use App\Echipa;
+use App\Tara;
+use DB;
 
 class JucatorController extends Controller
 {
 	public function index()
 	{
-		$jucatori = \App\Jucator::all();
-
+		$jucatori = Jucator::all();
     	return view('Jucatori/jucator_index',compact('jucatori'));
 	}
 	public function adaugare()
 	{
-		$echipe = \App\Echipa::all();
+		$echipe = Echipa::all();
 
 		return view('Jucatori/jucator_adaugare', compact('echipe'));
 	}
@@ -60,5 +61,28 @@ class JucatorController extends Controller
 		$jucator = Jucator::findOrFail($id);
 
 		return view('Jucatori/jucator_modificare', compact('jucator'));
+	}
+	public function cautare()
+	{
+		$jucatori = DB::table('jucators');
+		$nume = request('Nume');
+		$echipa = request('echipa');
+		$tara = request('Nationalitate');
+		if( !empty( $nume ) )
+		{
+			$jucatori->whereRaw('LOWER(`Nume`) LIKE ? ',['%'.strtolower($nume).'%']);
+		}
+		if( !empty( $echipa ) )
+		{
+			$echipa_id = Echipa::where('Nume','=',$echipa)->value('id');
+			$jucatori->where('echipa_id',$echipa_id);	
+		}
+		if( !empty( $tara ) )
+		{
+			$nationalitate = Tara::where('Nume','=',$tara)->value('Prescurtare');
+			$jucatori->where('Nationalitate',$nationalitate);
+		}
+		$jucatori = $jucatori->get();
+    	return view('Jucatori/jucator_index',compact('jucatori'));
 	}
 }

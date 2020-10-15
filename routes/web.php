@@ -20,6 +20,7 @@ Route::get('/', function() {
 Route::get('/jucator', 'JucatorController@index');
 Route::post('/jucator', 'JucatorController@salvare')->middleware('auth');
 Route::get('/jucator/adaugare', 'JucatorController@adaugare')->middleware('auth');
+Route::post('/jucator/cautare', 'JucatorController@cautare');
 Route::patch('/jucator/{jucator_ID}', 'JucatorController@actualizare')->middleware('auth');
 Route::get('/jucator/{jucator_ID}/modificare', 'JucatorController@modificare')->middleware('auth');
 Route::get('/jucator/{jucator_ID}/stergere', 'JucatorController@stergere')->middleware('auth');
@@ -58,7 +59,4 @@ Route::get('/competitie/cauta', 'CompetitieController@cauta')->name('competitie.
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-//Route::get('/live_search', 'JucatorController@index');
-//Route::get('/live_search/action', 'LiveSearch@action')->name('live_search.action');
 	

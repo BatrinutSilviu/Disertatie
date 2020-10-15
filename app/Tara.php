@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tara extends Model
 {
-    //
+    protected $guarded=[];
 }

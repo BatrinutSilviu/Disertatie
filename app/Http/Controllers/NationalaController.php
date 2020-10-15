@@ -9,17 +9,17 @@ class NationalaController extends Controller
 {
     public function index()
     {
-		$nationale = \App\Nationala::all();
+		$nationale = Nationala::all();
     	return view('Nationale/nationala_index',compact('nationale'));
     }
 	public function cauta(Request $request)
 	{
 		$cauta = $request->search;
-		$nationale = Nationala::orderby('Nume','asc')->select('id','Nume')->whereRaw('LOWER(`Nume`) LIKE ? ',['%'.strtolower($cauta).'%'])->limit(5)->get();
+		$nationale = Nationala::orderby('Nume','asc')->select('Nume')->whereRaw('LOWER(`Nume`) LIKE ? ',['%'.strtolower($cauta).'%'])->limit(5)->get();
 
 		$response = array();
 		foreach($nationale as $nationala){
-			$response[] = array("value"=>$nationala->id,"label"=>$nationala->Nume);
+			$response[] = array("value"=>$nationala->Nume,"label"=>$nationala->Nume);
 		}
 
 		return response()->json($response);
