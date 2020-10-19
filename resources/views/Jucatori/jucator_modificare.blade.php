@@ -53,7 +53,7 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">Nationalitate</span>
 			</div>
-			<input type="text" name="Nationalitate" id="cauta_tara" class="form-control" placeholder="Cauta tara" value="{{$jucator->Nationalitate}}" required>
+			<input type="text" name="Nationalitate" id="cauta_tara" class="form-control" placeholder="Cauta tara" value="{{App\Tara::where('Prescurtare','=',$jucator->Nationalitate)->value('Nume')}}" required>
 		</div>
 
 @if(!empty($jucator->Echipa->Nume))
@@ -61,7 +61,7 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">Echipa</span>
 			</div>
-			<input type="text" name="echipa_id" id="cauta_echipa" class="form-control" placeholder="Cauta echipa" value="{{$jucator->Echipa->id}}" />
+			<input type="text" name="echipa_id" id="cauta_echipa" class="form-control" placeholder="Cauta echipa" value="{{$jucator->Echipa->Nume}}" />
 		</div>
 		@else
 		<div class="input-group mb-3">
@@ -77,7 +77,7 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">Echipa nationala</span>
 			</div>
-			<input type="text" name="nationala_id" id="cauta_nationala" class="form-control" placeholder="Cauta echipa" value="{{$jucator->Nationala->id}}"/>
+			<input type="text" name="nationala_id" id="cauta_nationala" class="form-control" placeholder="Cauta echipa" value="{{$jucator->Nationala->Nume}}"/>
 		</div>
 		@else
 		<div class="input-group mb-3">
