@@ -20,7 +20,7 @@ Route::get('/', function() {
 Route::get('/jucator', 'JucatorController@index');
 Route::post('/jucator', 'JucatorController@salvare')->middleware('auth');
 Route::get('/jucator/adaugare', 'JucatorController@adaugare')->middleware('auth');
-Route::post('/jucator/cautare', 'JucatorController@cautare');
+Route::post('/jucator/filtrare', 'JucatorController@filtrare');
 Route::patch('/jucator/{jucator_ID}', 'JucatorController@actualizare')->middleware('auth');
 Route::get('/jucator/{jucator_ID}/modificare', 'JucatorController@modificare')->middleware('auth');
 Route::get('/jucator/{jucator_ID}/stergere', 'JucatorController@stergere')->middleware('auth');
@@ -28,6 +28,7 @@ Route::get('/jucator/{jucator_ID}/stergere', 'JucatorController@stergere')->midd
 Route::get('/echipa', 'EchipaController@index');
 Route::post('/echipa', 'EchipaController@salvare')->middleware('auth');
 Route::get('/echipa/adaugare', 'EchipaController@adaugare')->middleware('auth');
+Route::post('/echipa/filtrare', 'EchipaController@filtrare');
 Route::get('/echipa/mea', 'EchipaController@afisare_echipa_mea');
 Route::get('/echipa/cauta', 'EchipaController@cauta')->name('echipa.cauta');
 Route::patch('/echipa/{echipa_ID}', 'EchipaController@actualizare')->middleware('auth');
@@ -38,6 +39,7 @@ Route::get('/echipa/{echipa_ID}/stergere', 'EchipaController@stergere')->middlew
 Route::get('/nationala', 'NationalaController@index');
 Route::post('/nationala', 'NationalaController@salvare')->middleware('auth');
 Route::get('/nationala/adaugare', 'NationalaController@adaugare')->middleware('auth');
+Route::post('/nationala/filtrare', 'NationalaController@filtrare');
 Route::get('/nationala/cauta', 'NationalaController@cauta')->name('nationala.cauta');
 Route::patch('/nationala/{nationala_ID}', 'NationalaController@actualizare')->middleware('auth');
 Route::get('/nationala/{nationala_ID}/jucatori', 'NationalaController@getJucatori');

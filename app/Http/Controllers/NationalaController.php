@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Nationala;
+use App\Tara;
+use DB;
 
 class NationalaController extends Controller
 {
@@ -32,11 +34,16 @@ class NationalaController extends Controller
 	{
 		$validat=request()->validate([
 			'Nume' => ['required','min:4','max:25'],
-			'Prescurtare' => ['required','min:2','max:2'],
 			'Afiliere' => ['required','min:4','max:15'],
 			'Selectioner' => ['required','min:3','max:45']
 		]);
-		Nationala::create($validat);
+
+		$tara = Tara::where('Nume','=',request('Nume'))->value('id');
+		$nationala = new Nationala;
+		$nationala->Afiliere = request('Afiliere');
+		$nationala->Selectioner = request('Selectioner');
+		$nationala->tara_id = $tara;
+		$nationala->save();
 		return redirect('/nationala');
 	}
 	public function actualizare( $id )
@@ -44,10 +51,14 @@ class NationalaController extends Controller
 		 $nationala = Nationala::findOrFail($id);
  		 $validat=request()->validate([
  		 	'Nume' => ['required','min:4','max:25'],
-			'Prescurtare' => ['required','min:2','max:2'],
 			'Afiliere' => ['required','min:4','max:15'],
 			'Selectioner' => ['required','min:3','max:45']]);
-		 $nationala->update($validat);
+		 
+ 		$tara = Tara::where('Nume','=',request('Nume'))->value('id');
+		$nationala->Afiliere = request('Afiliere');
+		$nationala->Selectioner = request('Selectioner');
+		$nationala->tara_id = $tara;
+		$nationala->save();
 
 		return redirect('nationala');
 	}
@@ -65,5 +76,16 @@ class NationalaController extends Controller
 	{
 		$nationala = Nationala::findOrFail($id);
 		return view('Nationale/nationala_jucatori', compact('nationala') );
+	}
+	public function filtrare()
+	{
+		$nationale = DB::table('nationalas');
+		$nume = request('Nume');
+		if( !empty( $nume ) )
+		{
+			$nationale->whereRaw('LOWER(`Nume`) LIKE ? ',['%'.strtolower($nume).'%']);
+		}
+		$nationale = $nationale->get();
+    	return view('Nationale/nationala_index',compact('nationale'));
 	}
 }

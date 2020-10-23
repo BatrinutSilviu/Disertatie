@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
     <div class="col-2">
-        <form method="POST" action="/jucator/cautare">
+        <form method="POST" action="/jucator/filtrare">
             {{ csrf_field() }}
             <div class="input-group mb-3">
                 <div class="input-group-prepend">

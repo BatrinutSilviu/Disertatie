@@ -7,36 +7,32 @@
 		{{ method_field('PATCH') }}
 		{{ csrf_field() }}
 
-		<div class="field">
-			<label class="label" for="Nume">Nume</label>
-
-			<div class="control">
-				<input type = "text" class="input" name="Nume" placeholder="Nume" value="{{$echipa->Nume}}" required>
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text">Nume</span>
 			</div>
+			<input type="text" class="form-control" name="Nume" value="{{$echipa->Nume}}" required>
 		</div>
 
-		<div class="field">
-			<label class="label" for="Tara">Tara</label>
-
-			<div class="control">
-				<input type = "text" class="input" name="Tara" placeholder="Tara" value="{{$echipa->Tara}}" required>
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text">Tara</span>
 			</div>
+			<input type="text" class="form-control" name="Tara" value="{{$echipa->Tara}}" required>
 		</div>
 
-		<div class="field">
-			<label class="label" for="Liga">Liga</label>
-
-			<div class="control">
-				<input type = "text" class="input" name="Liga" placeholder="Liga" value="{{$echipa->Liga}}" required>
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text">Liga</span>
 			</div>
+			<input type="text" class="form-control" name="Liga" value="{{$echipa->Liga}}" required>
 		</div>
 
-		<div class="field">
-			<label class="label" for="Manager">Manager</label>
-
-			<div class="control">
-				<input type = "text" class="input" name="Manager" placeholder="Manager" value="{{$echipa->Manager}}" required>
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text">Manager</span>
 			</div>
+			<input type="text" class="form-control" name="Manager" value="{{$echipa->Manager}}" required>
 		</div>
 
 		<div class="field">

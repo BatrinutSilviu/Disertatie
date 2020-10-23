@@ -1,4 +1,4 @@
 git add .
-git commit -m "mascat id in input 2"
+git commit -m "partial refactor tara"
 git push origin master
 pause

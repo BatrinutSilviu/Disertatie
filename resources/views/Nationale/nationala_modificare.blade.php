@@ -7,36 +7,46 @@
 		{{ method_field('PATCH') }}
 		{{ csrf_field() }}
 
-		<div class="field">
+<!-- 		<div class="field">
 			<label class="label" for="Nume">Nume</label>
 
 			<div class="control">
 				<input type = "text" class="input" name="Nume" placeholder="Nume" value="{{$nationala->Nume}}" required>
 			</div>
-		</div>
-
-		<div class="field">
-			<label class="label" for="Prescurtare">Prescurtare</label>
-
-			<div class="control">
-				<input type = "text" class="input" name="Prescurtare" placeholder="Prescurtare" value="{{$nationala->Prescurtare}}" required>
+		</div> -->
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text">Nume</span>
 			</div>
+			<input type="text" class="form-control" name="Nume" value="{{$nationala->Nume}}" required>
 		</div>
 
-		<div class="field">
+<!-- 		<div class="field">
 			<label class="label" for="Afiliere">Afiliere</label>
 
 			<div class="control">
 				<input type = "text" class="input" name="Afiliere" placeholder="Afiliere" value="{{$nationala->Afiliere}}" required>
 			</div>
+		</div> -->
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text">Afiliere</span>
+			</div>
+			<input type="text" class="form-control" name="Afiliere" value="{{$nationala->Afiliere}}" required>
 		</div>
 
-		<div class="field">
+<!-- 		<div class="field">
 			<label class="label" for="Selectioner">Selectioner</label>
 
 			<div class="control">
 				<input type = "text" class="input" name="Selectioner" placeholder="Selectioner" value="{{$nationala->Selectioner}}" required>
 			</div>
+		</div> -->
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text">Selectioner</span>
+			</div>
+			<input type="text" class="form-control" name="Selectioner" value="{{$nationala->Selectioner}}" required>
 		</div>
 
 		<div class="field">

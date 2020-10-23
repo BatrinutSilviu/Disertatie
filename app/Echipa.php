@@ -11,4 +11,8 @@ class Echipa extends Model
     {
     	return $this->hasMany(Jucator::class);
     }
+    public function tara()
+    {
+    	return $this->belongsTo(Tara::class);
+    }
 }

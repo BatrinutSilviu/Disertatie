@@ -17,7 +17,7 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">Tara</span>
 			</div>
-			<input type="text" class="form-control" name="Tara" value="{{old('Tara')}}" required>
+			<input id="cauta_tara" type="text" class="form-control" name="Tara" value="{{old('Tara')}}" required>
 		</div>
 
 		<div class="input-group mb-3">
@@ -39,5 +39,29 @@
 		</div>
 		@include('errors')
 	</form>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="Stylesheet" />
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$(document).ready(function(){
+
+    $("#cauta_tara").autocomplete({
+        source: function(request, response) {
+             $.ajax({
+                url:"{{ route('tara.cauta') }}",
+                method:'GET',
+                dataType:'json',
+                data: {
+                    search: request.term
+                },
+                success:function(data) {
+                    response(data);
+                }
+            })
+        }
+    });
+});
+</script>
 
 @endsection

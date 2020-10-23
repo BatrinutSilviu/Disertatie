@@ -67,7 +67,6 @@ class JucatorController extends Controller
 		$echipa_id = Echipa::where('Nume','=',request('echipa_id'))->value('id');
 		$nationala_id = Nationala::where('Nume','=',request('nationala_id'))->value('id');
 		$Nationalitate = Tara::where('Nume','=',request('Nationalitate'))->value('Prescurtare');
-;
 		$jucator->Nume = request('Nume');
 		$jucator->Data_nasterii = request('Data_nasterii');
 		$jucator->echipa_id = $echipa_id;
@@ -93,7 +92,7 @@ class JucatorController extends Controller
 
 		return view('Jucatori/jucator_modificare', compact('jucator'));
 	}
-	public function cautare()
+	public function filtrare()
 	{
 		$jucatori = DB::table('jucators');
 		$nume = request('Nume');
