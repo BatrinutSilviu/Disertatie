@@ -39,11 +39,18 @@
                 <tr>
                     <td>
                         <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Lot"
-                            href ="/echipa/{{$echipa->id}}/jucatori">{{ $echipa->Nume }}</a>
-                    </td>
-                    <td><img width="20px" class="img-circle" src="/images/{{$echipa->Tara->Prescurtare}}.png"></td>
-                    <td>{{ $echipa->Liga }}</td>
-                    <td>{{ $echipa->Manager }}</td>
+                            href ="/echipa/{{$echipa->id}}/jucatori">{{ $echipa->nume }}</a>
+                    </td>                 
+                    @if ( !empty( $echipa->Tara->prescurtare ) )
+                        <td><img width="20px" class="img-circle" src="/images/{{$echipa->Tara->prescurtare}}.png"></td>
+                    @elseif( !empty( $echipa->tara_id ) )
+                        @php
+                            $tara = App\Tara::findOrFail($echipa->tara_id);
+                        @endphp         
+                        <td><img width="20px" class="img-circle" src="/images/{{ $tara->prescurtare }}.png"></td>
+                    @endif
+                    <td>{{ $echipa->liga }}</td>
+                    <td>{{ $echipa->manager }}</td>
                     @if( auth()->check() )
                         <td>
                             <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Modifica echipa"

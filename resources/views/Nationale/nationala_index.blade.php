@@ -9,7 +9,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">Nume</span>
                 </div>
-                <input type="text" class="form-control" name="Nume" value="{{old('Nume')}}" placeholder="Cauta nume">
+                <input id="cauta_tara" type="text" class="form-control" name="Nume" value="{{old('Nume')}}" placeholder="Cauta nume">
             </div>
             <button class="btn btn-primary" type="submit">Filtreaza</button>
         </form>
@@ -29,13 +29,31 @@
         <tbody>
             @foreach ($nationale as $nationala)
                 <tr>
-                    <td>
-                        <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Lot"
-                            href ="/nationala/{{$nationala->id}}/jucatori">{{ $nationala->tara->Nume }}</a>
-                    </td>
-                    <td><img width="20px" class="img-circle" src="/images/{{$nationala->tara->Prescurtare}}.png"></td>
-                    <td>{{ $nationala->Afiliere }}</td>
-                    <td>{{ $nationala->Selectioner }}</td>
+                    @if ( !empty( $nationala->Tara->nume ) )
+                        <td>
+                            <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Lot"
+                                href ="/nationala/{{$nationala->id}}/jucatori">{{ $nationala->Tara->nume }}</a>
+                        </td>
+                    @elseif( !empty( $nationala->tara_id ) )
+                        @php
+                            $tara = App\Tara::findOrFail($nationala->tara_id);
+                        @endphp         
+                        <td>
+                            <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Lot"
+                                href ="/nationala/{{$nationala->id}}/jucatori">{{ $tara->nume }}</a>
+                        </td>
+                    @endif
+                    @if ( !empty( $nationala->Tara->prescurtare ) )
+                        <td><img width="20px" class="img-circle" src="/images/{{$nationala->Tara->prescurtare}}.png"></td>
+                    @elseif( !empty( $nationala->tara_id ) )
+                        @php
+                            $tara = App\Tara::findOrFail($nationala->tara_id);
+                        @endphp         
+                        <td><img width="20px" class="img-circle" src="/images/{{$tara->prescurtare}}.png"></td>
+                    @endif
+
+                    <td>{{ $nationala->afiliere }}</td>
+                    <td>{{ $nationala->selectioner }}</td>
                     @if( auth()->check() )
                         <td>
                             <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Modifica echipa"
@@ -58,5 +76,29 @@
         <a class="btn btn-primary" href ="/nationala/adaugare">Adaugare</a>
     </div>
 @endif
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="Stylesheet" />
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$(document).ready(function(){
+
+    $("#cauta_tara").autocomplete({
+        source: function(request, response) {
+             $.ajax({
+                url:"{{ route('tara.cauta') }}",
+                method:'GET',
+                dataType:'json',
+                data: {
+                    search: request.term
+                },
+                success:function(data) {
+                    response(data);
+                }
+            })
+        }
+    });
+});
+</script>
 
 @endsection

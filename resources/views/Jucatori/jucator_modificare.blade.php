@@ -11,20 +11,20 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">Nume</span>
 			</div>
-			<input type="text" class="form-control" name="Nume" value="{{$jucator->Nume}}" required>
+			<input type="text" class="form-control" name="Nume" value="{{$jucator->nume}}" required>
 		</div>
 
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Data nasterii</span>
 			</div>
-			<input type="date" name="Data_nasterii" max="3000-12-31" min="1000-01-01" class="form-control" value="{{old('Data_nasterii',date('1995-06-15'))}}" required>
+			<input type="date" name="Data_nasterii" max="3000-12-31" min="1000-01-01" class="form-control" value="{{old('data_nasterii',date('1995-06-15'))}}" required>
 		</div>
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Inaltime</span>
 			</div>
-			<input type="number" class="form-control" name="Inaltime" value="{{$jucator->Inaltime}}" required>
+			<input type="number" class="form-control" name="Inaltime" value="{{$jucator->inaltime}}" required>
 		</div>
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
@@ -32,9 +32,9 @@
 			</div>
 			<select class="custom-select" id="selectPicior" name="Picior_preferat" value="">
 				<option value="none">Alege</option>
-				<option value="dreptul" {{ $jucator->Picior_preferat == 'dreptul' ? 'selected':"" }}>Dreptul</option>
-				<option value="stangul" {{ $jucator->Picior_preferat == 'stangul' ? 'selected':"" }}>Stangul</option>
-				<option value="ambele" {{ $jucator->Picior_preferat == 'ambele' ? 'selected':"" }}>Ambele</option>
+				<option value="dreptul" {{ $jucator->picior_preferat == 'dreptul' ? 'selected':"" }}>Dreptul</option>
+				<option value="stangul" {{ $jucator->picior_preferat == 'stangul' ? 'selected':"" }}>Stangul</option>
+				<option value="ambele" {{ $jucator->picior_preferat == 'ambele' ? 'selected':"" }}>Ambele</option>
 			</select>
 		</div>
 		<div class="input-group mb-3">
@@ -43,25 +43,25 @@
 			</div>
 			<select class="custom-select" id="selectPost" name="Post" >
 				<option value="none">Alege</option>
-				<option value="portar" {{ $jucator->Post == 'portar' ? 'selected':"" }}>Portar</option>
-				<option value="fundas" {{ $jucator->Post == 'fundas' ? 'selected':"" }}>Fundas</option>
-				<option value="mijlocas" {{ $jucator->Post == 'mijlocas' ? 'selected':"" }}>Mijlocas</option>
-				<option value="atacant" {{ $jucator->Post == 'atacant' ? 'selected':"" }}>Atacant</option>
+				<option value="portar" {{ $jucator->post == 'portar' ? 'selected':"" }}>Portar</option>
+				<option value="fundas" {{ $jucator->post == 'fundas' ? 'selected':"" }}>Fundas</option>
+				<option value="mijlocas" {{ $jucator->post == 'mijlocas' ? 'selected':"" }}>Mijlocas</option>
+				<option value="atacant" {{ $jucator->post == 'atacant' ? 'selected':"" }}>Atacant</option>
 			</select>
 		</div>
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Nationalitate</span>
 			</div>
-			<input type="text" name="Nationalitate" id="cauta_tara" class="form-control" placeholder="Cauta tara" value="{{App\Tara::where('Prescurtare','=',$jucator->Nationalitate)->value('Nume')}}" required>
+			<input type="text" name="Nationalitate" id="cauta_tara" class="form-control" placeholder="Cauta tara" value="{{App\Tara::where('prescurtare','=',$jucator->nationalitate)->value('nume')}}" required>
 		</div>
 
-@if(!empty($jucator->Echipa->Nume))
+@if(!empty($jucator->Echipa->nume))
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Echipa</span>
 			</div>
-			<input type="text" name="echipa_id" id="cauta_echipa" class="form-control" placeholder="Cauta echipa" value="{{$jucator->Echipa->Nume}}" />
+			<input type="text" name="echipa_id" id="cauta_echipa" class="form-control" placeholder="Cauta echipa" value="{{$jucator->Echipa->nume}}" />
 		</div>
 		@else
 		<div class="input-group mb-3">
@@ -72,12 +72,12 @@
 		</div>
 @endif	
 
-@if(!empty($jucator->Nationala->Nume))
+@if(!empty($jucator->Nationala->nume))
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Echipa nationala</span>
 			</div>
-			<input type="text" name="nationala_id" id="cauta_nationala" class="form-control" placeholder="Cauta echipa" value="{{$jucator->Nationala->Nume}}"/>
+			<input type="text" name="nationala_id" id="cauta_nationala" class="form-control" placeholder="Cauta echipa" value="{{$jucator->Nationala->nume}}"/>
 		</div>
 		@else
 		<div class="input-group mb-3">

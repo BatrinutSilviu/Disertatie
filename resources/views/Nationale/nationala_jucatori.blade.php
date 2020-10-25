@@ -20,19 +20,19 @@
         <tbody>
            @foreach ($nationala->jucatori as $jucator)
             <tr>
-                <td>{{ $jucator->Nume }}</td>
-                <td>{{ $jucator->Data_Nasterii }}</td>
-                <td><img width="20px" class="img-circle" src="/images/{{$jucator->Nationalitate}}.png"></td>
-                <td>{{ $jucator->Inaltime }}</td>
-                <td>{{ $jucator->Picior_preferat }}</td>
-                <td>{{ $jucator->Post }}</td>
-                @if( !empty( $jucator->Echipa->Nume ) )
-                    <td>{{ $jucator->Echipa->Nume }}</td>
+                <td>{{ $jucator->nume }}</td>
+                <td>{{ $jucator->data_nasterii }}</td>
+                <td><img width="20px" class="img-circle" src="/images/{{$jucator->nationalitate}}.png"></td>
+                <td>{{ $jucator->inaltime }}</td>
+                <td>{{ $jucator->picior_preferat }}</td>
+                <td>{{ $jucator->post }}</td>
+                @if( !empty( $jucator->Echipa->nume ) )
+                    <td>{{ $jucator->Echipa->nume }}</td>
                 @else
                     <td>Fara echipa</td>
                 @endif
-                @if( !empty( $jucator->Nationala->Nume ) )
-                    <td>{{ $jucator->Nationala->Nume }}</td>
+                @if( !empty( $jucator->Nationala->nume ) )
+                    <td>{{ $jucator->Nationala->nume }}</td>
                 @else
                     <td>Fara nationala</td>
                 @endif

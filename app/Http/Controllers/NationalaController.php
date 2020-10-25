@@ -16,12 +16,21 @@ class NationalaController extends Controller
     }
 	public function cauta(Request $request)
 	{
+		// $cauta = $request->search;
+		// $nationale = Nationala::orderby('tara_id','asc')->select('tara_id')->whereRaw('LOWER(`nume`) LIKE ? ',['%'.strtolower($cauta).'%'])->limit(5)->get();
+
+		// $response = array();
+		// foreach($nationale as $nationala){
+		// 	$response[] = array("value"=>$nationala->Tara->Nume,"label"=>$nationala->Tara->Nume);
+		// }
+
+		// return response()->json($response);
 		$cauta = $request->search;
-		$nationale = Nationala::orderby('Nume','asc')->select('Nume')->whereRaw('LOWER(`Nume`) LIKE ? ',['%'.strtolower($cauta).'%'])->limit(5)->get();
+		$tari = Tara::orderby('nume','asc')->select('nume')->whereRaw('LOWER(`nume`) LIKE ? ',['%'.strtolower($cauta).'%'])->limit(5)->get();
 
 		$response = array();
-		foreach($nationale as $nationala){
-			$response[] = array("value"=>$nationala->Nume,"label"=>$nationala->Nume);
+		foreach($tari as $tara){
+			$response[] = array("value"=>$tara->nume,"label"=>$tara->nume);
 		}
 
 		return response()->json($response);
@@ -38,10 +47,10 @@ class NationalaController extends Controller
 			'Selectioner' => ['required','min:3','max:45']
 		]);
 
-		$tara = Tara::where('Nume','=',request('Nume'))->value('id');
+		$tara = Tara::where('nume','=',request('Nume'))->value('id');
 		$nationala = new Nationala;
-		$nationala->Afiliere = request('Afiliere');
-		$nationala->Selectioner = request('Selectioner');
+		$nationala->afiliere = request('Afiliere');
+		$nationala->selectioner = request('Selectioner');
 		$nationala->tara_id = $tara;
 		$nationala->save();
 		return redirect('/nationala');
@@ -54,9 +63,9 @@ class NationalaController extends Controller
 			'Afiliere' => ['required','min:4','max:15'],
 			'Selectioner' => ['required','min:3','max:45']]);
 		 
- 		$tara = Tara::where('Nume','=',request('Nume'))->value('id');
-		$nationala->Afiliere = request('Afiliere');
-		$nationala->Selectioner = request('Selectioner');
+ 		$tara = Tara::where('nume','=',request('Nume'))->value('id');
+		$nationala->afiliere = request('Afiliere');
+		$nationala->selectioner = request('Selectioner');
 		$nationala->tara_id = $tara;
 		$nationala->save();
 
@@ -80,10 +89,10 @@ class NationalaController extends Controller
 	public function filtrare()
 	{
 		$nationale = DB::table('nationalas');
-		$nume = request('Nume');
-		if( !empty( $nume ) )
+		$tara = Tara::where('nume','=',request('Nume'))->value('id');
+		if( !empty( $tara) )
 		{
-			$nationale->whereRaw('LOWER(`Nume`) LIKE ? ',['%'.strtolower($nume).'%']);
+			$nationale = Nationala::where('tara_id','=',$tara);
 		}
 		$nationale = $nationale->get();
     	return view('Nationale/nationala_index',compact('nationale'));

@@ -46,37 +46,37 @@
         <tbody>
             @foreach ($jucatori as $jucator)
                 <tr>
-                    <td>{{ $jucator->Nume }}</td>
-                    <td>{{ $jucator->Data_Nasterii }}</td>
-                    <td><img width="20px" class="img-circle" src="/images/{{$jucator->Nationalitate}}.png"></td>
-                    <td>{{ $jucator->Inaltime }}</td>
-                    <td>{{ $jucator->Picior_preferat }}</td>
-                    <td class="test">{{ $jucator->Post }}</td>
-                    @if ( !empty( $jucator->Echipa->Nume ) )
+                    <td>{{ $jucator->nume }}</td>
+                    <td>{{ $jucator->data_nasterii }}</td>
+                    <td><img width="20px" class="img-circle" src="/images/{{$jucator->nationalitate}}.png"></td>
+                    <td>{{ $jucator->inaltime }}</td>
+                    <td>{{ $jucator->picior_preferat }}</td>
+                    <td class="test">{{ $jucator->post }}</td>
+                    @if ( !empty( $jucator->Echipa->nume ) )
                         <td>
-                            {{ $jucator->Echipa->Nume }}
+                            {{ $jucator->Echipa->nume }}
                         </td>
                     @elseif( !empty( $jucator->echipa_id ) )
                         @php
                             $echipa = App\Echipa::findOrFail($jucator->echipa_id);
                         @endphp
                         <td>
-                            {{ $echipa->Nume }}
+                            {{ $echipa->nume }}
                         </td>
                     @else
                         <td>Fara echipa</td>
                     @endif
 
-                    @if ( !empty( $jucator->Nationala->Nume ) )
+                    @if ( !empty( $jucator->Nationala->Tara->nume ) )
                         <td>
-                            {{ $jucator->Nationala->Nume }}
+                            {{ $jucator->Nationala->Tara->nume }}
                         </td>
                     @elseif( !empty( $jucator->nationala_id ) )
                         @php
                             $nationala = App\Nationala::findOrFail($jucator->nationala_id);
                         @endphp
                         <td>
-                            {{ $nationala->Nume }}
+                            {{ $nationala->Tara->nume }}
                         </td>
                     @else
                         <td>Fara nationala</td>

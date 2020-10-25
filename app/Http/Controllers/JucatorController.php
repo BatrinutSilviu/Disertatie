@@ -24,29 +24,27 @@ class JucatorController extends Controller
 	}
 	public function salvare()
 	{		
-
-		//$validat=
 		request()->validate(['Nume' => ['required','min:3','max:45'],
 			'Data_nasterii' => ['required','date','before:today'],
 			'echipa_id' => ['nullable','exists:echipas,Nume'],
-			'nationala_id' => ['nullable','exists:nationalas,Nume'],
+			'nationala_id' => ['nullable','exists:taras,Nume'],
 			'Nationalitate' => ['required','min:4'],
 			'Inaltime'=> ['numeric','min:140','max:220'],
 			'Picior_preferat'=> 'in:stangul,dreptul,ambele',
 			'Post' => 'in:portar,fundas,mijlocas,atacant']);
 
-		$echipa_id = Echipa::where('Nume','=',request('echipa_id'))->value('id');
-		$nationala_id = Nationala::where('Nume','=',request('nationala_id'))->value('id');
-		$Nationalitate = Tara::where('Nume','=',request('Nationalitate'))->value('Prescurtare');
+		$echipa_id = Echipa::where('nume','=',request('echipa_id'))->value('id');
+		$nationala_id = Tara::where('nume','=',request('nationala_id'))->value('id');
+		$Nationalitate = Tara::where('nume','=',request('Nationalitate'))->value('prescurtare');
 		$jucator = new Jucator;
-		$jucator->Nume = request('Nume');
-		$jucator->Data_nasterii = request('Data_nasterii');
+		$jucator->nume = request('Nume');
+		$jucator->data_nasterii = request('Data_nasterii');
 		$jucator->echipa_id = $echipa_id;
 		$jucator->nationala_id = $nationala_id;
-		$jucator->Nationalitate = $Nationalitate;
-		$jucator->Inaltime = request('Inaltime');
-		$jucator->Picior_preferat = request('Picior_preferat');
-		$jucator->Post = request('Post');
+		$jucator->nationalitate = $Nationalitate;
+		$jucator->inaltime = request('Inaltime');
+		$jucator->picior_preferat = request('Picior_preferat');
+		$jucator->post = request('Post');
 			
 		$jucator->save();
 
@@ -64,17 +62,17 @@ class JucatorController extends Controller
 			'Picior_preferat'=> 'in:stangul,dreptul,ambele',
 			'Post' => 'in:portar,fundas,mijlocas,atacant']);
 
-		$echipa_id = Echipa::where('Nume','=',request('echipa_id'))->value('id');
-		$nationala_id = Nationala::where('Nume','=',request('nationala_id'))->value('id');
-		$Nationalitate = Tara::where('Nume','=',request('Nationalitate'))->value('Prescurtare');
-		$jucator->Nume = request('Nume');
-		$jucator->Data_nasterii = request('Data_nasterii');
+		$echipa_id = Echipa::where('nume','=',request('echipa_id'))->value('id');
+		$nationala_id = Tara::where('nume','=',request('nationala_id'))->value('id');
+		$Nationalitate = Tara::where('nume','=',request('Nationalitate'))->value('Prescurtare');
+		$jucator->nume = request('Nume');
+		$jucator->data_nasterii = request('Data_nasterii');
 		$jucator->echipa_id = $echipa_id;
 		$jucator->nationala_id = $nationala_id;
-		$jucator->Nationalitate = $Nationalitate;
-		$jucator->Inaltime = request('Inaltime');
-		$jucator->Picior_preferat = request('Picior_preferat');
-		$jucator->Post = request('Post');
+		$jucator->nationalitate = $Nationalitate;
+		$jucator->inaltime = request('Inaltime');
+		$jucator->picior_preferat = request('Picior_preferat');
+		$jucator->post = request('Post');
 
 		$jucator->save();
 
@@ -100,17 +98,17 @@ class JucatorController extends Controller
 		$tara = request('Nationalitate');
 		if( !empty( $nume ) )
 		{
-			$jucatori->whereRaw('LOWER(`Nume`) LIKE ? ',['%'.strtolower($nume).'%']);
+			$jucatori->whereRaw('LOWER(`nume`) LIKE ? ',['%'.strtolower($nume).'%']);
 		}
 		if( !empty( $echipa ) )
 		{
-			$echipa_id = Echipa::where('Nume','=',$echipa)->value('id');
+			$echipa_id = Echipa::where('nume','=',$echipa)->value('id');
 			$jucatori->where('echipa_id',$echipa_id);	
 		}
 		if( !empty( $tara ) )
 		{
-			$nationalitate = Tara::where('Nume','=',$tara)->value('Prescurtare');
-			$jucatori->where('Nationalitate',$nationalitate);
+			$nationalitate = Tara::where('nume','=',$tara)->value('prescurtare');
+			$jucatori->where('nationalitate',$nationalitate);
 		}
 		$jucatori = $jucatori->get();
     	return view('Jucatori/jucator_index',compact('jucatori'));

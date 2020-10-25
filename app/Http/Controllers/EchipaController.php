@@ -17,11 +17,11 @@ class EchipaController extends Controller
 	public function cauta(Request $request)
 	{
 		$cauta = $request->search;
-		$echipe = Echipa::orderby('Nume','asc')->select('Nume')->whereRaw('LOWER(`Nume`) LIKE ? ',['%'.strtolower($cauta).'%'])->limit(5)->get();
+		$echipe = Echipa::orderby('Nume','asc')->select('nume')->whereRaw('LOWER(`nume`) LIKE ? ',['%'.strtolower($cauta).'%'])->limit(5)->get();
 
 		$response = array();
 		foreach($echipe as $echipa){
-			$response[] = array("value"=>$echipa->Nume,"label"=>$echipa->Nume);
+			$response[] = array("value"=>$echipa->nume,"label"=>$echipa->nume);
 		}
 
 		return response()->json($response);
@@ -38,11 +38,11 @@ class EchipaController extends Controller
 			'Liga' => ['required','min:4','max:25'],
 			'Manager' => ['required','min:3','max:45']
 		]);
-		$tara = Tara::where('Nume','=',request('Tara'))->value('id');
+		$tara = Tara::where('nume','=',request('Tara'))->value('id');
 		$echipa = new Echipa;
-		$echipa->Nume = request('Nume');
-		$echipa->Liga = request('Liga');			
-		$echipa->Manager = request('Manager');
+		$echipa->nume = request('Nume');
+		$echipa->liga = request('Liga');			
+		$echipa->manager = request('Manager');
 		$echipa->tara_id = $tara;
 		$echipa->save();
 		return redirect('/echipa');
@@ -55,10 +55,10 @@ class EchipaController extends Controller
 			'Liga' => ['required','min:4','max:25'],
 			'Manager' => ['required','min:3','max:45']]);
 		
-		$tara = Tara::where('Nume','=',request('Tara'))->value('id');
-		$echipa->Nume = request('Nume');
-		$echipa->Liga = request('Liga');
-		$echipa->Manager = request('Manager');
+		$tara = Tara::where('nume','=',request('Tara'))->value('id');
+		$echipa->nume = request('Nume');
+		$echipa->liga = request('Liga');
+		$echipa->manager = request('Manager');
 		$echipa->tara_id = $tara;
 
 		$echipa->save();
@@ -91,12 +91,12 @@ class EchipaController extends Controller
 		$tara = request('Tara');
 		if( !empty( $nume ) )
 		{
-			$echipe->whereRaw('LOWER(`Nume`) LIKE ? ',['%'.strtolower($nume).'%']);
+			$echipe->whereRaw('LOWER(`nume`) LIKE ? ',['%'.strtolower($nume).'%']);
 		}
 		if( !empty( $tara ) )
 		{
-			$nationalitate = Tara::where('Nume','=',$tara)->value('Prescurtare');
-			$echipe->where('Tara',$nationalitate);
+			$nationalitate = Tara::where('nume','=',$tara)->value('id');
+			$echipe->where('tara_id',$nationalitate);
 		}
 		$echipe = $echipe->get();
     	return view('Echipe/echipa_index',compact('echipe'));
