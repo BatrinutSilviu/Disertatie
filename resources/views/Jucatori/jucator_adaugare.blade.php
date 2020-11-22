@@ -1,7 +1,8 @@
 @extends('layouts.app-navbar')
 
-@section('content')	
-	<h1>Adaugare</h1>
+@section('content')
+<div class="container">		
+	<h1 align="center" class="titlu">Adauga jucator</h1>
 	<form method="POST" action="/jucator">
 		{{ csrf_field() }}
 		<div class="input-group mb-3">
@@ -65,12 +66,12 @@
 			<input type="text" name="Nationalitate" id="cauta_tara" class="form-control" placeholder="Cauta tara" value="{{old('Nationalitate')}}" required>
 		</div>
 
-		<div class="text-center">
+		<div class="text-right">
 			<button class="btn btn-primary" type="submit">Adaugare</button>
 		</div>
 		@include('errors')
 	</form>
-
+</div>
     
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="Stylesheet" />

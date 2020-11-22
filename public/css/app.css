@@ -10872,8 +10872,135 @@ a.text-dark:focus {
   }
 }
 
+body {
+  background: linear-gradient(90deg, #e7e7e7 0%, #bce8e7 30%);
+}
+
 .img-circle {
   width: 20px;
   height: 20px;
+}
+
+.navbar {
+  background: linear-gradient(90deg, #0306b5 0%, #5903b5 15%, #6c757d 100%);
+  height: 75px;
+}
+
+.navbar a:hover {
+  color: white;
+}
+
+.navbar-brand {
+  color: #bce8e7;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.nav-link {
+  color: #bce8e7;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.nav-item a:hover {
+  color: white;
+}
+
+.input-group-text {
+  background-color: #03b5b2;
+  color: white;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.input-group-text-marcatori {
+  background-color: #b1e0b7;
+}
+
+.form-control {
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 15px;
+  height: calc(2em + 0.75rem + 2px);
+}
+
+.btn {
+  font-size: 15px;
+  padding: 7px 15px;
+  border-radius: 0.35rem;
+}
+
+.btn-primary {
+  background-color: #5903b5;
+  border-color: #5903b5;
+}
+
+.btn-primary:hover {
+  background-color: #03b5b2;
+  border-color: #03b5b2;
+}
+
+thead {
+  background-color: #5903b5;
+  font-size: 18px;
+  color: #bce8e7;
+}
+
+.table-bordered {
+  border: 2px solid #6c757d;
+}
+
+.table-bordered th {
+  border: 1px solid #6c757d;
+}
+
+.table-bordered td {
+  border: 1px solid #6c757d;
+  vertical-align: middle;
+  font-size: 16px;
+  color: black;
+  padding-left: 1.25rem;
+  font-family: inherit;
+}
+
+.table thead th {
+  border-bottom: 2px solid #6c757d;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #bce8e7;
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+  background-color: rgba(89, 3, 181, 0.15);
+}
+
+.titlu {
+  color: #0306b5;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  text-shadow: 0 0 black;
+}
+
+.edit-icon {
+  color: #03b5b2;
+}
+
+.remove-icon {
+  color: #b55c03;
+}
+
+.row-gazde {
+  border: 1px dashed #c3dbe6;
+  padding-top: 15px;
+  margin-bottom: 15px;
+}
+
+.row-oaspeti {
+  border: 1px dashed #c3dbe6;
+  padding-top: 15px;
+  margin-bottom: 15px;
 }
 

@@ -1,8 +1,8 @@
 @extends('layouts.app-navbar')
 
 @section('content')
-
-	<h1>Editare jucator</h1>
+<div class="container">	
+	<h1 align="center" class="titlu">Editeaza jucator</h1>
 	<form method="POST" action="/jucator/{{$jucator->id}}">
 		{{ method_field('PATCH') }}
 		{{ csrf_field() }}
@@ -88,15 +88,18 @@
 		</div>
 @endif	
 
-		<div class="field">
+		<div class="field text-right">
 			<div class="control">
+				<a type="button" class="btn btn-secondary" href="{{ route('jucator.index') }}">Renunta</a>
 				<button type="submit" class="btn btn-primary">Modifica</button>
 			</div>
 		</div>
+
+					
 @include('errors')
 	</form>
 
-	<form method="POST" action="/jucator/{{$jucator->id}}">
+<!-- 	<form method="POST" action="/jucator/{{$jucator->id}}">
 			@method('DELETE')
 			@csrf
 			<div class="field">
@@ -114,7 +117,8 @@
 					<button type="submit" class="btn btn-secondary">Renuntare</button>
 				</div>
 			</div>
-	</form>
+	</form> -->
+</div>
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="Stylesheet" />

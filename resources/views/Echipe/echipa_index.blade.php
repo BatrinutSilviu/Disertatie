@@ -17,7 +17,12 @@
                 </div>
                 <input type="text" name="Tara" id="cauta_tara" class="form-control" placeholder="Cauta tara" value="{{old('Tara')}}">
             </div>
-            <button class="btn btn-primary" type="submit">Filtreaza</button>
+            <div class="field text-right">
+                <div class="control">
+                    <a type="button" class="btn btn-secondary" style="float:left" href="{{ route('echipa.index') }}">Reseteaza</a>
+                    <button type="submit" class="btn btn-primary">Filtreaza</button>
+                </div>
+            </div>
         </form>
     </div>
 
@@ -29,7 +34,7 @@
                 <th>Liga</th>
                 <th>Manager</th>
                 @if( auth()->check() )
-                    <th>Actiuni</th>
+                    <th style="width:10rem">Actiuni</th>
                 @endif
                 
             </tr>
@@ -42,7 +47,9 @@
                             href ="/echipa/{{$echipa->id}}/jucatori">{{ $echipa->nume }}</a>
                     </td>                 
                     @if ( !empty( $echipa->Tara->prescurtare ) )
-                        <td><img width="20px" class="img-circle" src="/images/{{$echipa->Tara->prescurtare}}.png"></td>
+                        <td align="center">
+                            <img width="20px" class="img-circle" src="/images/{{$echipa->Tara->prescurtare}}.png">
+                        </td>
                     @elseif( !empty( $echipa->tara_id ) )
                         @php
                             $tara = App\Tara::findOrFail($echipa->tara_id);
@@ -52,14 +59,14 @@
                     <td>{{ $echipa->liga }}</td>
                     <td>{{ $echipa->manager }}</td>
                     @if( auth()->check() )
-                        <td>
+                        <td class="text-center">
                             <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Modifica echipa"
                                 href ="/echipa/{{$echipa->id}}/modificare">
-                                <span class="material-icons">create</span>
+                                <span class="material-icons edit-icon">create</span>
                             </a>
                             <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Sterge echipa"
                                 href ="/echipa/{{$echipa->id}}/stergere" onclick="return confirm('Sunteti sigur ca doriti stergerea?')">
-                                <span class="material-icons">remove_circle_outline</span>
+                                <span class="material-icons remove-icon">remove_circle_outline</span>
                             </a>
                         </td>
                     @endif
@@ -69,7 +76,7 @@
   	</table>
 </div>
 @if( auth()->check() )
-    <div align="center">
+    <div align="right">
 	   <a class="btn btn-primary" href ="/echipa/adaugare">Adaugare</a>
     </div>
 @endif

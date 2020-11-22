@@ -23,7 +23,12 @@
                 </div>
                 <input type="text" name="Nationalitate" id="cauta_tara" class="form-control" placeholder="Cauta tara" value="{{old('Nationalitate')}}">
             </div>
-            <button class="btn btn-primary" type="submit">Filtreaza</button>
+            <div class="field text-right">
+                <div class="control">
+                    <a type="button" class="btn btn-secondary" style="float:left" href="{{ route('jucator.index') }}">Reseteaza</a>
+                    <button type="submit" class="btn btn-primary">Filtreaza</button>
+                </div>
+            </div>
         </form>
     </div>
 
@@ -39,7 +44,7 @@
                 <th>Echipa</th>
                 <th>Nationala</th>
                 @if( auth()->check() )
-                    <th>Actiuni</th>
+                    <th style="width:10rem">Actiuni</th>
                 @endif
             </tr>
         </thead>
@@ -48,9 +53,11 @@
                 <tr>
                     <td>{{ $jucator->nume }}</td>
                     <td>{{ $jucator->data_nasterii }}</td>
-                    <td><img width="20px" class="img-circle" src="/images/{{$jucator->nationalitate}}.png"></td>
-                    <td>{{ $jucator->inaltime }}</td>
-                    <td>{{ $jucator->picior_preferat }}</td>
+                    <td align="center">
+                        <img width="20px" class="img-circle" src="/images/{{$jucator->nationalitate}}.png">
+                    </td>
+                    <td align="center">{{ $jucator->inaltime }}</td>
+                    <td align="center">{{ $jucator->picior_preferat }}</td>
                     <td class="test">{{ $jucator->post }}</td>
                     @if ( !empty( $jucator->Echipa->nume ) )
                         <td>
@@ -83,14 +90,14 @@
                     @endif
 
                     @if( auth()->check() )
-                        <td>
+                        <td class="text-center">
                             <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Modifica jucator"
                                 href ="/jucator/{{$jucator->id}}/modificare">
-                                <span class="material-icons">create</span>
+                                <span class="material-icons edit-icon">create</span>
                             </a>
                             <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Sterge jucator"
                                 href ="/jucator/{{$jucator->id}}/stergere" onclick="return confirm('Sunteti sigur ca doriti stergerea?')">
-                                <span class="material-icons">remove_circle_outline</span>
+                                <span class="material-icons remove-icon">remove_circle_outline</span>
                             </a>
                         </td>
                     @endif
@@ -100,7 +107,7 @@
     </table>
 </div>
 @if( auth()->check() )
-    <div align="center">
+    <div align="right">
         <a class="btn btn-primary" href ="/jucator/adaugare">Adaugare</a>
     </div>
 @endif

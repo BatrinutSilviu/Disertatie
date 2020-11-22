@@ -33,7 +33,7 @@
     </head>
 	<body>
 
-		<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+		<nav class="navbar navbar-expand-md mb-5">
             <a class="navbar-brand" href="{{ url('/') }}">
                 Site-ul meu
             </a>

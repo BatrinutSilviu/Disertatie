@@ -22,13 +22,25 @@ class JucatorController extends Controller
 
 		return view('Jucatori/jucator_adaugare', compact('echipe'));
 	}
+	public function cauta(Request $request)
+	{
+		$cauta = $request->search;
+		$jucatori = Jucator::orderby('nume','asc')->select('nume')->whereRaw('LOWER(`nume`) LIKE ? ',['%'.strtolower($cauta).'%'])->limit(5)->get();
+
+		$response = array();
+		foreach($jucator as $jucatori){
+			$response[] = array("value"=>$jucator->nume,"label"=>$jucator->nume);
+		}
+
+		return response()->json($response);
+	}
 	public function salvare()
 	{		
 		request()->validate(['Nume' => ['required','min:3','max:45'],
 			'Data_nasterii' => ['required','date','before:today'],
 			'echipa_id' => ['nullable','exists:echipas,Nume'],
-			'nationala_id' => ['nullable','exists:taras,Nume'],
-			'Nationalitate' => ['required','min:4'],
+			'nationala_id' => ['nullable','exists:taras,Nume','same:Nationalitate'],
+			'Nationalitate' => ['required','exists:taras,Nume'],
 			'Inaltime'=> ['numeric','min:140','max:220'],
 			'Picior_preferat'=> 'in:stangul,dreptul,ambele',
 			'Post' => 'in:portar,fundas,mijlocas,atacant']);
@@ -56,8 +68,8 @@ class JucatorController extends Controller
 		request()->validate(['Nume' => ['required','min:3','max:45'],
 			'Data_nasterii' => ['required','date','before:today'],
 			'echipa_id' => ['nullable','exists:echipas,Nume'],
-			'nationala_id' => ['nullable','exists:nationalas,Nume'],
-			'Nationalitate' => ['required','min:4'],
+			'nationala_id' => ['nullable','exists:taras,Nume','same:Nationalitate'],
+			'Nationalitate' => ['required','exists:taras,Nume'],
 			'Inaltime'=> ['numeric','min:140','max:220'],
 			'Picior_preferat'=> 'in:stangul,dreptul,ambele',
 			'Post' => 'in:portar,fundas,mijlocas,atacant']);

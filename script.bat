@@ -1,4 +1,4 @@
 git add .
-git commit -m "full refactor tara"
+git commit -m "aranjat bine"
 git push origin master
 pause

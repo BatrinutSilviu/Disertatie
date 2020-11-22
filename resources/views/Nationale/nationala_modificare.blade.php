@@ -1,8 +1,8 @@
 @extends('layouts.app-navbar')
 
 @section('content')
-
-	<h1>Modificare nationala</h1>
+<div class="container">	
+	<h1 align="center" class="titlu">Modifica nationala</h1>
 	<form method="POST" action="/nationala/{{$nationala->id}}">
 		{{ method_field('PATCH') }}
 		{{ csrf_field() }}
@@ -25,15 +25,16 @@
 			<input type="text" class="form-control" name="Selectioner" value="{{$nationala->selectioner}}" required>
 		</div>
 
-		<div class="field">
+		<div class="field text-right">
 			<div class="control">
+				<a type="button" class="btn btn-secondary" href="{{ route('nationala.index') }}">Renuntare</a>
 				<button type="submit" class="btn btn-primary">Modifica</button>
 			</div>
 		</div>
 		@include('errors')
 	</form>
 
-	<form method="GET" action="/nationala/{{$nationala->id}}/stergere">
+	<!-- <form method="GET" action="/nationala/{{$nationala->id}}/stergere">
 			@method('DELETE')
 			@csrf
 			<div class="field">
@@ -51,6 +52,6 @@
 					<button type="submit" class="btn btn-secondary">Renuntare</button>
 				</div>
 			</div>
-	</form>
-
+	</form> -->
+</div>
 @endsection
