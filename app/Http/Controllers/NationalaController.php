@@ -11,20 +11,11 @@ class NationalaController extends Controller
 {
     public function index()
     {
-		$nationale = Nationala::all();
+		$nationale = Nationala::Paginate(10);
     	return view('Nationale/nationala_index',compact('nationale'));
     }
 	public function cauta(Request $request)
 	{
-		// $cauta = $request->search;
-		// $nationale = Nationala::orderby('tara_id','asc')->select('tara_id')->whereRaw('LOWER(`nume`) LIKE ? ',['%'.strtolower($cauta).'%'])->limit(5)->get();
-
-		// $response = array();
-		// foreach($nationale as $nationala){
-		// 	$response[] = array("value"=>$nationala->Tara->Nume,"label"=>$nationala->Tara->Nume);
-		// }
-
-		// return response()->json($response);
 		$cauta = $request->search;
 		$tari = Tara::orderby('nume','asc')->select('nume')->whereRaw('LOWER(`nume`) LIKE ? ',['%'.strtolower($cauta).'%'])->limit(5)->get();
 
@@ -37,10 +28,12 @@ class NationalaController extends Controller
 	}
     public function adaugare()
 	{
+		abort_if( auth()->id() !==1 ,403);
 		return view('Nationale/nationala_adaugare');
 	}
 	public function salvare()
 	{
+		abort_if( auth()->id() !==1 ,403);
 		$validat=request()->validate([
 			'Nume' => ['required','min:4','max:25'],
 			'Afiliere' => ['required','min:4','max:15'],
@@ -57,6 +50,7 @@ class NationalaController extends Controller
 	}
 	public function actualizare( $id )
 	{
+		abort_if( auth()->id() !==1 ,403);
 		 $nationala = Nationala::findOrFail($id);
  		 $validat=request()->validate([
  		 	'Nume' => ['required','min:4','max:25'],
@@ -73,11 +67,13 @@ class NationalaController extends Controller
 	}
 	public function stergere( $id )
 	{
+		abort_if( auth()->id() !==1 ,403);
 		Nationala::findOrFail($id)->delete();
 		return redirect('nationala');
 	}
 	public function modificare( $id)
 	{
+		abort_if( auth()->id() !==1 ,403);
 		$nationala = Nationala::findOrFail($id);
 		return view('Nationale/nationala_modificare', compact('nationala'));
 	}

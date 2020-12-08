@@ -1,32 +1,38 @@
 @extends('layouts.app-navbar')
 
 @section('content')
-<div class="row">
-    <div class="col-2">
-        <form method="POST" action="/nationala/filtrare">
-            {{ csrf_field() }}
-            <div class="input-group mb-3">
+
+<div class="custom_container"> 
+    <form method="POST" action="/nationala/filtrare">
+        {{ csrf_field() }}
+        <div class="row div_filter">
+            <div class="field text-right col-1">
+                <div class="control">
+                    <button type="submit" class="btn btn-primary">Filtreaza</button>
+                </div>
+            </div>
+            <div class="input-group mb-3 col-2">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Nume</span>
                 </div>
                 <input id="cauta_tara" type="text" class="form-control" name="Nume" value="{{old('Nume')}}" placeholder="Cauta nume">
             </div>
-            <div class="field text-right">
-                <div class="control">
-                    <a type="button" class="btn btn-secondary" style="float:left" href="{{ route('nationala.index') }}">Reseteaza</a>
-                    <button type="submit" class="btn btn-primary">Filtreaza</button>
+            @if( auth()->id() == 1 )
+                <div class="col-1">
+                    <a class="btn btn-primary" href ="/nationala/adaugare">Adaugare</a>
                 </div>
-            </div>
-        </form>
-    </div>
-	<table class="table table-striped table-bordered col-10">
+            @endif
+        </div>
+    </form>
+
+    <table class="table table-striped">
         <thead>
             <tr class="text-center">
                 <th>Nume</th>
                 <th>Steag</th>
                 <th>Afiliere</th>
                 <th>Selectioner</th>
-                @if( auth()->check() )
+                @if( auth()->id() == 1 )
                     <th style="width:10rem">Actiuni</th>
                 @endif
             </tr>
@@ -61,7 +67,7 @@
 
                     <td>{{ $nationala->afiliere }}</td>
                     <td>{{ $nationala->selectioner }}</td>
-                    @if( auth()->check() )
+                    @if( auth()->id() == 1 )
                         <td class="text-center">
                             <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Modifica echipa"
                                 href ="/nationala/{{$nationala->id}}/modificare">
@@ -76,17 +82,13 @@
                 </tr>
             @endforeach
         </tbody>
-  	</table>
+    </table>
+    <div>{{$nationale->links()}}</div>
 </div>
-@if( auth()->check() )
-    <div align="right">
-        <a class="btn btn-primary" href ="/nationala/adaugare">Adaugare</a>
-    </div>
-@endif
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="Stylesheet" />
-    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="Stylesheet" />
+<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 $(document).ready(function(){
 

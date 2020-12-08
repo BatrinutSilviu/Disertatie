@@ -13,11 +13,12 @@ class JucatorController extends Controller
 {
 	public function index()
 	{
-		$jucatori = Jucator::all();
+		$jucatori = Jucator::Paginate(2);
     	return view('Jucatori/jucator_index',compact('jucatori'));
 	}
 	public function adaugare()
 	{
+		abort_if( auth()->id() !==1 ,403);
 		$echipe = Echipa::all();
 
 		return view('Jucatori/jucator_adaugare', compact('echipe'));
@@ -36,6 +37,7 @@ class JucatorController extends Controller
 	}
 	public function salvare()
 	{		
+		abort_if( auth()->id() !==1 ,403);
 		request()->validate(['Nume' => ['required','min:3','max:45'],
 			'Data_nasterii' => ['required','date','before:today'],
 			'echipa_id' => ['nullable','exists:echipas,Nume'],
@@ -64,6 +66,7 @@ class JucatorController extends Controller
 	}
 	public function actualizare( $id )
 	{
+		abort_if( auth()->id() !==1 ,403);
 		$jucator = Jucator::findOrFail($id);
 		request()->validate(['Nume' => ['required','min:3','max:45'],
 			'Data_nasterii' => ['required','date','before:today'],
@@ -92,12 +95,14 @@ class JucatorController extends Controller
 	}
 	public function stergere( $id )
 	{
+		abort_if( auth()->id() !==1 ,403);
 		Jucator::findOrFail($id)->delete();
 
 		return redirect('jucator');
 	}
 	public function modificare( $id)
 	{
+		abort_if( auth()->id() !==1 ,403);
 		$jucator = Jucator::findOrFail($id);
 
 		return view('Jucatori/jucator_modificare', compact('jucator'));

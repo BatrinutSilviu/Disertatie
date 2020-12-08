@@ -11,7 +11,7 @@ class EchipaController extends Controller
 {
     public function index()
 	{
-		$echipe = Echipa::all();
+		$echipe = Echipa::Paginate(10);
     	return view('Echipe/echipa_index',compact('echipe'));
 	}
 	public function cauta(Request $request)
@@ -28,10 +28,12 @@ class EchipaController extends Controller
 	}
 	public function adaugare()
 	{
+		abort_if( auth()->id() !==1 ,403);
 		return view('Echipe/echipa_adaugare');
 	}
 	public function salvare()
 	{
+		abort_if( auth()->id() !==1 ,403);
 		$validat=request()->validate([
 			'Nume' => ['required','min:3','max:35'],
 			'Tara' => ['required','min:4','max:15'],
@@ -49,6 +51,7 @@ class EchipaController extends Controller
 	}
 	public function actualizare( $id )
 	{
+		abort_if( auth()->id() !==1 ,403);
 		 $echipa = Echipa::findOrFail($id);
  		 $validat=request()->validate(['Nume' => ['required','min:3','max:35'],
 			'Tara' => ['required','min:4','max:15'],
@@ -67,11 +70,13 @@ class EchipaController extends Controller
 	}
 	public function stergere( $id )
 	{
+		abort_if( auth()->id() !==1 ,403);
 		Echipa::findOrFail($id)->delete();
 		return redirect('echipa');
 	}
 	public function modificare( $id)
 	{
+		abort_if( auth()->id() !==1 ,403);
 		$echipa = Echipa::findOrFail($id);
 		return view('Echipe/echipa_modificare', compact('echipa'));
 	}

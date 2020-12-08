@@ -50,6 +50,7 @@ Route::get('/nationala/{nationala_ID}/stergere', 'NationalaController@stergere')
 Route::get('/meci', 'MeciController@index')->name('meci.index');
 Route::post('/meci', 'MeciController@salvare')->middleware('auth');
 Route::get('/meci/adaugare', 'MeciController@adaugare')->middleware('auth');
+Route::post('/meci/filtrare', 'MeciController@filtrare');
 // Route::get('/meci/cauta', 'MeciController@cauta')->name('nationala.cauta');
 Route::patch('/meci/{meci_ID}', 'MeciController@actualizare')->middleware('auth');
 Route::get('/meci/{meci_ID}/jucatori', 'MeciController@getJucatori');

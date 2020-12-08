@@ -8,21 +8,24 @@ use App\Marcator;
 use App\Echipa;
 use App\Competitie;
 use App\Jucator;
+use DB;
 
 class MeciController extends Controller
 {
     public function index()
 	{
-		$meciuri = \App\Meci::all();
+		$meciuri = \App\Meci::Paginate(10);
 
     	return view('Meciuri/meciuri_index',compact('meciuri'));
 	}
 	public function adaugare()
 	{
+		abort_if( auth()->id() !==1 ,403);
 		return view('Meciuri/meciuri_adaugare');
 	}
 	public function salvare()
 	{		
+		abort_if( auth()->id() !==1 ,403);
 		$validat=request()->validate(['echipa_gazda_id' => ['required','exists:echipas,nume','different:echipa_oaspete_id'],
 			'data' => ['required','date','before:tomorrow'],
 			'echipa_oaspete_id' => ['required','exists:echipas,nume','different:echipa_gazda_id'],
@@ -60,6 +63,7 @@ class MeciController extends Controller
 	}
 	public function actualizare( $id )
 	{
+		abort_if( auth()->id() !==1 ,403);
 		$meci = Meci::findOrFail($id);
 		$validat=request()->validate(['echipa_gazda_id' => ['required','exists:echipas,nume','different:echipa_oaspete_id'],
 			'data' => ['required','date','before:tomorrow'],
@@ -87,14 +91,33 @@ class MeciController extends Controller
 	}
 	public function stergere( $id )
 	{
+		abort_if( auth()->id() !==1 ,403);
 		Meci::findOrFail($id)->delete();
 
 		return redirect('meci');
 	}
 	public function modificare( $id)
 	{
+		abort_if( auth()->id() !==1 ,403);
 		$meci = Meci::findOrFail($id);
 
 		return view('Meciuri/meciuri_modificare', compact('meci'));
+	}
+	public function filtrare()
+	{
+		$meciuri = DB::table('mecis');
+		$echipa = request('echipa');
+		$data = request('data');
+		if( !empty( $echipa ) )
+		{
+			$echipa_id = Echipa::where('nume','=',$echipa)->value('id');
+			$meciuri->where('echipa_gazda_id',$echipa_id)->orWhere('echipa_oaspete_id',$echipa_id);
+		}
+		if( !empty( $data ) )
+		{
+			$meciuri->where('data',$data);
+		}
+		$meciuri = $meciuri->get();
+    	return view('Meciuri/meciuri_index',compact('meciuri'));
 	}
 }

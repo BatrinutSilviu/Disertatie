@@ -1,4 +1,4 @@
 git add .
-git commit -m "aranjat bine"
+git commit -m "paginare si autorizare"
 git push origin master
 pause
