@@ -1,4 +1,4 @@
 git add .
-git commit -m "paginare si autorizare"
+git commit -m "primu script python"
 git push origin master
 pause

@@ -8,12 +8,14 @@ use App\Echipa;
 use App\Nationala;
 use App\Tara;
 use DB;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class JucatorController extends Controller
 {
 	public function index()
 	{
-		$jucatori = Jucator::Paginate(2);
+		$jucatori = Jucator::Paginate(10);
     	return view('Jucatori/jucator_index',compact('jucatori'));
 	}
 	public function adaugare()
@@ -129,5 +131,18 @@ class JucatorController extends Controller
 		}
 		$jucatori = $jucatori->get();
     	return view('Jucatori/jucator_index',compact('jucatori'));
+	}
+	public function piton()
+	{
+
+		$process = new Process(['python', 'test.py']);
+		$process->run();
+
+		if (!$process->isSuccessful()) 
+		{
+		    throw new ProcessFailedException($process);
+		}
+
+		echo $process->getOutput();
 	}
 }

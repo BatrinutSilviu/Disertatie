@@ -2,7 +2,11 @@
 
 @section('content')	
 <div class="container">	
-	<h1 align="center" class="titlu">Adauga nationala</h1>
+	<h1 class="titlu text-center">
+		<span class="material-icons">flag</span>
+		Adaugare nationala
+		<span class="material-icons">flag</span>
+	</h1>
 	<form method="POST" action="/nationala">
 		{{ csrf_field() }}
 
@@ -27,8 +31,8 @@
 			<input type="text" class="form-control" name="Selectioner" value="{{old('Selectioner')}}" required>
 		</div>
 
-		<div class="text-right">
-			<button type="submit" class="btn btn-primary">Adaugare</button>
+		<div class="text-center">
+			<button type="submit" class="btn btn-primary">Salveaza</button>
 		</div>
 		@include('errors')
 	</form>

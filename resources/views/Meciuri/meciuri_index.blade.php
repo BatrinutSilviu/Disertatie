@@ -6,9 +6,12 @@
     <form method="POST" action="/meci/filtrare">
         {{ csrf_field() }}
         <div class="row div_filter">
-            <div class="field text-right col-1">
+            <div class="field col-2">
                 <div class="control">
-                    <button type="submit" class="btn btn-primary">Filtreaza</button>
+                    <button type="submit" class="btn btn-primary">
+                     <span class="material-icons" style="vertical-align: middle;">search</span>
+                     <span style="vertical-align: middle;">Filtreaza</span></button>
+                    </button>
                 </div>
             </div>
             <div class="input-group mb-3 col-2">
@@ -24,8 +27,11 @@
                 <input type="date" name="data" id="cauta_data" max="3000-12-31" min="1000-01-01" placeholder="Cauta data" class="form-control" value="{{old('data')}}">
             </div>
             @if( auth()->id() == 1 )
-                <div class="col-2">
-                    <a class="btn btn-primary" href ="/meci/adaugare">Adaugare</a>
+                <div class="col-6 text-right">
+                    <a class="btn btn-primary" href ="/meci/adaugare">
+                        <span class="material-icons" style="vertical-align: middle;">add</span>
+                        <span style="vertical-align: middle;">Adaugare</span>
+                    </a>
                 </div>
      @endif
         </div>

@@ -2,7 +2,11 @@
 
 @section('content')
 <div class="container">		
-	<h1 align="center" class="titlu">Adauga jucator</h1>
+	<h1 class="titlu text-center">
+		<span class="material-icons edit-icon">directions_run</span>
+		Adaugare jucator
+		<span class="material-icons edit-icon">directions_run</span>
+	</h1>
 	<form method="POST" action="/jucator">
 		{{ csrf_field() }}
 		<div class="input-group mb-3">
@@ -66,8 +70,8 @@
 			<input type="text" name="Nationalitate" id="cauta_tara" class="form-control" placeholder="Cauta tara" value="{{old('Nationalitate')}}" required>
 		</div>
 
-		<div class="text-right">
-			<button class="btn btn-primary" type="submit">Adaugare</button>
+		<div class="text-center">
+			<button class="btn btn-primary" type="submit">Salveaza</button>
 		</div>
 		@include('errors')
 	</form>

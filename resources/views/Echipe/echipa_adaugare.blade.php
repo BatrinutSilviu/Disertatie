@@ -2,7 +2,11 @@
 
 @section('content')	
 <div class="container">	
-	<h1 align="center" class="titlu">Adauga echipa</h1>
+	<h1 class="titlu text-center">
+		<span class="material-icons edit-icon">emoji_events</span>
+		Adaugare echipa
+		<span class="material-icons edit-icon">emoji_events</span>
+	</h1>
 	<form method="POST" action="/echipa">
 		{{ csrf_field() }}
 
@@ -34,8 +38,8 @@
 			<input type="text" class="form-control" name="Manager" value="{{old('Manager')}}" required>
 		</div>
 
-		<div class="text-right">
-			<button type="submit" class="btn btn-primary">Adaugare</button>
+		<div class="text-center">
+			<button type="submit" class="btn btn-primary">Salveaza</button>
 		</div>
 		@include('errors')
 	</form>

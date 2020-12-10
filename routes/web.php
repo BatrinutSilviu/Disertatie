@@ -25,6 +25,7 @@ Route::get('/jucator/cauta', 'JucatorController@cauta')->name('jucator.cauta');
 Route::patch('/jucator/{jucator_ID}', 'JucatorController@actualizare')->middleware('auth');
 Route::get('/jucator/{jucator_ID}/modificare', 'JucatorController@modificare')->middleware('auth');
 Route::get('/jucator/{jucator_ID}/stergere', 'JucatorController@stergere')->middleware('auth');
+Route::get('/jucator/piton', 'JucatorController@piton');
 
 Route::get('/echipa', 'EchipaController@index')->name('echipa.index');
 Route::post('/echipa', 'EchipaController@salvare')->middleware('auth');

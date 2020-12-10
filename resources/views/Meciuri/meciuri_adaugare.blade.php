@@ -2,7 +2,11 @@
 
 @section('content')
 <div class="container">	
-	<h1 align="center" class="titlu">Adauga rezumatul unui meci</h1>
+	<h1 class="titlu text-center">
+		<span class="material-icons edit-icon">sports_soccer</span>
+		Adaugare meci
+		<span class="material-icons edit-icon">sports_soccer</span>
+	</h1>
 	<div class="row">
 		<form method="POST" action="/meci" class="w-100">
 			{{ csrf_field() }}
@@ -67,8 +71,8 @@
 				<input type="text" name="arbitru" class="form-control" value="{{old('arbitru')}}">
 			</div>
 
-			<div class="text-right">
-				<button class="btn btn-primary" type="submit">Adaugare</button>
+			<div class="text-center">
+				<button class="btn btn-primary" type="submit">Salveaza</button>
 			</div>
 			@include('errors')
 		</form>

@@ -6,9 +6,12 @@
     <form method="POST" action="/nationala/filtrare">
         {{ csrf_field() }}
         <div class="row div_filter">
-            <div class="field text-right col-1">
+            <div class="field col-2">
                 <div class="control">
-                    <button type="submit" class="btn btn-primary">Filtreaza</button>
+                    <button type="submit" class="btn btn-primary">
+                     <span class="material-icons" style="vertical-align: middle;">search</span>
+                     <span style="vertical-align: middle;">Filtreaza</span></button>
+                    </button>
                 </div>
             </div>
             <div class="input-group mb-3 col-2">
@@ -18,8 +21,11 @@
                 <input id="cauta_tara" type="text" class="form-control" name="Nume" value="{{old('Nume')}}" placeholder="Cauta nume">
             </div>
             @if( auth()->id() == 1 )
-                <div class="col-1">
-                    <a class="btn btn-primary" href ="/nationala/adaugare">Adaugare</a>
+                <div class="col-8 text-right">
+                    <a class="btn btn-primary" href ="/nationala/adaugare">
+                        <span class="material-icons" style="vertical-align: middle;">add</span>
+                        <span style="vertical-align: middle;">Adaugare</span>
+                    </a>
                 </div>
             @endif
         </div>
