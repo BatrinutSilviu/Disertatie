@@ -5,8 +5,8 @@
 <div class="custom_container"> 
     <form method="POST" action="/nationala/filtrare">
         {{ csrf_field() }}
-        <div class="row div_filter">
-            <div class="field col-2">
+        <div class="d-flex div_filter">
+            <div class="field" style="margin-left:10px; margin-right: 15px;">
                 <div class="control">
                     <button type="submit" class="btn btn-primary">
                      <span class="material-icons" style="vertical-align: middle;">search</span>
@@ -14,17 +14,17 @@
                     </button>
                 </div>
             </div>
-            <div class="input-group mb-3 col-2">
+            <div class="input-group mb-3 col-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Nume</span>
                 </div>
                 <input id="cauta_tara" type="text" class="form-control" name="Nume" value="{{old('Nume')}}" placeholder="Cauta nume">
             </div>
             @if( auth()->id() == 1 )
-                <div class="col-8 text-right">
-                    <a class="btn btn-primary" href ="/nationala/adaugare">
+                <div class="text-right" style="margin-right: 10px; flex: auto;">
+                    <a class="btn btn-adauga" href ="/nationala/adaugare">
                         <span class="material-icons" style="vertical-align: middle;">add</span>
-                        <span style="vertical-align: middle;">Adaugare</span>
+                        <span style="vertical-align: middle;">Adauga</span>
                     </a>
                 </div>
             @endif

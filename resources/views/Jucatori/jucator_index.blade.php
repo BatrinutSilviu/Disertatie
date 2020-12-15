@@ -4,37 +4,37 @@
 <div class="custom_container"> 
     <form method="POST" action="/jucator/filtrare">
         {{ csrf_field() }}
-        <div class="row div_filter">
-            <div class="field col-2">
+        <div class="d-flex div_filter">
+            <div class="field" style="margin-left:10px; margin-right: 15px;">
                 <div class="control">
                     <button type="submit" class="btn btn-primary">                       
                      <span class="material-icons" style="vertical-align: middle;">search</span>
                      <span style="vertical-align: middle;">Filtreaza</span></button>
                 </div>
             </div>
-            <div class="input-group mb-3 col-2">
+            <div class="input-group mb-3 col-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Nume</span>
                 </div>
                 <input type="text" class="form-control" name="Nume" value="{{old('Nume')}}" placeholder="Cauta nume">
             </div>
-            <div class="input-group mb-3 col-2">
+            <div class="input-group mb-3 col-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Echipa</span>
                 </div>
                 <input type="text" name="echipa" id="cauta_echipa" class="form-control" placeholder="Cauta echipa" value="{{old('echipa')}}" />
             </div>
-            <div class="input-group mb-3 col-2">
+            <div class="input-group mb-3 col-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Nationalitate</span>
                 </div>
                 <input type="text" name="Nationalitate" id="cauta_tara" class="form-control" placeholder="Cauta tara" value="{{old('Nationalitate')}}">
             </div>
             @if( auth()->id() == 1 )
-                <div class="col-4 text-right">
-                    <a class="btn btn-primary" href ="/jucator/adaugare">
+                <div class="text-right" style="margin-right: 10px; flex: auto;">
+                    <a class="btn btn-adauga" href ="/jucator/adaugare">
                         <span class="material-icons" style="vertical-align: middle;">add</span>
-                        <span style="vertical-align: middle;">Adaugare</span>
+                        <span style="vertical-align: middle;">Adauga</span>
                     </a>
                 </div>
             @endif
@@ -114,7 +114,9 @@
             @endforeach
         </tbody>
     </table>
-    <div>{{$jucatori->links()}}</div>
+    @if( !empty( $jucatori->links() ) )
+        <div>{{$jucatori->links()}}</div>
+    @endif
 </div>
 
   <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Modifica jucator"

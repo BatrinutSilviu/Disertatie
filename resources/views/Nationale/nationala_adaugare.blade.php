@@ -1,7 +1,7 @@
 @extends('layouts.app-navbar')
 
 @section('content')	
-<div class="container">	
+<div class="custom_container custom_panel" align="center">	
 	<h1 class="titlu text-center">
 		<span class="material-icons">flag</span>
 		Adaugare nationala
@@ -10,21 +10,21 @@
 	<form method="POST" action="/nationala">
 		{{ csrf_field() }}
 
-		<div class="input-group mb-3 control">
+		<div class="input-group mb-3 col-5 control">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Nume</span>
 			</div>
 			<input id="cauta_tara" type="text" class="form-control" name="Nume" value="{{old('Nume')}}" required>
 		</div>
 
-		<div class="input-group mb-3">
+		<div class="input-group mb-3 col-5">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Afiliere</span>
 			</div>
 			<input type="text" class="form-control" name="Afiliere" value="{{old('Afiliere')}}" required>
 		</div>
 
-		<div class="input-group mb-3">
+		<div class="input-group mb-3 col-5">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Selectioner</span>
 			</div>

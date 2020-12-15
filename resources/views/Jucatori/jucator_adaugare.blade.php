@@ -1,7 +1,7 @@
 @extends('layouts.app-navbar')
 
 @section('content')
-<div class="container">		
+<div class="custom_container custom_panel" align="center">		
 	<h1 class="titlu text-center">
 		<span class="material-icons edit-icon">directions_run</span>
 		Adaugare jucator
@@ -9,25 +9,25 @@
 	</h1>
 	<form method="POST" action="/jucator">
 		{{ csrf_field() }}
-		<div class="input-group mb-3">
+		<div class="input-group mb-3 col-5">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Nume</span>
 			</div>
 			<input type="text" class="form-control" name="Nume" value="{{old('Nume')}}" required>
 		</div>
-		<div class="input-group mb-3">
+		<div class="input-group mb-3 col-5">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Data nasterii</span>
 			</div>
 			<input type="date" name="Data_nasterii" max="3000-12-31" min="1000-01-01" class="form-control" value="{{old('Data_nasterii',date('1995-06-15'))}}" required>
 		</div>
-		<div class="input-group mb-3">
+		<div class="input-group mb-3 col-5">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Inaltime</span>
 			</div>
 			<input type="number" class="form-control" name="Inaltime" value="{{old('Inaltime')}}" required>
 		</div>
-		<div class="input-group mb-3">
+		<div class="input-group mb-3 col-5">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="selectPicior">Picior preferat</label>
 			</div>
@@ -38,7 +38,7 @@
 				<option value="ambele" {{ old('Picior_preferat') == 'ambele' ? 'selected':"" }}>Ambele</option>
 			</select>
 		</div>
-		<div class="input-group mb-3">
+		<div class="input-group mb-3 col-5">
 			<div class="input-group-prepend">
 				<label class="input-group-text" for="selectPost">Post</label>
 			</div>
@@ -51,19 +51,19 @@
 			</select>
 		</div>
 
-		<div class="input-group mb-3">
+		<div class="input-group mb-3 col-5">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Echipa</span>
 			</div>
 			<input type="text" name="echipa_id" id="cauta_echipa" class="form-control" placeholder="Cauta echipa" value="{{old('echipa_id')}}" />
 		</div>
-		<div class="input-group mb-3">
+		<div class="input-group mb-3 col-5">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Echipa nationala</span>
 			</div>
 			<input type="text" name="nationala_id" id="cauta_nationala" class="form-control" placeholder="Cauta echipa" value="{{old('nationala_id')}}"/>
 		</div>
-		<div class="input-group mb-3">
+		<div class="input-group mb-3 col-5">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Nationalitate</span>
 			</div>

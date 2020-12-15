@@ -117,7 +117,7 @@ class MeciController extends Controller
 		{
 			$meciuri->where('data',$data);
 		}
-		$meciuri = $meciuri->get();
+		$meciuri = $meciuri->paginate(10);
     	return view('Meciuri/meciuri_index',compact('meciuri'));
 	}
 }

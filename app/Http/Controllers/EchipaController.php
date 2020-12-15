@@ -103,7 +103,7 @@ class EchipaController extends Controller
 			$nationalitate = Tara::where('nume','=',$tara)->value('id');
 			$echipe->where('tara_id',$nationalitate);
 		}
-		$echipe = $echipe->get();
+		$echipe = $echipe->paginate(10);
     	return view('Echipe/echipa_index',compact('echipe'));
 	}
 }

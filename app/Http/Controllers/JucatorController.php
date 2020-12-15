@@ -129,7 +129,7 @@ class JucatorController extends Controller
 			$nationalitate = Tara::where('nume','=',$tara)->value('prescurtare');
 			$jucatori->where('nationalitate',$nationalitate);
 		}
-		$jucatori = $jucatori->get();
+		$jucatori = $jucatori->paginate(10);
     	return view('Jucatori/jucator_index',compact('jucatori'));
 	}
 	public function piton()

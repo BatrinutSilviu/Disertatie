@@ -90,7 +90,7 @@ class NationalaController extends Controller
 		{
 			$nationale = Nationala::where('tara_id','=',$tara);
 		}
-		$nationale = $nationale->get();
+		$nationale = $nationale->paginate(10);
     	return view('Nationale/nationala_index',compact('nationale'));
 	}
 }

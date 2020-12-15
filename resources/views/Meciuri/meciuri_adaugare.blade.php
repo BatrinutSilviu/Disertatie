@@ -1,7 +1,7 @@
 @extends('layouts.app-navbar')
 
 @section('content')
-<div class="container">	
+<div class="custom_container custom_panel">	
 	<h1 class="titlu text-center">
 		<span class="material-icons edit-icon">sports_soccer</span>
 		Adaugare meci
@@ -10,26 +10,26 @@
 	<div class="row">
 		<form method="POST" action="/meci" class="w-100">
 			{{ csrf_field() }}
-			<div class="input-group mb-3">
+			<div class="input-group mb-3 col-5">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Echipa gazda</span>
 				</div>
 				<input type="text" class="form-control" id="cauta_echipa_gazda" name="echipa_gazda_id" placeholder="Cauta echipa" value="{{old('echipa_gazda_id')}}" required>
 			</div>
-			<div class="input-group mb-3">
+			<div class="input-group mb-3 col-5">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Echipa oaspete</span>
 				</div>
 				<input type="text" class="form-control" id="cauta_echipa_oaspete" name="echipa_oaspete_id" placeholder="Cauta echipa" value="{{old('echipa_oaspete_id')}}" required>
 			</div>
-			<div class="input-group mb-3">
+			<div class="input-group mb-3 col-5">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Data</span>
 				</div>
 				<input type="date" name="data" max="3000-12-31" min="1000-01-01" class="form-control" value="{{old('data')}}" required>
 			</div>
 			<div class="row">
-				<div class="input-group mb-3 col-4">
+				<div class="input-group mb-3 col-5 col-4">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Goluri gazda</span>
 					</div>
@@ -38,7 +38,7 @@
                 <a id="adauga_marcatori_gazda" class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Adauga marcatori">
                     <span class="material-icons">add_circle_outline</span>
                 </a>
-				<div class="input-group mb-3 col-4 ml-auto">
+				<div class="input-group mb-3 col-5 col-4 ml-auto">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Goluri oaspeti</span>
 					</div>
@@ -52,19 +52,19 @@
 				<div id="campuri_gazda" class="col-6"></div>
 				<div id="campuri_oaspeti" class="col-6"></div>
 			</div>
-			<div class="input-group mb-3">
+			<div class="input-group mb-3 col-5">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Competitie</span>
 				</div>
 				<input type="text" name="competitie_id" id="cauta_competitie" class="form-control" placeholder="Cauta competitie" value="{{old('competitie_id')}}" required/>
 			</div>
-			<div class="input-group mb-3">
+			<div class="input-group mb-3 col-5">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Teren</span>
 				</div>
 				<input type="text" name="teren" class="form-control" value="{{old('teren')}}">
 			</div>
-			<div class="input-group mb-3">
+			<div class="input-group mb-3 col-5">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Arbitru</span>
 				</div>
