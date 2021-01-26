@@ -52,22 +52,46 @@
         <tbody>
             @foreach ($echipe as $echipa)
                 <tr>
-                    <td>
+                    <td align="center">
                         <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Lot"
                             href ="/echipa/{{$echipa->id}}/jucatori">{{ $echipa->nume }}</a>
                     </td>                 
                     @if ( !empty( $echipa->Tara->prescurtare ) )
-                        <td align="center">
+                         @php
+                         $nationalitate = App\Tara::where('prescurtare','=',$echipa->Tara->prescurtare)->value('nume');
+                         @endphp
+                    <td align="center" title="{{$nationalitate}}">
                             <img width="20px" class="img-circle" src="/images/{{$echipa->Tara->prescurtare}}.png">
                         </td>
                     @elseif( !empty( $echipa->tara_id ) )
                         @php
                             $tara = App\Tara::findOrFail($echipa->tara_id);
                         @endphp         
-                        <td><img width="20px" class="img-circle" src="/images/{{ $tara->prescurtare }}.png"></td>
+                        @php
+                        $nationalitate = App\Tara::where('prescurtare','=',$tara->prescurtare)->value('nume');
+                        @endphp
+                    <td align="center" title="{{$nationalitate}}">
+                            <img width="20px" class="img-circle" src="/images/{{ $tara->prescurtare }}.png">
+                        </td>
                     @endif
-                    <td>{{ $echipa->liga }}</td>
-                    <td>{{ $echipa->manager }}</td>
+
+                    <td align="center">
+                        @php
+                        $competitii= App\EchipaCompetitie::where('echipa_id','=',$echipa->id)->pluck('competitie_id');
+                        $total = count($competitii) - 1;
+                        $contor = 0;
+                        foreach ($competitii as $iterator)
+                        {
+                            $competitie= App\Competitie::findOrFail($iterator);
+                            if( $contor != $total )
+                                echo $competitie->nume.', ';
+                            else
+                                echo $competitie->nume;
+                            $contor = $contor + 1;
+                        }
+                        @endphp
+                    </td>
+                    <td align="center">{{ $echipa->manager }}</td>
                     @if( auth()->id() == 1 )
                         <td class="text-center">
                             <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Modifica echipa"

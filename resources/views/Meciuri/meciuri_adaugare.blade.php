@@ -26,9 +26,9 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Data</span>
 				</div>
-				<input type="date" name="data" max="3000-12-31" min="1000-01-01" class="form-control" value="{{old('data')}}" required>
+				<input type="datetime-local" name="data" max="3000-12-31" min="1000-01-01" class="form-control" value="{{old('data')}}" required>
 			</div>
-			<div class="row">
+			<div class="row m-0">
 				<div class="input-group mb-3 col-5 col-4">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Goluri gazda</span>
@@ -75,13 +75,19 @@
 				<button class="btn btn-primary" type="submit">Salveaza</button>
 			</div>
 			@include('errors')
+			@if (Session::has( 'warning' ))
+			<div class="alert alert-danger alert-block">
+			    <button type="button" class="close" data-dismiss="alert">×</button>
+			    <strong>{{ Session::get( 'warning' ) }}</strong>
+			</div>
+			@endif
 		</form>
 	</div>
 </div>
 
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="Stylesheet" />
-    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="Stylesheet" />
+<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 $(document).ready(function(){
 
@@ -137,7 +143,7 @@ $(document).ready(function(){
 				'<div class="input-group-prepend">'+
 					'<label class="input-group-text input-group-text-marcatori">Marcator</label>'+
 				'</div>'+
-				'<input id="cauta_marcator" type="text" name="marcator[]" class="form-control" placeholder="Nume marcator"/>'+
+				'<input id="cauta_marcator_gazda" type="text" name="marcator_gazda[]" class="form-control" placeholder="Nume marcator"/>'+
 			'</div>'+
 			'<div class="input-group col-4 mb-3">'+
 				'<div class="input-group-prepend">'+
@@ -147,17 +153,18 @@ $(document).ready(function(){
 			'</div>'+
 			'<div class="input-group col-6 mb-3">'+
 				'<div class="input-group-prepend">'+
-					'<label class="input-group-text input-group-text-marcatori" for="selectPicior">Picior folosit</label>'+
+					'<label class="input-group-text input-group-text-marcatori" for="selectPicior">Picior</label>'+
 				'</div>'+
 				'<select class="custom-select" id="selectPicior" name="picior[]">'+
 					'<option value="dreptul">Dreptul</option>'+
 					'<option value="stangul">Stangul</option>'+
 					'<option value="capul">Capul</option>'+
+					'<option value="capul">Altfel</option>'+
 				'</select>'+
 			'</div>'+
 			'<div class="input-group col-5 mb-3">'+
 				'<div class="input-group-prepend">'+
-					'<label class="input-group-text input-group-text-marcatori" for="selectPenalty">Gol din penalty</label>'+
+					'<label class="input-group-text input-group-text-marcatori" for="selectPenalty">Penalty</label>'+
 				'</div>'+
 				'<select class="custom-select" id="selectPenalty" name="penalty[]">'+
 					'<option value="0">Nu</option>'+
@@ -185,7 +192,7 @@ $(document).ready(function(){
 				'<div class="input-group-prepend">'+
 					'<label class="input-group-text input-group-text-marcatori">Marcator</label>'+
 				'</div>'+
-				'<input type="text" name="marcator[]" class="form-control" placeholder="Nume marcator"/>'+
+				'<input id="cauta_marcator_oaspete" type="text" name="marcator_oaspete[]" class="form-control" placeholder="Nume marcator"/>'+
 			'</div>'+
 			'<div class="input-group col-4 mb-3">'+
 				'<div class="input-group-prepend">'+
@@ -195,17 +202,18 @@ $(document).ready(function(){
 			'</div>'+
 			'<div class="input-group col-6 mb-3">'+
 				'<div class="input-group-prepend">'+
-					'<label class="input-group-text input-group-text-marcatori" for="selectPicior">Picior folosit</label>'+
+					'<label class="input-group-text input-group-text-marcatori" for="selectPicior">Picior</label>'+
 				'</div>'+
 				'<select class="custom-select" id="selectPicior" name="picior[]">'+
 					'<option value="dreptul">Dreptul</option>'+
 					'<option value="stangul">Stangul</option>'+
 					'<option value="capul">Capul</option>'+
+					'<option value="capul">Altfel</option>'+
 				'</select>'+
 			'</div>'+
 			'<div class="input-group col-5 mb-3">'+
 				'<div class="input-group-prepend">'+
-					'<label class="input-group-text input-group-text-marcatori" for="selectPenalty">Gol din penalty</label>'+
+					'<label class="input-group-text input-group-text-marcatori" for="selectPenalty">Penalty</label>'+
 				'</div>'+
 				'<select class="custom-select" id="selectPenalty" name="penalty[]">'+
 					'<option value="0">Nu</option>'+
@@ -226,7 +234,22 @@ $(document).ready(function(){
     $("#campuri_oaspeti").on("click", "a", function(){
 	    $(this).closest("div.row").remove();
 	});
-   	$("#cauta_marcator").autocomplete({
+   	$("#cauta_marcator_gazda").autocomplete({
+		source: function(request, response) {
+			 $.ajax({
+				url:"{{ route('jucator.cauta') }}",
+				method:'GET',
+				dataType:'json',
+				data: {
+					search: request.term
+				},
+				success:function(data) {
+					response(data);
+				}
+			})
+		}
+	});
+   	$("#cauta_marcator_oaspete").autocomplete({
 		source: function(request, response) {
 			 $.ajax({
 				url:"{{ route('jucator.cauta') }}",

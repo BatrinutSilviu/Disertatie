@@ -47,7 +47,7 @@
             @foreach ($nationale as $nationala)
                 <tr>
                     @if ( !empty( $nationala->Tara->nume ) )
-                        <td>
+                        <td align="center">
                             <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Lot"
                                 href ="/nationala/{{$nationala->id}}/jucatori">{{ $nationala->Tara->nume }}</a>
                         </td>
@@ -55,7 +55,7 @@
                         @php
                             $tara = App\Tara::findOrFail($nationala->tara_id);
                         @endphp         
-                        <td>
+                        <td align="center">
                             <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Lot"
                                 href ="/nationala/{{$nationala->id}}/jucatori">{{ $tara->nume }}</a>
                         </td>
@@ -68,11 +68,11 @@
                         @php
                             $tara = App\Tara::findOrFail($nationala->tara_id);
                         @endphp         
-                        <td><img width="20px" class="img-circle" src="/images/{{$tara->prescurtare}}.png"></td>
+                        <td align="center"><img width="20px" class="img-circle" src="/images/{{$tara->prescurtare}}.png"></td>
                     @endif
 
-                    <td>{{ $nationala->afiliere }}</td>
-                    <td>{{ $nationala->selectioner }}</td>
+                    <td align="center">{{ $nationala->afiliere }}</td>
+                    <td align="center">{{ $nationala->selectioner }}</td>
                     @if( auth()->id() == 1 )
                         <td class="text-center">
                             <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Modifica echipa"

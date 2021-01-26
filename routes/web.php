@@ -18,6 +18,7 @@ Route::get('/', function() {
 });
 
 Route::get('/jucator', 'JucatorController@index')->name('jucator.index');
+Route::get('/jucator/propriu', 'JucatorController@propriu')->name('jucator.propriu');
 Route::post('/jucator', 'JucatorController@salvare')->middleware('auth');
 Route::get('/jucator/adaugare', 'JucatorController@adaugare')->middleware('auth');
 Route::post('/jucator/filtrare', 'JucatorController@filtrare');

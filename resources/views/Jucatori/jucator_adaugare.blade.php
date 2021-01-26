@@ -2,74 +2,84 @@
 
 @section('content')
 <div class="custom_container custom_panel" align="center">		
-	<h1 class="titlu text-center">
+	<h1 class="titlu text-center" style="margin-bottom: 5%">
 		<span class="material-icons edit-icon">directions_run</span>
 		Adaugare jucator
 		<span class="material-icons edit-icon">directions_run</span>
 	</h1>
 	<form method="POST" action="/jucator">
 		{{ csrf_field() }}
-		<div class="input-group mb-3 col-5">
-			<div class="input-group-prepend">
-				<span class="input-group-text">Nume</span>
+		<div class="row">
+			<div class="input-group mb-3 col-5">
+				<div class="input-group-prepend">
+					<span class="input-group-text">Nume</span>
+				</div>
+				<input type="text" class="form-control" name="Nume" value="{{old('Nume')}}" required>
 			</div>
-			<input type="text" class="form-control" name="Nume" value="{{old('Nume')}}" required>
-		</div>
-		<div class="input-group mb-3 col-5">
-			<div class="input-group-prepend">
-				<span class="input-group-text">Data nasterii</span>
+			<div class="input-group mb-3 col-5">
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="selectPost">Post</label>
+				</div>
+				<select class="custom-select" id="selectPost" name="Post" >
+					<option value="none">Alege</option>
+					<option value="portar" {{ old('Post') == 'portar' ? 'selected':"" }}>Portar</option>
+					<option value="fundas" {{ old('Post') == 'fundas' ? 'selected':"" }}>Fundas</option>
+					<option value="mijlocas" {{ old('Post') == 'mijlocas' ? 'selected':"" }}>Mijlocas</option>
+					<option value="atacant" {{ old('Post') == 'atacant' ? 'selected':"" }}>Atacant</option>
+				</select>
 			</div>
-			<input type="date" name="Data_nasterii" max="3000-12-31" min="1000-01-01" class="form-control" value="{{old('Data_nasterii',date('1995-06-15'))}}" required>
-		</div>
-		<div class="input-group mb-3 col-5">
-			<div class="input-group-prepend">
-				<span class="input-group-text">Inaltime</span>
-			</div>
-			<input type="number" class="form-control" name="Inaltime" value="{{old('Inaltime')}}" required>
-		</div>
-		<div class="input-group mb-3 col-5">
-			<div class="input-group-prepend">
-				<label class="input-group-text" for="selectPicior">Picior preferat</label>
-			</div>
-			<select class="custom-select" id="selectPicior" name="Picior_preferat">
-				<option value="none">Alege</option>
-				<option value="dreptul" {{ old('Picior_preferat') == 'dreptul' ? 'selected':"" }}>Dreptul</option>
-				<option value="stangul" {{ old('Picior_preferat') == 'stangul' ? 'selected':"" }}>Stangul</option>
-				<option value="ambele" {{ old('Picior_preferat') == 'ambele' ? 'selected':"" }}>Ambele</option>
-			</select>
-		</div>
-		<div class="input-group mb-3 col-5">
-			<div class="input-group-prepend">
-				<label class="input-group-text" for="selectPost">Post</label>
-			</div>
-			<select class="custom-select" id="selectPost" name="Post" >
-				<option value="none">Alege</option>
-				<option value="portar" {{ old('Post') == 'portar' ? 'selected':"" }}>Portar</option>
-				<option value="fundas" {{ old('Post') == 'fundas' ? 'selected':"" }}>Fundas</option>
-				<option value="mijlocas" {{ old('Post') == 'mijlocas' ? 'selected':"" }}>Mijlocas</option>
-				<option value="atacant" {{ old('Post') == 'atacant' ? 'selected':"" }}>Atacant</option>
-			</select>
 		</div>
 
-		<div class="input-group mb-3 col-5">
-			<div class="input-group-prepend">
-				<span class="input-group-text">Echipa</span>
+		<div class="row">
+			<div class="input-group mb-3 col-5">
+				<div class="input-group-prepend">
+					<span class="input-group-text">Nationalitate</span>
+				</div>
+				<input type="text" name="Nationalitate" id="cauta_tara" class="form-control" placeholder="Cauta tara" value="{{old('Nationalitate')}}" required>
 			</div>
-			<input type="text" name="echipa_id" id="cauta_echipa" class="form-control" placeholder="Cauta echipa" value="{{old('echipa_id')}}" />
-		</div>
-		<div class="input-group mb-3 col-5">
-			<div class="input-group-prepend">
-				<span class="input-group-text">Echipa nationala</span>
+			<div class="input-group mb-3 col-5">
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="selectPicior">Picior preferat</label>
+				</div>
+				<select class="custom-select" id="selectPicior" name="Picior_preferat">
+					<option value="none">Alege</option>
+					<option value="dreptul" {{ old('Picior_preferat') == 'dreptul' ? 'selected':"" }}>Dreptul</option>
+					<option value="stangul" {{ old('Picior_preferat') == 'stangul' ? 'selected':"" }}>Stangul</option>
+					<option value="ambele" {{ old('Picior_preferat') == 'ambele' ? 'selected':"" }}>Ambele</option>
+				</select>
 			</div>
-			<input type="text" name="nationala_id" id="cauta_nationala" class="form-control" placeholder="Cauta echipa" value="{{old('nationala_id')}}"/>
-		</div>
-		<div class="input-group mb-3 col-5">
-			<div class="input-group-prepend">
-				<span class="input-group-text">Nationalitate</span>
-			</div>
-			<input type="text" name="Nationalitate" id="cauta_tara" class="form-control" placeholder="Cauta tara" value="{{old('Nationalitate')}}" required>
 		</div>
 
+		<div class="row">
+			<div class="input-group mb-3 col-5">
+				<div class="input-group-prepend">
+					<span class="input-group-text">Data nasterii</span>
+				</div>
+				<input type="date" name="Data_nasterii" max="3000-12-31" min="1000-01-01" class="form-control" value="{{old('Data_nasterii',date('1995-06-15'))}}" required>
+			</div>
+			<div class="input-group mb-3 col-5">
+				<div class="input-group-prepend">
+					<span class="input-group-text">Echipa</span>
+				</div>
+				<input type="text" name="echipa_id" id="cauta_echipa" class="form-control" placeholder="Cauta echipa" value="{{old('echipa_id')}}" />
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="input-group mb-3 col-5">
+				<div class="input-group-prepend">
+					<span class="input-group-text">Inaltime</span>
+				</div>
+				<input type="number" class="form-control" name="Inaltime" value="{{old('Inaltime')}}" required>
+			</div>
+
+			<div class="input-group mb-3 col-5">
+				<div class="input-group-prepend">
+					<span class="input-group-text">Echipa nationala</span>
+				</div>
+				<input type="text" name="nationala_id" id="cauta_nationala" class="form-control" placeholder="Cauta echipa" value="{{old('nationala_id')}}"/>
+			</div>
+		</div>
 		<div class="text-center">
 			<button class="btn btn-primary" type="submit">Salveaza</button>
 		</div>

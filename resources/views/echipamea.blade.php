@@ -5,16 +5,16 @@
 @if( auth()->check() )
 	@if( auth()->id() !== 1 )
 	<div id="rezultat" >
-	<p>Ultimul rezultat</p>
+	<p><a class="btn btn-primary" href ="/register">Ultimul rezultat</a></p>
 	</div>
 	<div id="program">
-	<p>Meciul urmator</p>
+	<p><a class="btn btn-primary" href ="/register">Meciul urmator</a></p>
 	</div>
 	<div id="clasament">
-	<p>Clasament</p>
+	<p><a class="btn btn-primary" href ="/register">Clasament</a></p>
 	</div>
 	<div id="statut">
-	<p>Statut lot</p>
+	<p><a class="btn btn-primary" href ="/jucator/propriu">Statut lot</a></p>
 	</div>
 
 	@else
@@ -27,7 +27,7 @@
                 <th>Echipa</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="text-center">
         	@php
         		$utilizatori = App\User::all();
 				foreach ( $utilizatori as $utilizator )

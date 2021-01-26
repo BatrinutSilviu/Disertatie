@@ -54,34 +54,34 @@
             @foreach ($meciuri as $meci)
                 <tr>
                     @if ( !empty( $meci->echipa_gazda->nume ) )
-                        <td>{{ $meci->echipa_gazda->nume }}</td>
+                        <td align="center">{{ $meci->echipa_gazda->nume }}</td>
                     @else
                         @php
                             $echipa = App\Echipa::findOrFail($meci->echipa_gazda_id);
                         @endphp
-                        <td>
+                        <td align="center">
                             {{ $echipa->nume }}
                         </td>
                     @endif
                     <td align="center">{{ $meci->goluri_gazde }} - {{ $meci->goluri_oaspeti }}</td>
                     @if ( !empty( $meci->echipa_oaspete->nume ) )
-                        <td>{{ $meci->echipa_oaspete->nume }}</td>
+                        <td align="center">{{ $meci->echipa_oaspete->nume }}</td>
                     @else
                         @php
                             $echipa = App\Echipa::findOrFail($meci->echipa_oaspete_id);
                         @endphp
-                        <td>
+                        <td align="center">
                             {{ $echipa->nume }}
                         </td>
                     @endif
                     <td align="center">{{ $meci->data }}</td>
                     @if ( !empty( $meci->competitie->nume ) )
-                        <td>{{ $meci->competitie->nume }}</td>
+                        <td align="center">{{ $meci->competitie->nume }}</td>
                     @else
                         @php
                             $competitie = App\Competitie::findOrFail($meci->competitie_id);
                         @endphp
-                        <td>
+                        <td align="center">
                             {{ $competitie->nume }}
                         </td>
                     @endif

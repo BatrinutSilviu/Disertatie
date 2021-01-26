@@ -1,4 +1,4 @@
 git add .
-git commit -m "aranjat mai frumos"
+git commit -m "nici nu mai stiu"
 git push origin master
 pause

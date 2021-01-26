@@ -134,7 +134,6 @@ class JucatorController extends Controller
 	}
 	public function piton()
 	{
-
 		$process = new Process(['python', 'test.py']);
 		$process->run();
 
@@ -144,5 +143,12 @@ class JucatorController extends Controller
 		}
 
 		echo $process->getOutput();
+	}
+	public function propriu()
+	{
+		$echipa_id = Echipa::where('user_id','=',auth()->id() )->value('id');
+		$jucatori = Jucator::where('echipa_id', '=', $echipa_id)->paginate(10);
+
+		return view('Jucatori/jucator_propriu', compact('jucatori'));
 	}
 }
