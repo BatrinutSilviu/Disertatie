@@ -2,26 +2,29 @@
 
 @section('content')
 <div class="custom_container"> 
-    <form method="POST" action="/jucator/filtrare">
-        {{ csrf_field() }}
-        <div class="d-flex div_filter">
-            <div class="field" style="margin-left:10px; margin-right: 15px;">
-                <div class="control">
-                    <button type="submit" class="btn btn-primary">                       
-                     <span class="material-icons" style="vertical-align: middle;">search</span>
-                     <span style="vertical-align: middle;">Filtreaza</span></button>
-                </div>
-            </div>
-            <div class="input-group mb-3 col-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">Nume</span>
-                </div>
-                <input type="text" class="form-control" name="Nume" value="{{old('Nume')}}" placeholder="Cauta nume">
-            </div>
-        </div>
-    </form>
 
-    <table class="table table-striped">
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true">General</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="ofensiv-tab" data-toggle="tab" href="#ofensiv" role="tab" aria-controls="ofensiv" aria-selected="true">Ofensiv</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="defensiv-tab" data-toggle="tab" href="#defensiv" role="tab" aria-controls="defensiv" aria-selected="true">Defensiv</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pase-tab" data-toggle="tab" href="#pase" role="tab" aria-controls="pase" aria-selected="true">Pase</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="portar-tab" data-toggle="tab" href="#portar" role="tab" aria-controls="portar" aria-selected="true">Portar</a>
+  </li>
+</ul>
+
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+      
+ <table class="table table-striped jucatori">
         <thead>
             <tr class="text-center">
                 <th>Nume</th>
@@ -31,40 +34,11 @@
                 <th>Picior preferat</th>
                 <th>Post</th>
                 <th>Nationala</th>
-                <th>Evaluare</th>
                 <th>Meciuri</th>
                 <th>Minute</th>
-                <th>Goluri</th>
-                <th>Pase</th>
-                <th>Pase gol</th>
-                <th>Pase cheie</th>
-                <th>Precizie pase</th>
-                <th>Sanse create</th>
                 <th>Galbene</th>
                 <th>Rosii</th>
-                <th>Suturi</th>
-                <th>Suturi blocate</th>
-                <th>Precizie suturi</th>
-                <th>Centrari</th>
-                <th>Dueluri aeriene castigate</th>
-                <th>Dueluri aeriene pierdute</th>
-                <th>Degajari</th>
-                <th>Mingi profunzime</th>
-                <th>Deposedat</th>
-                <th>Driblunguri incercate</th>
-                <th>Driblunguri reusite</th>
-                <th>Dueluri pierdute</th>
-                <th>Dueluri castigate</th>
-                <th>Faulturi</th>
-                <th>Interceptii</th>
-                <th>Recuperari</th>
-                <th>Faultat</th>
-                <th>Deposedari incercate</th>
-                <th>Deposedari reusite</th>
-                <th>Goluri primite</th>
-                <th>Parade</th>
-                <th>Iesiri poarta</th>
-                <th>Boxari</th>
+                <th>Evaluare</th>
             </tr>
         </thead>
         <tbody>
@@ -80,7 +54,7 @@
                     </td>
                     <td align="center">{{ $jucator->inaltime }}</td>
                     <td align="center">{{ $jucator->picior_preferat }}</td>
-                    <td class="center">{{ $jucator->post }}</td>
+                    <td align="center">{{ $jucator->post }}</td>
 
                     @if ( !empty( $jucator->Nationala->Tara->nume ) )
                         <td align="center">
@@ -96,44 +70,159 @@
                     @else
                         <td align="center">Fara nationala</td>
                     @endif
-                    <td class="center">{{ $jucator->rating }}</td>
-                    <td class="center">{{ $jucator->meciuri_jucate }}</td>
-                    <td class="center">{{ $jucator->minute_jucate }}</td>
-                    <td class="center">{{ $jucator->goluri }}</td>
-                    <td class="center">{{ $jucator->pase }}</td>
-                    <td class="center">{{ $jucator->pase_gol }}</td>
-                    <td class="center">{{ $jucator->pase_cheie }}</td>
-                    <td class="center">{{ $jucator->precizie_pase }}</td>
-                    <td class="center">{{ $jucator->sanse_create }}</td>
-                    <td class="center">{{ $jucator->cartonase_galbene }}</td>
-                    <td class="center">{{ $jucator->cartonase_rosii }}</td>
-                    <td class="center">{{ $jucator->suturi }}</td>
-                    <td class="center">{{ $jucator->suturi_blocate }}</td>
-                    <td class="center">{{ $jucator->precizie_suturi }}</td>
-                    <td class="center">{{ $jucator->centrari }}</td>
-                    <td class="center">{{ $jucator->dueluri_aeriene_castigate }}</td>
-                    <td class="center">{{ $jucator->dueluri_aeriene_pierdute }}</td>
-                    <td class="center">{{ $jucator->degajari }}</td>
-                    <td class="center">{{ $jucator->mingi_profunzime }}</td>
-                    <td class="center">{{ $jucator->deposedat }}</td>
-                    <td class="center">{{ $jucator->driblinguri_incercate }}</td>
-                    <td class="center">{{ $jucator->driblinguri_reusite }}</td>
-                    <td class="center">{{ $jucator->dueluri_pierdute }}</td>
-                    <td class="center">{{ $jucator->dueluri_castigate }}</td>
-                    <td class="center">{{ $jucator->faulturi }}</td>
-                    <td class="center">{{ $jucator->interceptii }}</td>
-                    <td class="center">{{ $jucator->recuperari }}</td>
-                    <td class="center">{{ $jucator->faultat }}</td>
-                    <td class="center">{{ $jucator->deposedari_incercate }}</td>
-                    <td class="center">{{ $jucator->deposedari_reusite }}</td>
-                    <td class="center">{{ $jucator->goluri_primite }}</td>
-                    <td class="center">{{ $jucator->parade }}</td>
-                    <td class="center">{{ $jucator->iesiri_din_poarta }}</td>
-                    <td class="center">{{ $jucator->boxari }}</td>
+                    <td align="center">{{ $jucator->meciuri_jucate }}</td>
+                    <td align="center">{{ $jucator->minute_jucate }}</td>
+                    <td align="center">{{ $jucator->cartonase_galbene }}</td>
+                    <td align="center">{{ $jucator->cartonase_rosii }}</td>
+                    <td align="center">{{ $jucator->rating }}</td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+  </div>
+  <div class="tab-pane fade" id="ofensiv" role="tabpanel" aria-labelledby="ofensiv-tab">
+      
+<table class="table table-striped jucatori">
+        <thead>
+            <tr class="text-center">
+                <th>Nume</th>
+                <th title="Goluri">Gol.</th>
+                <th title="Sanse Create">S. c.</th>
+                <th title="Suturi">Sut.</th>
+                <th title="Suturi blocate">Sut. b.</th>
+                <th title="Precizie suturi">P. s.</th>
+                <th title="Dueluri aeriene castigate">D. a. c.</th>
+                <th title="Dueluri aeriene pierdute">D. a. p.</th>
+                <th title="Deposedat">Dep.</th>
+                <th title="Driblunguri incercate">Dr. i.</th>
+                <th title="Driblunguri reusite">Dr. r.</th>
+                <th title="Dueluri pierdute">Du. p.</th>
+                <th title="Dueluri castigate">Du. c.</th>
+                <th title="Faultat">Fau.</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($jucatori as $jucator)
+                <tr>
+                    <td align="center">{{ $jucator->nume }}</td>
+                    <td align="center">{{ $jucator->goluri }}</td>
+                    <td align="center">{{ $jucator->sanse_create }}</td>
+                    <td align="center">{{ $jucator->suturi }}</td>
+                    <td align="center">{{ $jucator->suturi_blocate }}</td>
+                    <td align="center">{{ $jucator->precizie_suturi }}</td>
+                    <td align="center">{{ $jucator->dueluri_aeriene_castigate }}</td>
+                    <td align="center">{{ $jucator->dueluri_aeriene_pierdute }}</td>
+                    <td align="center">{{ $jucator->deposedat }}</td>
+                    <td align="center">{{ $jucator->driblinguri_incercate }}</td>
+                    <td align="center">{{ $jucator->driblinguri_reusite }}</td>
+                    <td align="center">{{ $jucator->dueluri_pierdute }}</td>
+                    <td align="center">{{ $jucator->dueluri_castigate }}</td>
+                    <td align="center">{{ $jucator->faultat }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+  </div>
+  <div class="tab-pane fade" id="defensiv" role="tabpanel" aria-labelledby="defensiv-tab">
+      
+<table class="table table-striped jucatori">
+        <thead>
+            <tr class="text-center">
+                <th>Nume</th>
+                <th title="Dueluri aeriene castigate">D. a. c.</th>
+                <th title="Dueluri aeriene pierdute">D. a. p.</th>
+                <th title="Degajari">Deg.</th>
+                <th title="Dueluri pierdute">Du. p.</th>
+                <th title="Dueluri castigate">Du. c.</th>
+                <th title="Falturi">Fa.</th>
+                <th title="Interceptii">In.</th>
+                <th title="Recuperari">Re.</th>
+                <th title="Deposedari incercate">De. i.</th>
+                <th title="Deposedari reusite">De. r.</th>
+                <th title="Goluri primite">G. p.</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($jucatori as $jucator)
+                <tr>
+                    <td align="center">{{ $jucator->nume }}</td>
+                    <td align="center">{{ $jucator->dueluri_aeriene_castigate }}</td>
+                    <td align="center">{{ $jucator->dueluri_aeriene_pierdute }}</td>
+                    <td align="center">{{ $jucator->degajari }}</td>
+                    <td align="center">{{ $jucator->dueluri_pierdute }}</td>
+                    <td align="center">{{ $jucator->dueluri_castigate }}</td>
+                    <td align="center">{{ $jucator->faulturi }}</td>
+                    <td align="center">{{ $jucator->interceptii }}</td>
+                    <td align="center">{{ $jucator->recuperari }}</td>
+                    <td align="center">{{ $jucator->deposedari_incercate }}</td>
+                    <td align="center">{{ $jucator->deposedari_reusite }}</td>
+                    <td align="center">{{ $jucator->goluri_primite }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+  </div>
+  <div class="tab-pane fade" id="pase" role="tabpanel" aria-labelledby="pase-tab">
+
+<table class="table table-striped jucatori">
+        <thead>
+            <tr class="text-center">
+                <th>Nume</th>
+                <th>Pase</th>
+                <th>Pase gol</th>
+                <th>Pase cheie</th>
+                <th>Precizie pase</th>
+                <th>Centrari</th>
+                <th>Mingi profunzime</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($jucatori as $jucator)
+                <tr>
+                    <td align="center">{{ $jucator->nume }}</td>
+                    <td align="center">{{ $jucator->pase }}</td>
+                    <td align="center">{{ $jucator->pase_gol }}</td>
+                    <td align="center">{{ $jucator->pase_cheie }}</td>
+                    <td align="center">{{ $jucator->precizie_pase }}</td>
+                    <td align="center">{{ $jucator->centrari }}</td>
+                    <td align="center">{{ $jucator->mingi_profunzime }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+  </div>
+
+    <div class="tab-pane fade" id="portar" role="tabpanel" aria-labelledby="portar-tab">
+
+    <table class="table table-striped jucatori">
+        <thead>
+            <tr class="text-center">
+                <th>Nume</th>
+                <th>Goluri primite</th>
+                <th>Parade</th>
+                <th>Iesiri poarta</th>
+                <th>Boxari</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($jucatori as $jucator)
+                <tr>
+                    <td align="center">{{ $jucator->nume }}</td>
+                    <td align="center">{{ $jucator->goluri_primite }}</td>
+                    <td align="center">{{ $jucator->parade }}</td>
+                    <td align="center">{{ $jucator->iesiri_din_poarta }}</td>
+                    <td align="center">{{ $jucator->boxari }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+  </div>    
+</div>
+
     @if( !empty( $jucatori->links() ) )
         <div>{{$jucatori->links()}}</div>
     @endif

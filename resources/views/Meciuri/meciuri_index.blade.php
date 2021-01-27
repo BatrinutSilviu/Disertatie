@@ -37,14 +37,18 @@
         </div>
     </form>
 
+    @if( auth()->id() == 1 )
     <table class="table table-striped">
+    @else
+    <table class="table table-striped jucatori">
+    @endif
         <thead>
             <tr class="text-center">
                 <th>Echipa gazda</th>
                 <th>Scor</th>
                 <th>Echipa oaspete</th>
-                <th>Data</th>
                 <th>Competitie</th>
+                <th>Data</th>
                 @if( auth()->id() == 1 )
                     <th style="width:10rem">Actiuni</th>
                 @endif
@@ -74,7 +78,6 @@
                             {{ $echipa->nume }}
                         </td>
                     @endif
-                    <td align="center">{{ $meci->data }}</td>
                     @if ( !empty( $meci->competitie->nume ) )
                         <td align="center">{{ $meci->competitie->nume }}</td>
                     @else
@@ -85,7 +88,7 @@
                             {{ $competitie->nume }}
                         </td>
                     @endif
-
+                    <td align="center">{{ $meci->data }}</td>
                     @if( auth()->id() == 1 )
                         <td class="text-center">
                             <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Modifica meci"

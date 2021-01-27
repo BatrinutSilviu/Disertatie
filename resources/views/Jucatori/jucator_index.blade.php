@@ -41,7 +41,11 @@
         </div>
     </form>
 
+    @if( auth()->id() == 1 )
     <table class="table table-striped">
+    @else
+    <table class="table table-striped jucatori">
+    @endif
         <thead>
             <tr class="text-center">
                 <th>Nume</th>

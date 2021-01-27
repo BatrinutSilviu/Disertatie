@@ -10966,6 +10966,16 @@ thead {
   text-transform: uppercase;
 }
 
+.table-striped tbody td {
+  padding: 0.25rem;
+  vertical-align: middle;
+}
+
+.jucatori tbody td {
+  padding: 0.85rem;
+  vertical-align: middle;
+}
+
 .table-striped tbody tr:nth-of-type(odd) {
   background-color: #fff;
   font-size: 16px;

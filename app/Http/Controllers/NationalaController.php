@@ -35,8 +35,8 @@ class NationalaController extends Controller
 	{
 		abort_if( auth()->id() !==1 ,403);
 		$validat=request()->validate([
-			'Nume' => ['required','min:4','max:25'],
-			'Afiliere' => ['required','min:4','max:15'],
+			'Nume' => ['required','min:3','max:25'],
+			'Afiliere' => ['required','min:3','max:15'],
 			'Selectioner' => ['required','min:3','max:45']
 		]);
 
@@ -53,8 +53,8 @@ class NationalaController extends Controller
 		abort_if( auth()->id() !==1 ,403);
 		 $nationala = Nationala::findOrFail($id);
  		 $validat=request()->validate([
- 		 	'Nume' => ['required','min:4','max:25'],
-			'Afiliere' => ['required','min:4','max:15'],
+ 		 	'Nume' => ['required','min:3','max:25'],
+			'Afiliere' => ['required','min:3','max:15'],
 			'Selectioner' => ['required','min:3','max:45']]);
 		 
  		$tara = Tara::where('nume','=',request('Nume'))->value('id');

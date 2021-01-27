@@ -15,7 +15,8 @@ class JucatorController extends Controller
 {
 	public function index()
 	{
-		$jucatori = Jucator::Paginate(10);
+		//$jucatori = Jucator::Paginate(10);
+		$jucatori= Jucator::orderby('nume','asc')->paginate(10);
     	return view('Jucatori/jucator_index',compact('jucatori'));
 	}
 	public function adaugare()
