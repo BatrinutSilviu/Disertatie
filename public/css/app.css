@@ -10986,6 +10986,15 @@ thead {
   font-size: 16px;
 }
 
+.table-striped thead th a {
+  color: #0CE8B9;
+}
+
+.table-striped thead th a:hover {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
 .titlu {
   text-align: center;
   font: normal normal bold 30px/46px Poppins;

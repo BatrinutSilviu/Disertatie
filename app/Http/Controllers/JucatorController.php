@@ -15,8 +15,7 @@ class JucatorController extends Controller
 {
 	public function index()
 	{
-		//$jucatori = Jucator::Paginate(10);
-		$jucatori= Jucator::orderby('nume','asc')->paginate(10);
+		$jucatori = Jucator::sortable()->paginate(10);
     	return view('Jucatori/jucator_index',compact('jucatori'));
 	}
 	public function adaugare()
@@ -148,7 +147,7 @@ class JucatorController extends Controller
 	public function propriu()
 	{
 		$echipa_id = Echipa::where('user_id','=',auth()->id() )->value('id');
-		$jucatori = Jucator::where('echipa_id', '=', $echipa_id)->paginate(10);
+		$jucatori = Jucator::where('echipa_id', '=', $echipa_id)->sortable()->paginate(10);
 
 		return view('Jucatori/jucator_propriu', compact('jucatori'));
 	}

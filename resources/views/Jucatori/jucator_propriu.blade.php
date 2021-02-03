@@ -27,18 +27,18 @@
  <table class="table table-striped jucatori">
         <thead>
             <tr class="text-center">
-                <th>Nume</th>
-                <th>Data nasterii</th>
+                <th>@sortablelink('nume')</th>
+                <th>@sortablelink('data_nasterii','Data nasterii')</th>
                 <th>Nationalitate</th>
-                <th>Inaltime</th>
+                <th>@sortablelink('inaltime')</th>
                 <th>Picior preferat</th>
                 <th>Post</th>
                 <th>Nationala</th>
-                <th>Meciuri</th>
-                <th>Minute</th>
-                <th>Galbene</th>
-                <th>Rosii</th>
-                <th>Evaluare</th>
+                <th>@sortablelink('meciuri_jucate','meciuri')</th>
+                <th>@sortablelink('minute_jucate','minute')</th>
+                <th>@sortablelink('cartonase_galbene','galbene')</th>
+                <th>@sortablelink('cartonase_rosii','rosii')</th>
+                <th>@sortablelink('rating','evaluare')</th>
             </tr>
         </thead>
         <tbody>
@@ -85,20 +85,20 @@
 <table class="table table-striped jucatori">
         <thead>
             <tr class="text-center">
-                <th>Nume</th>
-                <th title="Goluri">Gol.</th>
-                <th title="Sanse Create">S. c.</th>
-                <th title="Suturi">Sut.</th>
-                <th title="Suturi blocate">Sut. b.</th>
-                <th title="Precizie suturi">P. s.</th>
-                <th title="Dueluri aeriene castigate">D. a. c.</th>
-                <th title="Dueluri aeriene pierdute">D. a. p.</th>
-                <th title="Deposedat">Dep.</th>
-                <th title="Driblunguri incercate">Dr. i.</th>
-                <th title="Driblunguri reusite">Dr. r.</th>
-                <th title="Dueluri pierdute">Du. p.</th>
-                <th title="Dueluri castigate">Du. c.</th>
-                <th title="Faultat">Fau.</th>
+                <th>@sortablelink('nume')</th>
+                <th title="Goluri">@sortablelink('goluri','Gol.')</th>
+                <th title="Sanse Create">@sortablelink('sanse_create','S. c.')</th>
+                <th title="Suturi">@sortablelink('suturi','Sut.')</th>
+                <th title="Suturi blocate">@sortablelink('suturi_blocate','Sut. b.')</th>
+                <th title="Precizie suturi">@sortablelink('precizie_suturi','P. s.')</th>
+                <th title="Dueluri aeriene castigate">@sortablelink('dueluri_aeriene_castigate','D. a. c.')</th>
+                <th title="Dueluri aeriene pierdute">@sortablelink('dueluri_aeriene_pierdute','D. a. p.')</th>
+                <th title="Deposedat">@sortablelink('deposedat','Dep.')</th>
+                <th title="Driblunguri incercate">@sortablelink('driblinguri_incercate','Dr. i.')</th>
+                <th title="Driblunguri reusite">@sortablelink('driblinguri_reusite','Dr. r.')</th>
+                <th title="Dueluri pierdute">@sortablelink('dueluri_pierdute','Du. p.')</th>
+                <th title="Dueluri castigate">@sortablelink('dueluri_castigate','Du. c.')</th>
+                <th title="Faultat">@sortablelink('faultat','Fau.')</th>
             </tr>
         </thead>
         <tbody>
@@ -129,18 +129,18 @@
 <table class="table table-striped jucatori">
         <thead>
             <tr class="text-center">
-                <th>Nume</th>
-                <th title="Dueluri aeriene castigate">D. a. c.</th>
-                <th title="Dueluri aeriene pierdute">D. a. p.</th>
-                <th title="Degajari">Deg.</th>
-                <th title="Dueluri pierdute">Du. p.</th>
-                <th title="Dueluri castigate">Du. c.</th>
-                <th title="Falturi">Fa.</th>
-                <th title="Interceptii">In.</th>
-                <th title="Recuperari">Re.</th>
-                <th title="Deposedari incercate">De. i.</th>
-                <th title="Deposedari reusite">De. r.</th>
-                <th title="Goluri primite">G. p.</th>
+                <th>@sortablelink('nume')</th>
+                <th title="Dueluri aeriene castigate">@sortablelink('dueluri_aeriene_castigate','D. a. c.')</th>
+                <th title="Dueluri aeriene pierdute">@sortablelink('dueluri_aeriene_pierdute','D. a. p.')</th>
+                <th title="Degajari">@sortablelink('degajari','Deg.')</th>
+                <th title="Dueluri pierdute">@sortablelink('dueluri_pierdute','Du. p.')</th>
+                <th title="Dueluri castigate">@sortablelink('dueluri_castigate','Du. c.')</th>
+                <th title="Falturi">@sortablelink('faulturi','Fa.')</th>
+                <th title="Interceptii">@sortablelink('interceptii','In.')</th>
+                <th title="Recuperari">@sortablelink('recuperari','Re.')</th>
+                <th title="Deposedari incercate">@sortablelink('deposedari_incercate','De. i.')</th>
+                <th title="Deposedari reusite">@sortablelink('deposedari_reusite','De. r.')</th>
+                <th title="Goluri primite">@sortablelink('goluri_primite','G. p').</th>
             </tr>
         </thead>
         <tbody>
@@ -169,13 +169,13 @@
 <table class="table table-striped jucatori">
         <thead>
             <tr class="text-center">
-                <th>Nume</th>
-                <th>Pase</th>
-                <th>Pase gol</th>
-                <th>Pase cheie</th>
-                <th>Precizie pase</th>
-                <th>Centrari</th>
-                <th>Mingi profunzime</th>
+                <th>@sortablelink('nume')</th>
+                <th>@sortablelink('pase','Pase')</th>
+                <th>@sortablelink('pase_gol','Pase gol')</th>
+                <th>@sortablelink('pase_cheie','Pase cheie')</th>
+                <th>@sortablelink('precizie_pase','Precizie pase')</th>
+                <th>@sortablelink('centrari','Centrari')</th>
+                <th>@sortablelink('mingi_profunzime','Mingi profunzime')</th>
             </tr>
         </thead>
         <tbody>
@@ -200,11 +200,11 @@
     <table class="table table-striped jucatori">
         <thead>
             <tr class="text-center">
-                <th>Nume</th>
-                <th>Goluri primite</th>
-                <th>Parade</th>
-                <th>Iesiri poarta</th>
-                <th>Boxari</th>
+                <th>@sortablelink('nume')</th>
+                <th>@sortablelink('goluri_primite','Goluri primite')</th>
+                <th>@sortablelink('parade','Parade')</th>
+                <th>@sortablelink('iesiri_din_poarta','Iesiri poarta')</th>
+                <th>@sortablelink('boxari','Boxari')</th>
             </tr>
         </thead>
         <tbody>
@@ -223,47 +223,25 @@
   </div>    
 </div>
 
-    @if( !empty( $jucatori->links() ) )
+{!! $jucatori->appends(\Request::except('page'))->render() !!}
+<!--     @if( !empty( $jucatori->links() ) )
         <div>{{$jucatori->links()}}</div>
-    @endif
+    @endif -->
 </div>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="Stylesheet" />
-<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<script src="js/jquery-3.5.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <script>
-$(document).ready(function(){
 
-    $("#cauta_echipa").autocomplete({
-        source: function(request, response) {
-             $.ajax({
-                url:"{{ route('echipa.cauta') }}",
-                method:'GET',
-                dataType:'json',
-                data: {
-                    search: request.term
-                },
-                success:function(data) {
-                    response(data);
-                }
-            })
-        }
+$(document).ready(function(){
+    $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+        localStorage.setItem('activeTab', $(e.target).attr('href'));
     });
-    $("#cauta_tara").autocomplete({
-        source: function(request, response) {
-             $.ajax({
-                url:"{{ route('tara.cauta') }}",
-                method:'GET',
-                dataType:'json',
-                data: {
-                    search: request.term
-                },
-                success:function(data) {
-                    response(data);
-                }
-            })
-        }
-    });
+    var activeTab = localStorage.getItem('activeTab');
+    if(activeTab){
+        $('.nav-tabs a[href="' + activeTab + '"]').tab('show');
+    }
 });
 </script>
 

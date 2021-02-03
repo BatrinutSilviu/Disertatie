@@ -48,10 +48,10 @@
     @endif
         <thead>
             <tr class="text-center">
-                <th>Nume</th>
-                <th>Data nasterii</th>
+                <th>@sortablelink('nume')</th>
+                <th>@sortablelink('data_nasterii','Data nasterii')</th>
                 <th>Nationalitate</th>
-                <th>Inaltime</th>
+                <th>@sortablelink('inaltime')</th>
                 <th>Picior preferat</th>
                 <th>Post</th>
                 <th>Echipa</th>
@@ -121,9 +121,10 @@
             @endforeach
         </tbody>
     </table>
-    @if( !empty( $jucatori->links() ) )
+    {!! $jucatori->appends(\Request::except('page'))->render() !!}
+<!--     @if( !empty( $jucatori->links() ) )
         <div>{{$jucatori->links()}}</div>
-    @endif
+    @endif -->
 </div>
 
 <!--   <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Modifica jucator"
