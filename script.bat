@@ -1,4 +1,4 @@
 git add .
-git commit -m "sortare+paginare"
+git commit -m "pagina principala beton"
 git push origin master
 pause

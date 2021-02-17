@@ -15,4 +15,8 @@ class EchipaCompetitie extends Model
     {
     	return $this->hasMany(Competitie::class);
     }
+    public function echipa()
+    {
+    	return $this->belongsTo(Echipa::class);
+    }
 }

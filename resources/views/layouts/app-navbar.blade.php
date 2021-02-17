@@ -44,7 +44,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
+                    <li class="nav-item {{ Request::path() == 'echipa/mea' ? 'active' : '' }}">
                         @php
                             $echipa = App\Echipa::where('user_id','=',auth()->id() )->value('nume');
                         @endphp
@@ -64,26 +64,26 @@
                             else
                             {
                               echo("Echipa mea");
-                            }   
+                            }
                             @endphp
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {{ Request::path() == 'jucator' ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('/jucator') }}" role="button">
                             JUCATORI
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {{ Request::path() == 'echipa' ? 'active' : '' }}">
                         <a class="nav-link" href="/echipa">
                            CLUBURI
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {{ Request::path() == 'nationala' ? 'active' : '' }}">
                         <a class="nav-link" href="/nationala">
                            NATIONALE
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {{ Request::path() == 'meci' ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('/meci') }}" role="button">
                             MECIURI
                         </a>

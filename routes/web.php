@@ -61,6 +61,8 @@ Route::get('/meci/{meci_ID}/stergere', 'MeciController@stergere')->middleware('a
 
 Route::get('/tara/cauta', 'TaraController@cauta')->name('tara.cauta');
 Route::get('/competitie/cauta', 'CompetitieController@cauta')->name('competitie.cauta');
+Route::get('/competitie/clasament/{competitie_ID}', 'CompetitieController@afisare_clasament');
+
 
 Auth::routes();
 
