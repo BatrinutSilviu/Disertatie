@@ -63,7 +63,15 @@
         </thead>
         <tbody>
             @foreach ($jucatori as $jucator)
-                <tr>
+            @if( !empty( $jucator->Nationala->Tara->nume) && !empty($jucator->echipa->nume) )
+                <tr data-toggle="modal" data-echipa="{{$jucator->echipa->nume}}" data-nationala="{{ $jucator->Nationala->Tara->nume }}" data-jucator="{{$jucator}}" data-target="#exampleModalCenter" class="openDialog">
+            @elseif( empty( $jucator->Nationala->Tara->nume) && !empty($jucator->echipa->nume) )
+                 <tr data-toggle="modal" data-echipa="{{$jucator->echipa->nume}}" data-nationala="-" data-jucator="{{$jucator}}" data-target="#exampleModalCenter" class="openDialog">
+            @elseif( !empty( $jucator->Nationala->Tara->nume) && empty($jucator->echipa->nume) )
+                 <tr data-toggle="modal" data-echipa="-" data-nationala="{{ $jucator->Nationala->Tara->nume }}" data-jucator="{{$jucator}}" data-target="#exampleModalCenter" class="openDialog">
+            @else
+                 <tr data-toggle="modal" data-echipa="-" data-nationala="-" data-jucator="{{$jucator}}" data-target="#exampleModalCenter" class="openDialog">
+            @endif        
                     <td align="center">{{ $jucator->nume }}</td>
                     <td align="center">{{ $jucator->data_nasterii }}</td>
                     @php
@@ -132,6 +140,90 @@
         <span class="material-icons edit-icon">create</span>
     </a> -->
 
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+         
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Detalii jucator</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <div id="program" class="col-12">
+                <div class="col-12 clasament" style="margin-bottom:2em; padding-top:2em; padding-bottom:2em; font-weight: bold">
+                    <p id="det-nume" style="margin-bottom:0 ;color:white; font-size:20px;"></p>
+                    <span id="det-data_nasterii"></span>
+                    <table style="width:85%; margin-top:2em;" align="center">
+                        <tbody>
+                            <tr>
+                                <td style="width: 20%; text-align: left;">Nationalitatea:</td>
+                                <td style="width: 30%; text-align: left;"> 
+                                    <span style="color:white" id="det-nationalitate"></span> <img id="det-steag" width="20px" class="img-circle"> 
+                                </td>
+                                <td style="width: 20%; text-align: left;">Inaltimea:</td>
+                                <td style="width: 20%; text-align: left; color:white" id="det-inaltime"> </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%; text-align: left;">Echipa curenta:</td>
+                                <td style="width: 30%; text-align: left;color:white" id="det-echipa"> </td>
+                                <td style="width: 20%; text-align: left;">Piciorul preferat:</td>
+                                <td style="width: 20%; text-align: left;color:white" id="det-picior"> </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%; text-align: left;">Echipa nationala:</td>
+                                <td style="width: 30%; text-align: left;color:white" id="det-nationala"> </td>
+                                <td style="width: 20%; text-align: left;">Postul:</td>
+                                <td style="width: 20%; text-align: left;color:white" id="det-post"> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div id="program" class="col-6">
+                    <div class="col-12 meciul-urmator" style="padding-top:2em">
+                        <p style="font-size:20px; font-weight: bold">Cariera</p>
+                    </div>
+                </div>
+                <div id="program" class="col-6">
+                    <div class="col-12 ultimul-rezultat" style="padding-top:2em; padding-bottom: 2em; font-weight: bold;">
+                        <p style="font-size:20px; font-weight: bold">Sezonul 2020-2021</p>
+                        <table align="center" class="ml-5 w-100">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 20%; text-align: left;">Cartonase galbene: </td>
+                                    <td style="width: 25%; text-align: left; color:white" class="d-flex">
+                                        <span id="det-galbene" class="d-inline-flex"></span>
+                                        <span class="material-icons" style="color:yellow; font-size:20px; margin-left:5px;">style</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 20%; text-align: left;">Cartonase rosii: </td>
+                                    <td style="width: 25%; text-align: left; color:white" class="d-flex">
+                                        <span id="det-rosii" class="d-inline-flex"></span>
+                                        <span class="material-icons" style="color:red; font-size:20px; margin-left:5px;">style</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 20%; text-align: left;">Goluri: </td>
+                                    <td style="width: 25%; text-align: left; color:white"><span id="det-gol"></span> </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 20%; text-align: left;">Pase: </td>
+                                    <td style="width: 25%; text-align: left; color:white"><span id="det-pase"></span> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="Stylesheet" />
 <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -169,6 +261,28 @@ $(document).ready(function(){
         }
     });
 });
+$(document).on("click", ".openDialog", function() {
+        var echipa = $(this).data('echipa');
+        var nationala = $(this).data('nationala');
+        var jucator = $(this).data('jucator');
+        dob = new Date(jucator['data_nasterii']);
+        var today = new Date();
+        var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
+        $('.modal-body #det-data_nasterii').text(jucator['data_nasterii']+' ('+age+' ani)');
+        $(".modal-body #det-nationalitate").text(jucator['nationalitate']);
+        $(".modal-body #det-steag").attr('src',"/images/"+jucator['nationalitate']+'.png');
+        $(".modal-body #det-inaltime").text(jucator['inaltime']);
+        $(".modal-body #det-post").text(jucator['post']);
+        $(".modal-body #det-picior").text(jucator['picior_preferat']);
+        $(".modal-body #det-nationala").text(nationala);
+        $(".modal-body #det-echipa").text(echipa);
+        $(".modal-body #det-nume").text(jucator['nume']);
+        $(".modal-body #det-gol").text(jucator['goluri']);
+        $(".modal-body #det-pase").text(jucator['pase_gol']);
+        $(".modal-body #det-galbene").text(jucator['cartonase_galbene']);
+        $(".modal-body #det-rosii").text(jucator['cartonase_rosii']);
+    });
+
 </script>
 
 @endsection

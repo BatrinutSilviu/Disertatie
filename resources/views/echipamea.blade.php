@@ -17,15 +17,21 @@
         <div class="row">
             <div id="program" class="col-6">
                 <div class="col-12 meciul-urmator">
-                    <p style="font-size:20px; font-weight: bold">Meciul urmator - {{$urmatorul_meci[0]->data}}</p>
-                    <p style="font-size:20px; color:#FFF">{{$urmatorul_meci[0]->echipa_gazda->nume}} - {{$urmatorul_meci[0]->echipa_oaspete->nume}}</p>
+                    @php
+                    $myDateTime = DateTime::createFromFormat('Y-m-d H:i:s', $urmatorul_meci[0]->data);
+                    $data_urmator_meci = $myDateTime->format('Y-m-d H:i');      
+                    $myDateTime = DateTime::createFromFormat('Y-m-d H:i:s', $ultimul_meci[0]->data);
+                    $data_ultimul_meci = $myDateTime->format('Y-m-d H:i');
+                    @endphp
+                    <p style="font-size:20px; font-weight: bold">Meciul urmator - {{$data_urmator_meci}}</p>
+                    <p style="font-size:20px; color:#FFF"><img width="20px" class="img-circle" src="/images/{{$urmatorul_meci[0]->echipa_gazda->tara->prescurtare}}.png"> {{$urmatorul_meci[0]->echipa_gazda->nume}} - {{$urmatorul_meci[0]->echipa_oaspete->nume}} <img width="20px" class="img-circle" src="/images/{{$urmatorul_meci[0]->echipa_oaspete->tara->prescurtare}}.png"></p>
                     <p style="padding:5.5em 0em 2em 0em;"><a href ="/register">Vezi meciurile urmatoare</a></p>
                 </div>
             </div>
             <div id="rezultat" class="col-6">
                 <div class="col-12 ultimul-rezultat">
-                    <p style="font-size:20px; font-weight: bold">Ultimul meci - {{$ultimul_meci[0]->data}} </p>
-                    <p style="font-size:20px; color:#FFF">{{$ultimul_meci[0]->echipa_gazda->nume}} - {{$ultimul_meci[0]->echipa_oaspete->nume}}</p>
+                    <p style="font-size:20px; font-weight: bold">Ultimul meci - {{$data_ultimul_meci}} </p>
+                    <p style="font-size:20px; color:#FFF"><img width="20px" class="img-circle" src="/images/{{$ultimul_meci[0]->echipa_gazda->tara->prescurtare}}.png"> {{$ultimul_meci[0]->echipa_gazda->nume}} - {{$ultimul_meci[0]->echipa_oaspete->nume}} <img width="20px" class="img-circle" src="/images/{{$ultimul_meci[0]->echipa_oaspete->tara->prescurtare}}.png"></p>
                     <div class="d-inline-flex">
                         <div class="clasament-circle-white mr-4">{{$ultimul_meci[0]->goluri_gazde}}</div>
                         <div class="clasament-circle-white ml-4">{{$ultimul_meci[0]->goluri_oaspeti}}</div>
@@ -168,8 +174,8 @@
         <div id="statut" class="col-12 statut mt-5">
             <table class="table-carousel" style="color: #FFF">
                 <thead>
-                    <tr>
-                        <th>Nume</th>
+                    <tr style="border-bottom: 1px solid;">
+                        <th class="text-left">Nume</th>
                         <th>Goluri</th>
                     </tr>
                 </thead>
@@ -182,7 +188,7 @@
                     @endforeach
                 </tbody>
             </table>
-            <p style="padding:3em 0em 1em 0em;"><a style="color: #FFF" href ="/jucator/propriu">Vezi statutul lotului</a></p>
+            <p style="padding:3em 0em 1em 0em;"><a href ="/jucator/propriu">Vezi statutul lotului</a></p>
         </div>
     </div>
 

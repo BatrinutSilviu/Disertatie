@@ -1,4 +1,4 @@
 git add .
-git commit -m "pagina principala beton"
+git commit -m "merge modal dialog"
 git push origin master
 pause

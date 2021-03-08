@@ -120,7 +120,7 @@ body {
     border-color: #03b5b2;
 }
 
-thead {
+.table-striped thead {
 	background-color: #007CDB;
     font-size: 16px;
     font-weight: bold;
@@ -256,6 +256,17 @@ thead {
     width: 40%;
     font-size: 20px;
     font-weight: bold;
+}
+
+.table-carousel thead {
+    font-size: 20px;
+    font-weight: bold;
+    color: #0CD7F2;
+    text-transform: uppercase;
+}
+
+.statut a {
+    color: #FFF;
 }
 
 .statut a:hover {
