@@ -71,7 +71,7 @@ body {
 }
 
 .input-group-prepend {
-    width: 35%;
+    width: 37%;
 }
 
 .input-group-text {
@@ -176,13 +176,13 @@ body {
 }
 
 .row-gazde {
-	border: 1px dashed #c3dbe6;
+	border: 1px dashed #03b5b2;
     padding-top: 15px;
     margin-bottom: 15px;
 }
 
 .row-oaspeti {
-	border: 1px dashed #c3dbe6;
+	border: 1px dashed #03b5b2;
     padding-top: 15px;
     margin-bottom: 15px;
 }
@@ -274,3 +274,6 @@ body {
     text-decoration: none;
 }
 
+.display_hidden:hover {
+    cursor:default;
+}

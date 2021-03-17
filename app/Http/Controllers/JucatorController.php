@@ -15,9 +15,35 @@ class JucatorController extends Controller
 {
 	public function index()
 	{
-		$jucatori = Jucator::sortable()->paginate(10);
+		$jucatori = DB::table('jucators');
+		$nume = request('Nume');
+		$echipa = request('echipa');
+		$tara = request('Nationalitate');
+
+		if( empty($nume) && empty($echipa) && empty($tara) )
+		{
+			$jucatori = Jucator::sortable()->paginate(10);
+    		return view('Jucatori/jucator_index',compact('jucatori'));
+		}
+
+		if( !empty( $nume ) )
+		{
+			$jucatori->whereRaw('LOWER(`nume`) LIKE ? ',['%'.strtolower($nume).'%']);
+		}
+		if( !empty( $echipa ) )
+		{
+			$echipa_id = Echipa::where('nume','=',$echipa)->value('id');
+			$jucatori->where('echipa_id',$echipa_id);	
+		}
+		if( !empty( $tara ) )
+		{
+			$nationalitate = Tara::where('nume','=',$tara)->value('prescurtare');
+			$jucatori->where('nationalitate',$nationalitate);
+		}
+		$jucatori = $jucatori->paginate(10);
     	return view('Jucatori/jucator_index',compact('jucatori'));
 	}
+
 	public function adaugare()
 	{
 		abort_if( auth()->id() !==1 ,403);
@@ -25,6 +51,7 @@ class JucatorController extends Controller
 
 		return view('Jucatori/jucator_adaugare', compact('echipe'));
 	}
+
 	public function cauta(Request $request)
 	{
 		$cauta = $request->search;
@@ -37,6 +64,7 @@ class JucatorController extends Controller
 
 		return response()->json($response);
 	}
+
 	public function salvare()
 	{		
 		abort_if( auth()->id() !==1 ,403);
@@ -66,6 +94,7 @@ class JucatorController extends Controller
 
 		return redirect('/jucator');
 	}
+
 	public function actualizare( $id )
 	{
 		abort_if( auth()->id() !==1 ,403);
@@ -95,6 +124,7 @@ class JucatorController extends Controller
 
 		return redirect('jucator');
 	}
+
 	public function stergere( $id )
 	{
 		abort_if( auth()->id() !==1 ,403);
@@ -102,6 +132,7 @@ class JucatorController extends Controller
 
 		return redirect('jucator');
 	}
+
 	public function modificare( $id)
 	{
 		abort_if( auth()->id() !==1 ,403);
@@ -109,29 +140,7 @@ class JucatorController extends Controller
 
 		return view('Jucatori/jucator_modificare', compact('jucator'));
 	}
-	public function filtrare()
-	{
-		$jucatori = DB::table('jucators');
-		$nume = request('Nume');
-		$echipa = request('echipa');
-		$tara = request('Nationalitate');
-		if( !empty( $nume ) )
-		{
-			$jucatori->whereRaw('LOWER(`nume`) LIKE ? ',['%'.strtolower($nume).'%']);
-		}
-		if( !empty( $echipa ) )
-		{
-			$echipa_id = Echipa::where('nume','=',$echipa)->value('id');
-			$jucatori->where('echipa_id',$echipa_id);	
-		}
-		if( !empty( $tara ) )
-		{
-			$nationalitate = Tara::where('nume','=',$tara)->value('prescurtare');
-			$jucatori->where('nationalitate',$nationalitate);
-		}
-		$jucatori = $jucatori->paginate(10);
-    	return view('Jucatori/jucator_index',compact('jucatori'));
-	}
+
 	public function piton()
 	{
 		$process = new Process(['python', 'test.py']);
@@ -144,11 +153,97 @@ class JucatorController extends Controller
 
 		echo $process->getOutput();
 	}
+
 	public function propriu()
 	{
 		$echipa_id = Echipa::where('user_id','=',auth()->id() )->value('id');
 		$jucatori = Jucator::where('echipa_id', '=', $echipa_id)->sortable()->paginate(10);
 
 		return view('Jucatori/jucator_propriu', compact('jucatori'));
+	}
+
+	public function actualizare_jucator_dupa_meci( $assist1, $assist2, $marcator1, $marcator2, $cul_cart1, $cul_cart2, $cartonat1, $cartonat2 )
+	{
+		if( $assist1 != null )
+		{
+			for ( $i=0; $i < count($assist1); $i++ ) 
+			{
+				$jucator = Jucator::where('nume','=',$assist1[$i])->get();
+				$jucator[0]->meciuri_jucate++;
+				$jucator[0]->minute_jucate+=90;
+				$jucator[0]->pase_gol++;
+				$jucator[0]->save();
+			}
+		}
+
+		if( $assist2 != null )
+		{
+			for ( $i=0; $i < count($assist2); $i++ ) 
+			{
+				$jucator = Jucator::where('nume','=',$assist2[$i])->get();
+				$jucator[0]->meciuri_jucate++;
+				$jucator[0]->minute_jucate+=90;
+				$jucator[0]->pase_gol++;
+				$jucator[0]->save();
+			}
+		}
+
+		if( $marcator1 != null )
+		{
+			for ( $i=0; $i < count($marcator1); $i++ ) 
+			{
+				$jucator = Jucator::where('nume','=',$marcator1[$i])->get();
+				$jucator[0]->meciuri_jucate++;
+				$jucator[0]->minute_jucate+=90;
+				$jucator[0]->goluri++;
+				$jucator[0]->save();
+			}
+		}
+
+		if( $marcator2 != null )
+		{
+			for ( $i=0; $i < count($marcator2); $i++ ) 
+			{
+				$jucator = Jucator::where('nume','=',$marcator2[$i])->get();
+				$jucator[0]->meciuri_jucate++;
+				$jucator[0]->minute_jucate+=90;
+				$jucator[0]->goluri++;
+				$jucator[0]->save();
+			}
+		}
+
+		if( $cartonat1 != null )
+		{
+			for ( $i=0; $i < count($cartonat1); $i++ ) 
+			{
+				$jucator = Jucator::where('nume','=',$cartonat1[$i])->get();
+				if($cul_cart1[$i]  == "galben")
+				{
+					$jucator[0]->cartonase_galbene++;
+				}
+				else
+				{
+					$jucator[0]->cartonase_rosii++;
+				}
+				$jucator[0]->save();
+			}
+		}
+
+		if( $cartonat2 != null )
+		{
+			for ( $i=0; $i < count($cartonat2); $i++ ) 
+			{
+				$jucator = Jucator::where('nume','=',$cartonat2[$i])->get();
+				if($cul_cart2[$i] == "galben")
+				{
+					$jucator[0]->cartonase_galbene++;
+				}
+				else
+				{
+					$jucator[0]->cartonase_rosii++;
+				}
+				$jucator[0]->save();
+			}
+		}
 	}
 }

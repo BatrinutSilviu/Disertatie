@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="custom_container"> 
-    <form method="POST" action="/jucator/filtrare">
+    <form method="GET" action="/jucator">
         {{ csrf_field() }}
         <div class="d-flex div_filter">
             <div class="field" style="margin-left:10px; margin-right: 15px;">
@@ -70,7 +70,13 @@
             @elseif( !empty( $jucator->Nationala->Tara->nume) && empty($jucator->echipa->nume) )
                  <tr data-toggle="modal" data-echipa="-" data-nationala="{{ $jucator->Nationala->Tara->nume }}" data-jucator="{{$jucator}}" data-target="#exampleModalCenter" class="openDialog">
             @else
-                 <tr data-toggle="modal" data-echipa="-" data-nationala="-" data-jucator="{{$jucator}}" data-target="#exampleModalCenter" class="openDialog">
+                @php
+                    if( empty($jucator->echipa) )
+                    {
+                        $jucator = App\Jucator::findOrFail($jucator->id);
+                    }
+                @endphp
+                <tr data-toggle="modal" data-echipa="-" data-nationala="-" data-jucator="{{$jucator}}" data-target="#exampleModalCenter" class="openDialog">
             @endif        
                     <td align="center">{{ $jucator->nume }}</td>
                     <td align="center">{{ $jucator->data_nasterii }}</td>
@@ -129,16 +135,13 @@
             @endforeach
         </tbody>
     </table>
-    {!! $jucatori->appends(\Request::except('page'))->render() !!}
+    <!-- {!! $jucatori->appends(\Request::except('page'))->render() !!} -->
+    {{$jucatori->appends(Request::all())->links()}}
+
 <!--     @if( !empty( $jucatori->links() ) )
         <div>{{$jucatori->links()}}</div>
     @endif -->
 </div>
-
-<!--   <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Modifica jucator"
-        href ="/jucator/piton">
-        <span class="material-icons edit-icon">create</span>
-    </a> -->
 
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -183,8 +186,30 @@
             </div>
             <div class="row">
                 <div id="program" class="col-6">
-                    <div class="col-12 meciul-urmator" style="padding-top:2em">
-                        <p style="font-size:20px; font-weight: bold">Cariera</p>
+                    <div class="col-12 meciul-urmator" style="padding-top:2em; font-weight: bold;">
+                        <p style="font-size:20px; font-weight: bold">Sezonul 2020-2021</p>
+                         <table align="center" class="ml-5 w-100">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 20%; text-align: left;">Meciuri jucate: </td>
+                                    <td style="width: 25%; text-align: left; color:white" class="d-flex">
+                                        <span id="det-meciuri" class="d-inline-flex"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 20%; text-align: left;">Minute jucate: </td>
+                                    <td style="width: 25%; text-align: left; color:white" class="d-flex">
+                                        <span id="det-minute" class="d-inline-flex"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 20%; text-align: left;">Evaluare: </td>
+                                    <td style="width: 25%; text-align: left; color:white">
+                                        <span id="det-evaluare"></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div id="program" class="col-6">
@@ -281,6 +306,9 @@ $(document).on("click", ".openDialog", function() {
         $(".modal-body #det-pase").text(jucator['pase_gol']);
         $(".modal-body #det-galbene").text(jucator['cartonase_galbene']);
         $(".modal-body #det-rosii").text(jucator['cartonase_rosii']);
+        $(".modal-body #det-meciuri").text(jucator['meciuri_jucate']);
+        $(".modal-body #det-minute").text(jucator['minute_jucate']);
+        $(".modal-body #det-evaluare").text(jucator['rating']);
     });
 
 </script>

@@ -10,25 +10,53 @@
 	<div class="row">
 		<form method="POST" action="/meci" class="w-100">
 			{{ csrf_field() }}
-			<div class="input-group mb-3 col-5">
-				<div class="input-group-prepend">
-					<span class="input-group-text">Echipa gazda</span>
-				</div>
-				<input type="text" class="form-control" id="cauta_echipa_gazda" name="echipa_gazda_id" placeholder="Cauta echipa" value="{{old('echipa_gazda_id')}}" required>
-			</div>
-			<div class="input-group mb-3 col-5">
-				<div class="input-group-prepend">
-					<span class="input-group-text">Echipa oaspete</span>
-				</div>
-				<input type="text" class="form-control" id="cauta_echipa_oaspete" name="echipa_oaspete_id" placeholder="Cauta echipa" value="{{old('echipa_oaspete_id')}}" required>
-			</div>
-			<div class="input-group mb-3 col-5">
-				<div class="input-group-prepend">
-					<span class="input-group-text">Data</span>
-				</div>
-				<input type="datetime-local" name="data" max="3000-12-31" min="1000-01-01" class="form-control" value="{{old('data')}}" required>
-			</div>
+			<input name="toggler" id="toggler" type="checkbox" data-toggle="toggle" data-on="Cluburi" data-off="Nationale">
 			<div class="row m-0">
+				<div class="input-group mb-3 col-5">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Competitie</span>
+					</div>
+					<input type="text" name="competitie_id" id="cauta_competitie" class="form-control" placeholder="Cauta competitie" value="{{old('competitie_id')}}" required/>
+				</div>
+				<div class="input-group mb-3 col-5 ml-auto">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Teren</span>
+					</div>
+					<input type="text" name="teren" class="form-control" value="{{old('teren')}}">
+				</div>
+                <a class="btn display_hidden" type="button" style="color:transparent">
+                    <span class="material-icons">add_circle_outline</span>
+                </a>
+				<div class="input-group mb-3 col-5">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Data</span>
+					</div>
+					<input type="datetime-local" name="data" max="3000-12-31" min="1000-01-01" class="form-control" value="{{old('data')}}" required>
+				</div>
+				<div class="input-group mb-3 col-5 ml-auto">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Arbitru</span>
+					</div>
+					<input type="text" name="arbitru" class="form-control" value="{{old('arbitru')}}">
+				</div>
+                <a class="btn display_hidden" type="button" style="color:transparent">
+                    <span class="material-icons">add_circle_outline</span>
+                </a>
+				<div class="input-group mb-3 col-5">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Echipa gazda</span>
+					</div>
+					<input type="text" class="form-control" id="cauta_echipa_gazda" name="echipa_gazda_id" placeholder="Cauta echipa" value="{{old('echipa_gazda_id')}}" required>
+				</div>
+				<div class="input-group mb-3 col-5 ml-auto">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Echipa oaspete</span>
+					</div>
+					<input type="text" class="form-control" id="cauta_echipa_oaspete" name="echipa_oaspete_id" placeholder="Cauta echipa" value="{{old('echipa_oaspete_id')}}" required>
+				</div>
+         	   <a class="btn display_hidden" type="button" style="color:transparent">
+                    <span class="material-icons">add_circle_outline</span>
+                </a>
 				<div class="input-group mb-3 col-5 col-4">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Goluri gazda</span>
@@ -49,26 +77,32 @@
                 </a>
 			</div>
 			<div class="row">
-				<div id="campuri_gazda" class="col-6"></div>
-				<div id="campuri_oaspeti" class="col-6"></div>
+				<div id="campuri_marcatori_gazda" class="col-6"></div>
+				<div id="campuri_marcatori_oaspeti" class="col-6"></div>
 			</div>
-			<div class="input-group mb-3 col-5">
-				<div class="input-group-prepend">
-					<span class="input-group-text">Competitie</span>
+			<div class="row m-0">
+				<div class="input-group mb-3 col-5 col-4">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Cartonase gazda</span>
+					</div>
+					<input id="cartonase_gazde" min="0" type="number" class="form-control" name="cartonase_gazde" value="{{old('cartonase_gazde')}}" required>
 				</div>
-				<input type="text" name="competitie_id" id="cauta_competitie" class="form-control" placeholder="Cauta competitie" value="{{old('competitie_id')}}" required/>
+                <a id="adauga_cartonase_gazda" class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Adauga cartonase">
+                    <span class="material-icons">add_circle_outline</span>
+                </a>
+				<div class="input-group mb-3 col-5 col-4 ml-auto">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Cartonase oaspeti</span>
+					</div>
+					<input id="cartonase_oaspeti" min="0" type="number" class="form-control" name="cartonase_oaspeti" value="{{old('cartonase_oaspeti')}}" required>
+				</div>
+	            <a id="adauga_cartonase_oaspeti" class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Adauga cartonase">
+	                <span class="material-icons">add_circle_outline</span>
+                </a>
 			</div>
-			<div class="input-group mb-3 col-5">
-				<div class="input-group-prepend">
-					<span class="input-group-text">Teren</span>
-				</div>
-				<input type="text" name="teren" class="form-control" value="{{old('teren')}}">
-			</div>
-			<div class="input-group mb-3 col-5">
-				<div class="input-group-prepend">
-					<span class="input-group-text">Arbitru</span>
-				</div>
-				<input type="text" name="arbitru" class="form-control" value="{{old('arbitru')}}">
+			<div class="row">
+				<div id="campuri_cartonase_gazda" class="col-6"></div>
+				<div id="campuri_cartonase_oaspeti" class="col-6"></div>
 			</div>
 
 			<div class="text-center">
@@ -85,12 +119,14 @@
 	</div>
 </div>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="Stylesheet" />
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <script>
-$(document).ready(function(){
 
+function cautaCluburi() {
 	$("#cauta_echipa_gazda").autocomplete({
 		source: function(request, response) {
 			 $.ajax({
@@ -121,6 +157,52 @@ $(document).ready(function(){
 			})
 		}
 	});
+}
+
+function cautaNationale() {
+	$("#cauta_echipa_gazda").autocomplete({
+		source: function(request, response) {
+			 $.ajax({
+				url:"{{ route('nationala.cauta') }}",
+				method:'GET',
+				dataType:'json',
+				data: {
+					search: request.term
+				},
+				success:function(data) {
+					response(data);
+				}
+			})
+		}
+	});
+	$("#cauta_echipa_oaspete").autocomplete({
+		source: function(request, response) {
+			 $.ajax({
+				url:"{{ route('nationala.cauta') }}",
+				method:'GET',
+				dataType:'json',
+				data: {
+					search: request.term
+				},
+				success:function(data) {
+					response(data);
+				}
+			})
+		}
+	});
+}
+
+$(document).ready(function(){
+	$('#toggler').on('change', function() {
+	    if (this.checked) {
+	        cautaCluburi();
+	    } else {
+	        cautaNationale();
+	    }
+	});
+	cautaNationale();
+	cautaCluburi();
+
 	$("#cauta_competitie").autocomplete({
 		source: function(request, response) {
 			 $.ajax({
@@ -136,37 +218,38 @@ $(document).ready(function(){
 			})
 		}
 	});
+
     $('#adauga_marcatori_gazda').click(function(){
     	var inregistrari_existente_gazde = $(".row-gazde").length;
-		$('#campuri_gazda').append('<div class="row row-gazde pl-3 pr-3">'+
+		$('#campuri_marcatori_gazda').append('<div class="row row-gazde pl-3 pr-3">'+
 			'<div class="input-group col-7 mb-3">'+
 				'<div class="input-group-prepend">'+
 					'<label class="input-group-text input-group-text-marcatori">Marcator</label>'+
 				'</div>'+
 				'<input id="cauta_marcator_gazda" type="text" name="marcator_gazda[]" class="form-control" placeholder="Nume marcator"/>'+
 			'</div>'+
-			'<div class="input-group col-4 mb-3">'+
+			'<div class="input-group col-5 mb-3">'+
 				'<div class="input-group-prepend">'+
 					'<label class="input-group-text input-group-text-marcatori">Minut</label>'+
 				'</div>'+
-				'<input type="number" name="minut[]" class="form-control"/>'+
+				'<input type="number" name="minut_gazda[]" class="form-control"/>'+
 			'</div>'+
 			'<div class="input-group col-6 mb-3">'+
 				'<div class="input-group-prepend">'+
 					'<label class="input-group-text input-group-text-marcatori" for="selectPicior">Picior</label>'+
 				'</div>'+
-				'<select class="custom-select" id="selectPicior" name="picior[]">'+
+				'<select class="custom-select" id="selectPicior" name="picior_gazda[]">'+
 					'<option value="dreptul">Dreptul</option>'+
 					'<option value="stangul">Stangul</option>'+
 					'<option value="capul">Capul</option>'+
 					'<option value="capul">Altfel</option>'+
 				'</select>'+
 			'</div>'+
-			'<div class="input-group col-5 mb-3">'+
+			'<div class="input-group col-6 mb-3">'+
 				'<div class="input-group-prepend">'+
 					'<label class="input-group-text input-group-text-marcatori" for="selectPenalty">Penalty</label>'+
 				'</div>'+
-				'<select class="custom-select" id="selectPenalty" name="penalty[]">'+
+				'<select class="custom-select" id="selectPenalty" name="penalty_gazda[]">'+
 					'<option value="0">Nu</option>'+
 					'<option value="1">Da</option>'+
 				'</select>'+
@@ -175,47 +258,48 @@ $(document).ready(function(){
 				'<div class="input-group-prepend">'+
 					'<label class="input-group-text input-group-text-marcatori">Assister</label>'+
 				'</div>'+
-				'<input id="cauta_assister" type="text" name="assist[]" class="form-control" placeholder="Nume assister"/>'+
+				'<input id="cauta_assister_gazda" type="text" name="assist_gazda[]" class="form-control" placeholder="Nume assister"/>'+
 			'</div>'+
-			'<a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Elimina marcatori">'+
+			'<a class="btn ml-auto" type="button" data-toggle="tooltip" data-placement="top" title="Elimina marcatori">'+
                 '<span class="material-icons">remove_circle_outline</span>'+
             '</a>'+
 		'</div>');
     });
-    $("#campuri_gazda").on("click", "a", function(){
+    $("#campuri_marcatori_gazda").on("click", "a", function(){
 	    $(this).closest("div.row").remove();
 	});
     $('#adauga_marcatori_oaspeti').click(function(){
     	var inregistrari_existente_oaspeti = $(".row-oaspeti").length;
-		$('#campuri_oaspeti').append('<div class="row row-oaspeti pl-3 pr-3">'+
+		$('#campuri_marcatori_oaspeti').append(
+		'<div class="row row-oaspeti pl-3 pr-3">'+
 			'<div class="input-group col-7 mb-3">'+
 				'<div class="input-group-prepend">'+
 					'<label class="input-group-text input-group-text-marcatori">Marcator</label>'+
 				'</div>'+
 				'<input id="cauta_marcator_oaspete" type="text" name="marcator_oaspete[]" class="form-control" placeholder="Nume marcator"/>'+
 			'</div>'+
-			'<div class="input-group col-4 mb-3">'+
+			'<div class="input-group col-5 mb-3">'+
 				'<div class="input-group-prepend">'+
 					'<label class="input-group-text input-group-text-marcatori">Minut</label>'+
 				'</div>'+
-				'<input type="number" name="minut[]" class="form-control"/>'+
+				'<input type="number" name="minut_oaspete[]" class="form-control"/>'+
 			'</div>'+
 			'<div class="input-group col-6 mb-3">'+
 				'<div class="input-group-prepend">'+
 					'<label class="input-group-text input-group-text-marcatori" for="selectPicior">Picior</label>'+
 				'</div>'+
-				'<select class="custom-select" id="selectPicior" name="picior[]">'+
+				'<select class="custom-select" id="selectPicior" name="picior_oaspete[]">'+
 					'<option value="dreptul">Dreptul</option>'+
 					'<option value="stangul">Stangul</option>'+
 					'<option value="capul">Capul</option>'+
 					'<option value="capul">Altfel</option>'+
 				'</select>'+
 			'</div>'+
-			'<div class="input-group col-5 mb-3">'+
+			'<div class="input-group col-6 mb-3">'+
 				'<div class="input-group-prepend">'+
 					'<label class="input-group-text input-group-text-marcatori" for="selectPenalty">Penalty</label>'+
 				'</div>'+
-				'<select class="custom-select" id="selectPenalty" name="penalty[]">'+
+				'<select class="custom-select" id="selectPenalty" name="penalty_oaspete[]">'+
 					'<option value="0">Nu</option>'+
 					'<option value="1">Da</option>'+
 				'</select>'+
@@ -224,16 +308,78 @@ $(document).ready(function(){
 				'<div class="input-group-prepend">'+
 					'<label class="input-group-text input-group-text-marcatori">Assister</label>'+
 				'</div>'+
-				'<input type="text" name="assist[]" class="form-control" placeholder="Nume assister"/>'+
+				'<input id="cauta_assister_oaspete" type="text" name="assist_oaspete[]" class="form-control" placeholder="Nume assister"/>'+
 			'</div>'+
-			'<a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Elimina marcatori">'+
+			'<a class="btn ml-auto" type="button" data-toggle="tooltip" data-placement="top" title="Elimina marcatori">'+
                 '<span class="material-icons">remove_circle_outline</span>'+
             '</a>'+
 		'</div>');
     });
-    $("#campuri_oaspeti").on("click", "a", function(){
+    $("#campuri_marcatori_oaspeti").on("click", "a", function(){
 	    $(this).closest("div.row").remove();
 	});
+
+    $('#adauga_cartonase_gazda').click(function(){
+    	var inregistrari_existente_gazde = $(".row-gazde").length;
+		$('#campuri_cartonase_gazda').append(
+		'<div class="row row-gazde pl-3 pr-3">'+
+			'<div class="input-group col-7 mb-3">'+
+				'<div class="input-group-prepend">'+
+					'<label class="input-group-text input-group-text-marcatori">Jucator</label>'+
+				'</div>'+
+				'<input id="cauta_cartonas_gazda" type="text" name="cartonas_gazda[]" class="form-control" placeholder="Nume jucator"/>'+
+			'</div>'+
+			'<div class="input-group col-5 mb-3">'+
+				'<div class="input-group-prepend">'+
+					'<label class="input-group-text input-group-text-marcatori">Minut</label>'+
+				'</div>'+
+				'<input type="number" name="cart_minut_gazde[]" class="form-control"/>'+
+			'</div>'+
+			'<div class="input-group col-7 mb-3">'+
+				'<div class="input-group-prepend">'+
+					'<label class="input-group-text input-group-text-marcatori">Culoare</label>'+
+				'</div>'+
+				'<input type="text" name="culoare_gazda[]" class="form-control" placeholder="Culoare cartonas"/>'+
+			'</div>'+
+			'<a class="btn ml-auto" type="button" data-toggle="tooltip" data-placement="top" title="Elimina cartonas">'+
+                '<span class="material-icons">remove_circle_outline</span>'+
+            '</a>'+
+		'</div>');
+    });
+    $("#campuri_cartonase_gazda").on("click", "a", function(){
+	    $(this).closest("div.row").remove();
+	});
+    $('#adauga_cartonase_oaspeti').click(function(){
+    	var inregistrari_existente_oaspeti = $(".row-oaspeti").length;
+		$('#campuri_cartonase_oaspeti').append(
+		'<div class="row row-oaspeti pl-3 pr-3">'+
+			'<div class="input-group col-7 mb-3">'+
+				'<div class="input-group-prepend">'+
+					'<label class="input-group-text input-group-text-marcatori">Jucator</label>'+
+				'</div>'+
+				'<input id="cauta_cartonas_oaspete" type="text" name="cartonas_oaspete[]" class="form-control" placeholder="Nume jucator"/>'+
+			'</div>'+
+			'<div class="input-group col-5 mb-3">'+
+				'<div class="input-group-prepend">'+
+					'<label class="input-group-text input-group-text-marcatori">Minut</label>'+
+				'</div>'+
+				'<input type="number" name="cart_minut_oaspete[]" class="form-control"/>'+
+			'</div>'+
+			'<div class="input-group col-7 mb-3">'+
+				'<div class="input-group-prepend">'+
+					'<label class="input-group-text input-group-text-marcatori">Culoare</label>'+
+				'</div>'+
+				'<input type="text" name="culoare_oaspete[]" class="form-control" placeholder="Culoare cartonas"/>'+
+			'</div>'+
+			'<a class="btn ml-auto" type="button" data-toggle="tooltip" data-placement="top" title="Elimina cartonas">'+
+                '<span class="material-icons">remove_circle_outline</span>'+
+            '</a>'+
+		'</div>');
+    });
+    $("#campuri_cartonase_oaspeti").on("click", "a", function(){
+	    $(this).closest("div.row").remove();
+	});
+
    	$("#cauta_marcator_gazda").autocomplete({
 		source: function(request, response) {
 			 $.ajax({
@@ -264,7 +410,22 @@ $(document).ready(function(){
 			})
 		}
 	});
-	$("#cauta_assister").autocomplete({
+	$("#cauta_assister_gazda").autocomplete({
+		source: function(request, response) {
+			 $.ajax({
+				url:"{{ route('jucator.cauta') }}",
+				method:'GET',
+				dataType:'json',
+				data: {
+					search: request.term
+				},
+				success:function(data) {
+					response(data);
+				}
+			})
+		}
+	});
+	$("#cauta_assister_oaspete").autocomplete({
 		source: function(request, response) {
 			 $.ajax({
 				url:"{{ route('jucator.cauta') }}",

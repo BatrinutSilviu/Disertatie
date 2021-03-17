@@ -1,4 +1,4 @@
 git add .
-git commit -m "merge modal dialog"
+git commit -m "actualizare chestii dupa meci"
 git push origin master
 pause

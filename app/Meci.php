@@ -15,6 +15,10 @@ class Meci extends Model
     {
     	return $this->hasMany(Marcator::class, 'meci_id', 'id');
     }
+    public function cartonase()
+    {
+        return $this->hasMany(Cartonase::class, 'meci_id', 'id');
+    }
     public function echipa_gazda()
     {
     	return $this->hasOne(Echipa::class,'id','echipa_gazda_id');
@@ -23,8 +27,12 @@ class Meci extends Model
     {
     	return $this->hasOne(Echipa::class,'id', 'echipa_oaspete_id');
     }
-    // public function marcatori()
-    // {
-    // 	return $this->hasMany(Marcator::class, 'meci_id', 'id');
-    // }
+    public function nationala_gazda()
+    {
+        return $this->hasOne(Nationala::class,'id','nationala_gazda_id');
+    }
+    public function nationala_oaspete()
+    {
+        return $this->hasOne(Nationala::class,'id', 'nationala_oaspete_id');
+    }
 }
