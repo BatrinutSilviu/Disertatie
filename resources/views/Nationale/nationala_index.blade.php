@@ -35,7 +35,7 @@
         <thead>
             <tr class="text-center">
                 <th>Nume</th>
-                <th>Steag</th>
+                <th>Competitii</th>
                 <th>Afiliere</th>
                 <th>Selectioner</th>
                 @if( auth()->id() == 1 )
@@ -50,6 +50,7 @@
                         <td align="center">
                             <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Lot"
                                 href ="/nationala/{{$nationala->id}}/jucatori">{{ $nationala->Tara->nume }}</a>
+                            <img width="20px" class="img-circle" src="/images/{{$nationala->Tara->prescurtare}}.png">
                         </td>
                     @elseif( !empty( $nationala->tara_id ) )
                         @php
@@ -58,19 +59,28 @@
                         <td align="center">
                             <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Lot"
                                 href ="/nationala/{{$nationala->id}}/jucatori">{{ $tara->nume }}</a>
+                            <img width="20px" class="img-circle" src="/images/{{$tara->prescurtare}}.png">
                         </td>
                     @endif
-                    @if ( !empty( $nationala->Tara->prescurtare ) )
-                        <td align="center">
-                            <img width="20px" class="img-circle" src="/images/{{$nationala->Tara->prescurtare}}.png">
-                        </td>
-                    @elseif( !empty( $nationala->tara_id ) )
-                        @php
-                            $tara = App\Tara::findOrFail($nationala->tara_id);
-                        @endphp         
-                        <td align="center"><img width="20px" class="img-circle" src="/images/{{$tara->prescurtare}}.png"></td>
-                    @endif
-
+                    <td align="center">
+                    @php
+                        $competitii= App\EchipaCompetitie::where('nationala_id','=',$nationala->id)->pluck('competitie_id');
+                        $total = count($competitii) - 1;
+                        $contor = 0;
+                        foreach ($competitii as $iterator)
+                        {
+                            if($iterator != 1)
+                            {
+                                $competitie= App\Competitie::findOrFail($iterator);
+                                if( $contor != $total )
+                                    echo $competitie->nume.', ';
+                                 else
+                                    echo $competitie->nume;
+                                 $contor = $contor + 1;
+                            }
+                        }
+                    @endphp  
+                    </td>
                     <td align="center">{{ $nationala->afiliere }}</td>
                     <td align="center">{{ $nationala->selectioner }}</td>
                     @if( auth()->id() == 1 )
@@ -80,7 +90,7 @@
                                 <span class="material-icons edit-icon">create</span>
                             </a>
                             <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Sterge echipa"
-                                href ="/nationala/{{$nationala->id}}/stergere" onclick="return confirm('Sure Want Delete?')">
+                                href ="/nationala/{{$nationala->id}}/stergere" onclick="return confirm('Sigur vrei sa stergi?')">
                                 <span class="material-icons remove-icon">remove_circle_outline</span>
                             </a>
                         </td>

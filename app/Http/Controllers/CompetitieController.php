@@ -21,7 +21,7 @@ class CompetitieController extends Controller
 		return response()->json($response);
 	}
 
-	public function actualizare_clasament_dupa_meci($competitie_id, $echipa1, $echipa2, $goluri1, $goluri2, $nat_sau_ech)
+	public function actualizare_clasament_dupa_meci($competitie_id, $echipa1, $echipa2, $goluri1, $goluri2, $nat_sau_ech, $goluri1vechi, $goluri2vechi)
 	{
 		if( $nat_sau_ech== "on" )
 		{
@@ -32,6 +32,32 @@ class CompetitieController extends Controller
 		{
 			$entitate1 = EchipaCompetitie::where('competitie_id','=',$competitie_id)->where('nationala_id','=',$echipa1)->get();
 			$entitate2 = EchipaCompetitie::where('competitie_id','=',$competitie_id)->where('nationala_id','=',$echipa2)->get();
+		}
+		if( $goluri1vechi != null && $goluri2vechi != null && $competitie_id != 1 )
+		{
+			if( $goluri1vechi > $goluri2vechi )
+			{
+				$entitate1[0]->puncte -= 3;
+			}
+			if( $goluri1vechi < $goluri2vechi )
+			{
+				$entitate2[0]->puncte -= 3;
+			}
+			if( $goluri1vechi == $goluri2vechi )
+			{
+				$entitate1[0]->puncte -= 1;
+				$entitate2[0]->puncte -= 1;
+			}
+			if( $entitate1[0]->puncte < 0 )
+			{
+				$entitate1[0]->puncte = 0;
+			}
+			if( $entitate2[0]->puncte < 0 )
+			{
+				$entitate2[0]->puncte = 0;
+			}
+			$entitate1[0]->save();
+			$entitate2[0]->save();
 		}
 
 		if( $competitie_id != 1)

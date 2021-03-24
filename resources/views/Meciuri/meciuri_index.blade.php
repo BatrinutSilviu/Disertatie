@@ -26,7 +26,7 @@
                 </div>
                 <input type="date" name="data" id="cauta_data" max="3000-12-31" min="1000-01-01" placeholder="Cauta data" class="form-control" value="{{old('data')}}">
             </div>
-            <input name="toggler" id="toggler" type="checkbox" data-toggle="toggle" data-on="Cluburi" data-off="Nationale">
+            <input name="toggler" id="toggler" type="checkbox" data-toggle="toggle" data-on="Cluburi" data-off="Nationale" checked>
             @if( auth()->id() == 1 )
                 <div class="text-right" style="margin-right: 10px; flex: auto;">
                     <a class="btn btn-adauga" href ="/meci/adaugare">
@@ -62,10 +62,10 @@
                 {
                     if( empty($meci->nationala_gazda) )
                     {
-                        $echipa1_aux = App\Echipa::findOrFail($meci->echipa_gazda_id)->get();
-                        $gazde_id = $echipa1_aux[0]->jucatori->pluck('id');
-                        $echipa2_aux= App\Echipa::findOrFail($meci->echipa_oaspete_id)->get();
-                        $oaspeti_id = $echipa2_aux[0]->jucatori->pluck('id');
+                        $echipa1_aux = App\Echipa::findOrFail($meci->echipa_gazda_id);
+                        $gazde_id = $echipa1_aux->jucatori->pluck('id');
+                        $echipa2_aux= App\Echipa::findOrFail($meci->echipa_oaspete_id);
+                        $oaspeti_id = $echipa2_aux->jucatori->pluck('id');
                     }
                     else
                     {
@@ -78,10 +78,10 @@
                 {
                     if( empty($meci->nationala_gazda) )
                     {
-                        $echipa1_aux = App\Nationala::findOrFail($meci->nationala_gazda_id)->get();
-                        $gazde_id = $echipa1_aux[0]->jucatori->pluck('id');
-                        $echipa2_aux= App\Nationala::findOrFail($meci->nationala_oaspete_id)->get();
-                        $oaspeti_id = $echipa2_aux[0]->jucatori->pluck('id');
+                        $echipa1_aux = App\Nationala::findOrFail($meci->nationala_gazda_id);
+                        $gazde_id = $echipa1_aux->jucatori->pluck('id');
+                        $echipa2_aux= App\Nationala::findOrFail($meci->nationala_oaspete_id);
+                        $oaspeti_id = $echipa2_aux->jucatori->pluck('id');
                     }
                     else
                     {
@@ -179,8 +179,8 @@
                     }
                     else
                     {
-                        $aux1 = App\Echipa::findOrFail($meci->echipa_gazda_id)->get();
-                        $aux2 = App\Echipa::findOrFail($meci->echipa_oaspete_id)->get();
+                        $aux1 = App\Echipa::findOrFail($meci->echipa_gazda_id);
+                        $aux2 = App\Echipa::findOrFail($meci->echipa_oaspete_id);
                         $nume1 = $aux1[0]->tara->nume;
                         $nume2 = $aux2[0]->tara->nume;
                         $steag1 = $aux1[0]->tara->prescurtare;
@@ -200,8 +200,8 @@
                     }
                     else
                     {
-                        $aux1 = App\Nationala::findOrFail($meci->nationala_gazda_id)->get();
-                        $aux2 = App\Nationala::findOrFail($meci->nationala_oaspete_id)->get();
+                        $aux1 = App\Nationala::findOrFail($meci->nationala_gazda_id);
+                        $aux2 = App\Nationala::findOrFail($meci->nationala_oaspete_id);
                         $nume1 = $aux1[0]->tara->nume;
                         $nume2 = $aux2[0]->tara->nume;
                         $steag1 = $aux1[0]->tara->prescurtare;
@@ -271,11 +271,11 @@
                     
                     @if( auth()->id() == 1 )
                         <td class="text-center">
-                            <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Modifica meci"
+                            <a class="btn action-button" type="button" data-toggle="tooltip" data-placement="top" title="Modifica meci"
                                 href ="/meci/{{$meci->id}}/modificare">
                                 <span class="material-icons edit-icon">create</span>
                             </a>
-                            <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Sterge meci"
+                            <a class="btn action-button" type="button" data-toggle="tooltip" data-placement="top" title="Sterge meci"
                                 href ="/meci/{{$meci->id}}/stergere" onclick="return confirm('Sunteti sigur ca doriti stergerea?')">
                                 <span class="material-icons remove-icon">remove_circle_outline</span>
                             </a>
@@ -423,7 +423,7 @@ function cautaNationale() {
 }
 
 $(document).ready(function(){
-    cautaNationale();
+    cautaCluburi();
 
     $('#toggler').on('change', function() {
         if (this.checked) {
@@ -432,6 +432,10 @@ $(document).ready(function(){
             cautaNationale();
         }
     });
+});
+
+$(".action-button").on("click", function (e) {
+    e.stopPropagation();
 });
 
 $(document).on("click", ".openDialog", function() {

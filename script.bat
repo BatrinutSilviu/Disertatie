@@ -1,4 +1,4 @@
 git add .
-git commit -m "actualizare chestii dupa meci"
+git commit -m "pre calendar"
 git push origin master
 pause

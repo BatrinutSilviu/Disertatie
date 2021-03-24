@@ -18,7 +18,7 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">Data nasterii</span>
 			</div>
-			<input type="date" name="Data_nasterii" max="3000-12-31" min="1000-01-01" class="form-control" value="{{old('data_nasterii',date('1995-06-15'))}}" required>
+			<input type="date" name="Data_nasterii" max="3000-12-31" min="1000-01-01" class="form-control" value="{{old('data_nasterii',$jucator->data_nasterii)}}" required>
 		</div>
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">

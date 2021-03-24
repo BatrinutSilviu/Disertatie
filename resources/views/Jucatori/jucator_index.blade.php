@@ -16,7 +16,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">Nume</span>
                 </div>
-                <input type="text" class="form-control" name="Nume" value="{{old('Nume')}}" placeholder="Cauta nume">
+                <input id="cauta_jucator" type="text" class="form-control" name="Nume" value="{{old('Nume')}}" placeholder="Cauta nume">
             </div>
             <div class="input-group mb-3 col-3">
                 <div class="input-group-prepend">
@@ -121,11 +121,11 @@
 
                     @if( auth()->id() == 1 )
                         <td class="text-center">
-                            <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Modifica jucator"
+                            <a class="btn action-button" type="button" data-toggle="tooltip" data-placement="top" title="Modifica jucator"
                                 href ="/jucator/{{$jucator->id}}/modificare">
                                 <span class="material-icons edit-icon">create</span>
                             </a>
-                            <a class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Sterge jucator"
+                            <a class="btn action-button" type="button" data-toggle="tooltip" data-placement="top" title="Sterge jucator"
                                 href ="/jucator/{{$jucator->id}}/stergere" onclick="return confirm('Sunteti sigur ca doriti stergerea?')">
                                 <span class="material-icons remove-icon">remove_circle_outline</span>
                             </a>
@@ -270,6 +270,21 @@ $(document).ready(function(){
             })
         }
     });
+    $("#cauta_jucator").autocomplete({
+        source: function(request, response) {
+             $.ajax({
+                url:"{{ route('jucator.cauta') }}",
+                method:'GET',
+                dataType:'json',
+                data: {
+                    search: request.term
+                },
+                success:function(data) {
+                    response(data);
+                }
+            })
+        }
+    });
     $("#cauta_tara").autocomplete({
         source: function(request, response) {
              $.ajax({
@@ -285,31 +300,34 @@ $(document).ready(function(){
             })
         }
     });
+    $(".action-button").on("click", function (e) {
+        e.stopPropagation();
+    });
 });
 $(document).on("click", ".openDialog", function() {
-        var echipa = $(this).data('echipa');
-        var nationala = $(this).data('nationala');
-        var jucator = $(this).data('jucator');
-        dob = new Date(jucator['data_nasterii']);
-        var today = new Date();
-        var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
-        $('.modal-body #det-data_nasterii').text(jucator['data_nasterii']+' ('+age+' ani)');
-        $(".modal-body #det-nationalitate").text(jucator['nationalitate']);
-        $(".modal-body #det-steag").attr('src',"/images/"+jucator['nationalitate']+'.png');
-        $(".modal-body #det-inaltime").text(jucator['inaltime']);
-        $(".modal-body #det-post").text(jucator['post']);
-        $(".modal-body #det-picior").text(jucator['picior_preferat']);
-        $(".modal-body #det-nationala").text(nationala);
-        $(".modal-body #det-echipa").text(echipa);
-        $(".modal-body #det-nume").text(jucator['nume']);
-        $(".modal-body #det-gol").text(jucator['goluri']);
-        $(".modal-body #det-pase").text(jucator['pase_gol']);
-        $(".modal-body #det-galbene").text(jucator['cartonase_galbene']);
-        $(".modal-body #det-rosii").text(jucator['cartonase_rosii']);
-        $(".modal-body #det-meciuri").text(jucator['meciuri_jucate']);
-        $(".modal-body #det-minute").text(jucator['minute_jucate']);
-        $(".modal-body #det-evaluare").text(jucator['rating']);
-    });
+    var echipa = $(this).data('echipa');
+    var nationala = $(this).data('nationala');
+    var jucator = $(this).data('jucator');
+    dob = new Date(jucator['data_nasterii']);
+    var today = new Date();
+    var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
+    $('.modal-body #det-data_nasterii').text(jucator['data_nasterii']+' ('+age+' ani)');
+    $(".modal-body #det-nationalitate").text(jucator['nationalitate']);
+    $(".modal-body #det-steag").attr('src',"/images/"+jucator['nationalitate']+'.png');
+    $(".modal-body #det-inaltime").text(jucator['inaltime']);
+    $(".modal-body #det-post").text(jucator['post']);
+    $(".modal-body #det-picior").text(jucator['picior_preferat']);
+    $(".modal-body #det-nationala").text(nationala);
+    $(".modal-body #det-echipa").text(echipa);
+    $(".modal-body #det-nume").text(jucator['nume']);
+    $(".modal-body #det-gol").text(jucator['goluri']);
+    $(".modal-body #det-pase").text(jucator['pase_gol']);
+    $(".modal-body #det-galbene").text(jucator['cartonase_galbene']);
+    $(".modal-body #det-rosii").text(jucator['cartonase_rosii']);
+    $(".modal-body #det-meciuri").text(jucator['meciuri_jucate']);
+    $(".modal-body #det-minute").text(jucator['minute_jucate']);
+    $(".modal-body #det-evaluare").text(jucator['rating']);
+});
 
 </script>
 

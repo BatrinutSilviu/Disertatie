@@ -20,20 +20,29 @@ class JucatorController extends Controller
 		$echipa = request('echipa');
 		$tara = request('Nationalitate');
 
+		//index
 		if( empty($nume) && empty($echipa) && empty($tara) )
 		{
 			$jucatori = Jucator::sortable()->paginate(10);
-    		return view('Jucatori/jucator_index',compact('jucatori'));
+			return view('Jucatori/jucator_index',compact('jucatori'));
 		}
 
+		//filtrare
 		if( !empty( $nume ) )
 		{
 			$jucatori->whereRaw('LOWER(`nume`) LIKE ? ',['%'.strtolower($nume).'%']);
 		}
 		if( !empty( $echipa ) )
 		{
-			$echipa_id = Echipa::where('nume','=',$echipa)->value('id');
-			$jucatori->where('echipa_id',$echipa_id);	
+			if( $echipa == "-" )
+			{
+				$jucatori->where('echipa_id',null);	
+			}
+			else
+			{
+				$echipa_id = Echipa::where('nume','=',$echipa)->value('id');
+				$jucatori->where('echipa_id',$echipa_id);	
+			}
 		}
 		if( !empty( $tara ) )
 		{
@@ -41,7 +50,7 @@ class JucatorController extends Controller
 			$jucatori->where('nationalitate',$nationalitate);
 		}
 		$jucatori = $jucatori->paginate(10);
-    	return view('Jucatori/jucator_index',compact('jucatori'));
+		return view('Jucatori/jucator_index',compact('jucatori'));
 	}
 
 	public function adaugare()
@@ -58,7 +67,7 @@ class JucatorController extends Controller
 		$jucatori = Jucator::orderby('nume','asc')->select('nume')->whereRaw('LOWER(`nume`) LIKE ? ',['%'.strtolower($cauta).'%'])->limit(5)->get();
 
 		$response = array();
-		foreach($jucator as $jucatori){
+		foreach($jucatori as $jucator){
 			$response[] = array("value"=>$jucator->nume,"label"=>$jucator->nume);
 		}
 
@@ -89,7 +98,7 @@ class JucatorController extends Controller
 		$jucator->inaltime = request('Inaltime');
 		$jucator->picior_preferat = request('Picior_preferat');
 		$jucator->post = request('Post');
-			
+
 		$jucator->save();
 
 		return redirect('/jucator');
@@ -148,7 +157,7 @@ class JucatorController extends Controller
 
 		if (!$process->isSuccessful()) 
 		{
-		    throw new ProcessFailedException($process);
+			throw new ProcessFailedException($process);
 		}
 
 		echo $process->getOutput();
@@ -162,62 +171,104 @@ class JucatorController extends Controller
 		return view('Jucatori/jucator_propriu', compact('jucatori'));
 	}
 
-	public function actualizare_jucator_dupa_meci( $assist1, $assist2, $marcator1, $marcator2, $cul_cart1, $cul_cart2, $cartonat1, $cartonat2 )
+	public function actualizare_jucator_dupa_meci($echip1aid, $echipa2id, $assist1, $assist2, $marcator1, $marcator2, $cul_cart1, $cul_cart2, $cartonat1, $cartonat2, $assist1vechi, $assist2vechi, $marcator1vechi, $marcator2vechi, $cartonat1vechi, $cartonat2vechi )
 	{
-		if( $assist1 != null )
+		//actualizat minute si meciuri si la cei ce nu au marcat/cartonat
+		$jucatori_prezenti = Jucator::where('echipa_id','=',$echip1aid)->orWhere('echipa_id','=',$echipa2id)->get();
+		foreach( $jucatori_prezenti as $jucator )
+		{
+			$jucator->meciuri_jucate++;
+			$jucator->minute_jucate++;
+			$jucator->save();
+		}
+
+		//assist gazde
+		if( $assist1 != null && !empty($assist1[0]) )
 		{
 			for ( $i=0; $i < count($assist1); $i++ ) 
 			{
 				$jucator = Jucator::where('nume','=',$assist1[$i])->get();
-				$jucator[0]->meciuri_jucate++;
-				$jucator[0]->minute_jucate+=90;
 				$jucator[0]->pase_gol++;
 				$jucator[0]->save();
 			}
 		}
+		// if( count($assist1) < count($assist1vechi) )
+		// {
+		// 	for ( $i=0; $i < count($assist1); $i++ ) 
+		// 	{
+		// 		$jucator = Jucator::where('nume','=',$assist1vechi[$i + count($assist1)])->get();
+		// 		$jucator[0]->pase_gol--;
+		// 		$jucator[0]->save();
+		// 	}
+		// }
 
-		if( $assist2 != null )
+		//assist oaspeti
+		if( $assist2 != null && !empty($assist2[0]) )
 		{
 			for ( $i=0; $i < count($assist2); $i++ ) 
 			{
 				$jucator = Jucator::where('nume','=',$assist2[$i])->get();
-				$jucator[0]->meciuri_jucate++;
-				$jucator[0]->minute_jucate+=90;
 				$jucator[0]->pase_gol++;
 				$jucator[0]->save();
 			}
 		}
+		// if( count($assist2) < count($assist2vechi) )
+		// {
+		// 	for ( $i=0; $i < count($assist2); $i++ ) 
+		// 	{
+		// 		$jucator = Jucator::where('nume','=',$assist2vechi[$i + count($assist2)])->get();
+		// 		$jucator[0]->pase_gol--;
+		// 		$jucator[0]->save();
+		// 	}
+		// }
 
-		if( $marcator1 != null )
+		//marcatori gazde
+		if( $marcator1 != null && !empty($marcator1[0]) )
 		{
 			for ( $i=0; $i < count($marcator1); $i++ ) 
 			{
 				$jucator = Jucator::where('nume','=',$marcator1[$i])->get();
-				$jucator[0]->meciuri_jucate++;
-				$jucator[0]->minute_jucate+=90;
 				$jucator[0]->goluri++;
 				$jucator[0]->save();
 			}
 		}
+		// if( count($marcator1) < count($marcator1vechi) )
+		// {
+		// 	for ( $i=0; $i < count($marcator1); $i++ ) 
+		// 	{
+		// 		$jucator = Jucator::where('nume','=',$marcator1vechi[$i + count($marcator1)])->get();
+		// 		$jucator[0]->goluri--;
+		// 		$jucator[0]->save();
+		// 	}
+		// }
 
-		if( $marcator2 != null )
+		//marcatori oaspeti
+		if( $marcator2 != null && !empty($marcator2[0]) )
 		{
 			for ( $i=0; $i < count($marcator2); $i++ ) 
 			{
 				$jucator = Jucator::where('nume','=',$marcator2[$i])->get();
-				$jucator[0]->meciuri_jucate++;
-				$jucator[0]->minute_jucate+=90;
 				$jucator[0]->goluri++;
 				$jucator[0]->save();
 			}
 		}
+		// if( count($marcator2) < count($marcator2vechi) )
+		// {
+		// 	for ( $i=0; $i < count($marcator2); $i++ ) 
+		// 	{
+		// 		$jucator = Jucator::where('nume','=',$marcator2vechi[$i + count($marcator2)])->get();
+		// 		$jucator[0]->goluri--;
+		// 		$jucator[0]->save();
+		// 	}
+		// }
 
-		if( $cartonat1 != null )
+		//cartonas gazde
+		if( $cartonat1 != null && !empty($cartonat1[0]) && !empty($cul_cart1[0]) )
 		{
 			for ( $i=0; $i < count($cartonat1); $i++ ) 
 			{
 				$jucator = Jucator::where('nume','=',$cartonat1[$i])->get();
-				if($cul_cart1[$i]  == "galben")
+				if($cul_cart1[$i]  == 1)
 				{
 					$jucator[0]->cartonase_galbene++;
 				}
@@ -228,13 +279,30 @@ class JucatorController extends Controller
 				$jucator[0]->save();
 			}
 		}
+		// if( count($cartonat1) < count($cartonat1vechi) )
+		// {
+		// 	for ( $i=0; $i < count($cartonat1); $i++ ) 
+		// 	{
+		// 		$jucator = Jucator::where('nume','=',$cartonat1vechi[$i + count($cartonat1)])->get();
+		// 		if($cul_cart1[$i + count($cartonat1)]  == 1)
+		// 		{
+		// 			$jucator[0]->cartonase_galbene--;
+		// 		}
+		// 		else
+		// 		{
+		// 			$jucator[0]->cartonase_rosii--;
+		// 		}
+		// 		$jucator[0]->save();
+		// 	}
+		// }
 
-		if( $cartonat2 != null )
+		//casrtonas oaspeti
+		if( $cartonat2 != null && !empty($cartonat2[0]) && !empty($cul_cart2[0]) )
 		{
 			for ( $i=0; $i < count($cartonat2); $i++ ) 
 			{
 				$jucator = Jucator::where('nume','=',$cartonat2[$i])->get();
-				if($cul_cart2[$i] == "galben")
+				if($cul_cart2[$i] == 1)
 				{
 					$jucator[0]->cartonase_galbene++;
 				}
@@ -245,5 +313,21 @@ class JucatorController extends Controller
 				$jucator[0]->save();
 			}
 		}
+		// if( count($cartonat2) < count($cartonat2vechi) )
+		// {
+		// 	for ( $i=0; $i < count($cartonat2); $i++ ) 
+		// 	{
+		// 		$jucator = Jucator::where('nume','=',$cartonat2vechi[$i + count($cartonat2)])->get();
+		// 		if($cul_cart1[$i + count($cartonat2)]  == 1)
+		// 		{
+		// 			$jucator[0]->cartonase_galbene--;
+		// 		}
+		// 		else
+		// 		{
+		// 			$jucator[0]->cartonase_rosii--;
+		// 		}
+		// 		$jucator[0]->save();
+		// 	}
+		// }
 	}
 }

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="custom_container"> 
-    <form method="POST" action="/echipa/filtrare">
+    <form method="GET" action="/echipa">
         {{ csrf_field() }}
         <div class="d-flex div_filter">
             <div class="field" style="margin-left:10px; margin-right: 15px;">
@@ -41,7 +41,7 @@
             <tr class="text-center">
                 <th>Nume</th>
                 <th>Tara</th>
-                <th>Liga</th>
+                <th>Competitii</th>
                 <th>Manager</th>
                 @if( auth()->id() == 1 )
                     <th style="width:10rem">Actiuni</th>
@@ -108,7 +108,7 @@
             @endforeach
         </tbody>
     </table>
-    <div>{{$echipe->links()}}</div>
+    <div>{{$echipe->appends(Request::all())->links()}}</div>
 </div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
