@@ -23,6 +23,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public const HOME = '/';
 
+    public const ECHIPA_MEA = '/echipa/mea';
+
     /**
      * Define your route model bindings, pattern filters, etc.
      *

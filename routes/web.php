@@ -13,10 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function() {
-	return view('content');
-});
-
 Route::get('/jucator', 'JucatorController@index')->name('jucator.index');
 Route::post('/jucator', 'JucatorController@salvare')->middleware('auth');
 Route::get('/jucator/propriu', 'JucatorController@propriu')->name('jucator.propriu');
@@ -25,7 +21,6 @@ Route::get('/jucator/adaugare', 'JucatorController@adaugare')->middleware('auth'
 Route::patch('/jucator/{jucator_ID}', 'JucatorController@actualizare')->middleware('auth');
 Route::get('/jucator/{jucator_ID}/modificare', 'JucatorController@modificare')->middleware('auth');
 Route::get('/jucator/{jucator_ID}/stergere', 'JucatorController@stergere')->middleware('auth');
-Route::get('/jucator/piton', 'JucatorController@piton');
 
 Route::get('/echipa', 'EchipaController@index')->name('echipa.index');
 Route::post('/echipa', 'EchipaController@salvare')->middleware('auth');
@@ -50,7 +45,6 @@ Route::get('/nationala/{nationala_ID}/stergere', 'NationalaController@stergere')
 Route::get('/meci', 'MeciController@index')->name('meci.index');
 Route::post('/meci', 'MeciController@salvare')->middleware('auth');
 Route::get('/meci/adaugare', 'MeciController@adaugare')->middleware('auth');
-// Route::get('/meci/cauta', 'MeciController@cauta')->name('nationala.cauta');
 Route::patch('/meci/{meci_ID}', 'MeciController@actualizare')->middleware('auth');
 Route::get('/meci/{meci_ID}/jucatori', 'MeciController@getJucatori');
 Route::get('/meci/{meci_ID}/modificare', 'MeciController@modificare')->middleware('auth');
@@ -60,8 +54,5 @@ Route::get('/tara/cauta', 'TaraController@cauta')->name('tara.cauta');
 Route::get('/competitie/cauta', 'CompetitieController@cauta')->name('competitie.cauta');
 Route::get('/competitie/clasament/{competitie_ID}', 'CompetitieController@afisare_clasament');
 
-
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 	

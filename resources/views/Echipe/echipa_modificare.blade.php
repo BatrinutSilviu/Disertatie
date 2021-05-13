@@ -1,27 +1,31 @@
 @extends('layouts.app-navbar')
 
 @section('content')
-<div class="container">	
-	<h1 align="center" class="titlu">Modifica echipa</h1>
-	<form method="POST" action="/echipa/{{$echipa->id}}">
+<div class="custom_container custom_panel">	
+	<h1 class="titlu text-center" style="margin-bottom: 5%">
+		<span class="material-icons edit-icon">emoji_events</span>
+		Modifica echipa
+		<span class="material-icons edit-icon">emoji_events</span>
+	</h1>
+	<form method="POST" action="/echipa/{{$echipa->id}}" style="margin-left: 28%" class="w-100">
 		{{ method_field('PATCH') }}
 		{{ csrf_field() }}
 
-		<div class="input-group mb-3">
+		<div class="input-group mb-3 col-5">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Nume</span>
 			</div>
 			<input type="text" class="form-control" name="Nume" value="{{$echipa->nume}}" required>
 		</div>
 
-		<div class="input-group mb-3">
+		<div class="input-group mb-3 col-5">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Tara</span>
 			</div>
 			<input id ="cauta_tara" type="text" class="form-control" name="Tara" value="{{$echipa->tara->nume}}" required>
 		</div>
 
-		<div class="input-group mb-3">
+		<div class="input-group mb-3 col-5">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Manager</span>
 			</div>
@@ -30,11 +34,13 @@
 		@php
 		$competitii = App\EchipaCompetitie::where('echipa_id','=',$echipa->id)->get();
 		@endphp
-		<div class="input-group mb-3">
-			<div class="input-group-prepend">
-				<span class="input-group-text">Competitii</span>
+		<div class="d-flex">
+			<div class="input-group mb-3 col-5">
+				<div class="input-group-prepend">
+					<span class="input-group-text">Competitii</span>
+				</div>
+				<input type="text" class="form-control" name="numar_competitii" value="{{count($competitii)}}" required>
 			</div>
-			<input type="text" class="form-control" name="numar_competitii" value="{{count($competitii)}}" required>
 			<a id="adauga_competitii" class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Adauga competitie">
 				<span class="material-icons">add_circle_outline</span>
 			</a>
@@ -46,7 +52,7 @@
 				$competitie = App\Competitie::where('id','=',$competitii[$i]->competitie_id)->value('nume');
 				@endphp
 				<div class="row row-gazde pl-3 pr-3">
-					<div class="input-group col-7 mb-3">
+					<div class="input-group col-10 mb-3">
 						<div class="input-group-prepend">
 							<label class="input-group-text input-group-text-marcatori">Competitie</label>
 						</div>
@@ -59,7 +65,7 @@
 				@endfor
 			</div>
 		</div>
-		<div class="field text-right">
+		<div class="mt-4" style="margin-left: 12%;">
 			<div class="control">
 				<a type="button" class="btn btn-secondary" href="{{ route('echipa.index') }}">Renunta</a>
 				<button type="submit" class="btn btn-primary">Modifica</button>

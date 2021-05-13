@@ -20,8 +20,8 @@ def train():
     w1 = np.random.randn()
     w2 = np.random.randn()
     b = np.random.randn()
-    
-    iterations = 10000
+
+    iterations = 100
     learning_rate = 0.1
     costs = [] # keep costs during training, see if they go down
     
@@ -73,5 +73,6 @@ costs, w1, w2, b = train()
 z = w1 * mystery_flower[0] + w2 * mystery_flower[1] + b
 pred = sigmoid(z)
 
-print(pred)
-print("close to 0 -> blue, close to 1 -> red")
+#print(pred)
+#print("close to 0 -> blue, close to 1 -> red")
+

@@ -13,5 +13,8 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
-    .copy('node_modules/material-icons/css/material-icons.min.css', 'public/css/material-icons.min.css');
+    .copy('node_modules/material-icons/css/material-icons.min.css', 'public/css/material-icons.min.css')
+    .copy('node_modules/fullcalendar/main.js', 'public/js/fullcalendar.js')
+    .copy('node_modules/fullcalendar/main.css', 'public/css/fullcalendar.css');
+
 //	.browserSync('my-domain.test');

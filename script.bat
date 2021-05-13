@@ -1,4 +1,4 @@
 git add .
-git commit -m "pre calendar"
+git commit -m "aproape gata"
 git push origin master
 pause

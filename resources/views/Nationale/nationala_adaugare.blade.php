@@ -1,13 +1,13 @@
 @extends('layouts.app-navbar')
 
 @section('content')	
-<div class="custom_container custom_panel" align="center">	
-	<h1 class="titlu text-center">
+<div class="custom_container custom_panel">	
+	<h1 class="titlu text-center" style="margin-bottom: 5%">
 		<span class="material-icons">flag</span>
 		Adaugare nationala
 		<span class="material-icons">flag</span>
 	</h1>
-	<form method="POST" action="/nationala">
+	<form method="POST" action="/nationala" style="margin-left: 28%" class="w-100">
 		{{ csrf_field() }}
 
 		<div class="input-group mb-3 col-5 control">
@@ -30,7 +30,8 @@
 			</div>
 			<input type="text" class="form-control" name="Selectioner" value="{{old('Selectioner')}}" required>
 		</div>
-		<div class="row m-0">
+
+		<div class="d-flex">
 			<div class="input-group mb-3 col-5 col-4">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Numar competitii</span>
@@ -41,10 +42,11 @@
 				<span class="material-icons">add_circle_outline</span>
 			</a>
 		</div>
+
 		<div class="row">
 			<div id="campuri_competitii" class="col-6"></div>
 		</div>
-		<div class="text-center">
+		<div  class="mt-4" style="margin-left: 15%;">
 			<button type="submit" class="btn btn-primary">Salveaza</button>
 		</div>
 		@include('errors')
@@ -82,7 +84,7 @@
 		$('#adauga_competitii').click(function(){
 			$('#campuri_competitii').append(
 				'<div class="row row-gazde pl-3 pr-3">'+
-				'<div class="input-group col-7 mb-3">'+
+				'<div class="input-group col-10 mb-3">'+
 				'<div class="input-group-prepend">'+
 				'<label class="input-group-text input-group-text-marcatori">Competitie</label>'+
 				'</div>'+

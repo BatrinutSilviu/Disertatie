@@ -18,7 +18,11 @@
             @foreach ($echipe_competitii as $entitate)
             <tr>
             	<td align="center">{{$entitate->loc}}</td>
-            	<td align="center">{{$entitate->echipa->nume}}</td>
+                @if(!empty($entitate->echipa))
+	                <td align="center">{{$entitate->echipa->nume}}</td>
+                @else
+                    <td align="center">{{$entitate->nationala->tara->nume}}</td>
+                @endif
             	<td align="center">{{$entitate->meciuri_jucate}}</td>
             	<td align="center">{{$entitate->goluri_date}}</td>
             	<td align="center">{{$entitate->goluri_primite}}</td>

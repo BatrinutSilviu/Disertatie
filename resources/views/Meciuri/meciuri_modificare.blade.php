@@ -312,7 +312,7 @@
 				</div>
 			</div>
 
-			<div class="text-center">
+			<div class="text-center mt-4">
 				<button class="btn btn-primary" type="submit">Modifica</button>
 			</div>
 			@include('errors')

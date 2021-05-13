@@ -128,8 +128,44 @@ class JucatorController extends Controller
 		$jucator->inaltime = request('Inaltime');
 		$jucator->picior_preferat = request('Picior_preferat');
 		$jucator->post = request('Post');
+		if( request('Post') == "portar")
+		{
+			$jucator->parade = request('parade');
+			$jucator->iesiri_din_poarta = request('iesiri_din_poarta');
+			$jucator->boxari = request('boxari');
+			$jucator->plonjari = request('plonjari');
+			$jucator->goluri_primite = request('goluri_primite');
+		}
+		else
+		{
+			$jucator->pase = request('pase');
+			$jucator->pase_cheie = request('pase_cheie');
+			$jucator->precizie_pase = request('precizie_pase');
+			$jucator->sanse_create = request('sanse_create');
+			$jucator->goluri_primite = request('goluri_primite');
+			$jucator->suturi = request('suturi');
+			$jucator->suturi_blocate = request('suturi_blocate');
+			$jucator->precizie_suturi = request('precizie_suturi');
+			$jucator->centrari = request('centrari');
+			$jucator->dueluri_aeriene_castigate = request('dueluri_aeriene_castigate');
+			$jucator->dueluri_aeriene_pierdute = request('dueluri_aeriene_pierdute');
+			$jucator->degajari = request('degajari');
+			$jucator->mingi_profunzime = request('mingi_profunzime');
+			$jucator->deposedat = request('deposedat');
+			$jucator->driblinguri_incercate = request('driblinguri_incercate');
+			$jucator->driblinguri_reusite = request('driblinguri_reusite');
+			$jucator->dueluri_pierdute = request('dueluri_pierdute');
+			$jucator->dueluri_castigate = request('dueluri_castigate');
+			$jucator->faulturi = request('faulturi');
+			$jucator->interceptii = request('interceptii');
+			$jucator->recuperari = request('recuperari');
+			$jucator->faultat = request('faultat');
+			$jucator->deposedari_incercate = request('deposedari_incercate');
+			$jucator->deposedari_reusite = request('deposedari_reusite');
+		}
 
 		$jucator->save();
+		$this->evaluare($id);
 
 		return redirect('jucator');
 	}
@@ -142,7 +178,7 @@ class JucatorController extends Controller
 		return redirect('jucator');
 	}
 
-	public function modificare( $id)
+	public function modificare( $id )
 	{
 		abort_if( auth()->id() !==1 ,403);
 		$jucator = Jucator::findOrFail($id);
@@ -150,9 +186,10 @@ class JucatorController extends Controller
 		return view('Jucatori/jucator_modificare', compact('jucator'));
 	}
 
-	public function piton()
+	public function evaluare( $id )
 	{
-		$process = new Process(['python', 'test.py']);
+		$jucator = Jucator::findOrFail($id);
+		$process = new Process(['python', 'evaluare.py', $jucator->post, $jucator->iesiri_din_poarta, $jucator->plonjari, $jucator->goluri_primite, $jucator->minute_jucate, $jucator->boxari, $jucator->parade, $jucator->pase_gol, $jucator->sanse_create, $jucator->goluri, $jucator->precizie_pase, $jucator->suturi, $jucator->suturi_blocate, $jucator->precizie_suturi, $jucator->centrari, $jucator->pase_cheie, $jucator->mingi_profunzime, $jucator->pase, $jucator->dueluri_aeriene_pierdute, $jucator->dueluri_aeriene_castigate, $jucator->degajari, $jucator->deposedat, $jucator->driblinguri_incercate, $jucator->driblinguri_reusite, $jucator->dueluri_pierdute, $jucator->dueluri_castigate, $jucator->faulturi, $jucator->interceptii, $jucator->recuperari, $jucator->deposedari_incercate, $jucator->deposedari_reusite, $jucator->faultat, $jucator->cartonase_galbene, $jucator->cartonase_rosii]);
 		$process->run();
 
 		if (!$process->isSuccessful()) 
@@ -161,12 +198,19 @@ class JucatorController extends Controller
 		}
 
 		echo $process->getOutput();
+		$jucator->rating = $process->getOutput();
+		$jucator->save(); 
 	}
 
 	public function propriu()
 	{
 		$echipa_id = Echipa::where('user_id','=',auth()->id() )->value('id');
 		$jucatori = Jucator::where('echipa_id', '=', $echipa_id)->sortable()->paginate(10);
+		if(empty($echipa_id))
+		{
+			$echipa_id = Nationala::where('user_id','=',auth()->id() )->value('id');
+			$jucatori = Jucator::where('nationala_id', '=', $echipa_id)->sortable()->paginate(10);
+		}
 
 		return view('Jucatori/jucator_propriu', compact('jucatori'));
 	}
@@ -190,6 +234,7 @@ class JucatorController extends Controller
 				$jucator = Jucator::where('nume','=',$assist1[$i])->get();
 				$jucator[0]->pase_gol++;
 				$jucator[0]->save();
+				$this->evaluare($jucator[0]->id);
 			}
 		}
 		// if( count($assist1) < count($assist1vechi) )
@@ -210,6 +255,7 @@ class JucatorController extends Controller
 				$jucator = Jucator::where('nume','=',$assist2[$i])->get();
 				$jucator[0]->pase_gol++;
 				$jucator[0]->save();
+				$this->evaluare($jucator[0]->id);
 			}
 		}
 		// if( count($assist2) < count($assist2vechi) )
@@ -230,6 +276,7 @@ class JucatorController extends Controller
 				$jucator = Jucator::where('nume','=',$marcator1[$i])->get();
 				$jucator[0]->goluri++;
 				$jucator[0]->save();
+				$this->evaluare($jucator[0]->id);
 			}
 		}
 		// if( count($marcator1) < count($marcator1vechi) )
@@ -250,6 +297,7 @@ class JucatorController extends Controller
 				$jucator = Jucator::where('nume','=',$marcator2[$i])->get();
 				$jucator[0]->goluri++;
 				$jucator[0]->save();
+				$this->evaluare($jucator[0]->id);
 			}
 		}
 		// if( count($marcator2) < count($marcator2vechi) )
@@ -277,6 +325,7 @@ class JucatorController extends Controller
 					$jucator[0]->cartonase_rosii++;
 				}
 				$jucator[0]->save();
+				$this->evaluare($jucator[0]->id);
 			}
 		}
 		// if( count($cartonat1) < count($cartonat1vechi) )
@@ -311,6 +360,7 @@ class JucatorController extends Controller
 					$jucator[0]->cartonase_rosii++;
 				}
 				$jucator[0]->save();
+				$this->evaluare($jucator[0]->id);
 			}
 		}
 		// if( count($cartonat2) < count($cartonat2vechi) )

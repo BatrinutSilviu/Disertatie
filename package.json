@@ -27,6 +27,7 @@
     "dependencies": {
         "bootstrap-toggle": "^2.2.2",
         "express": "^4.17.1",
+        "fullcalendar": "^5.5.1",
         "material-design-icons": "^3.0.1",
         "material-icons": "^0.3.1"
     }

@@ -101,17 +101,33 @@ class MeciController extends Controller
 			$assist_oaspeti = count(request('cartonas_oaspete'));
 		}
 		$meci = new Meci;
+		$dataaia = explode('T',request('data')); 
 		if(request('toggler') == null)	//nationale
 		{
-			$validat=request()->validate(['echipa_gazda_id' => ['required','different:echipa_oaspete_id'],
-				'data' => ['required','date','before:tomorrow'],
-				'echipa_oaspete_id' => ['required','different:echipa_gazda_id'],
-				'goluri_gazde' => ['required','numeric','min:0','max:50'],
-				'goluri_oaspeti' => ['required','numeric','min:0','max:50'],
-				'competitie_id'=> ['required','exists:competities,nume'],
-				'teren'=> ['min:5','max:50'],
-				'arbitru' => ['min:5','max:50'],
-			]);
+			if($dataaia[0] < date('Y-m-d'))
+			{
+				$validat=request()->validate(['echipa_gazda_id' => ['required','different:echipa_oaspete_id'],
+					'data' => ['required'],
+					'echipa_oaspete_id' => ['required','different:echipa_gazda_id'],
+					'goluri_gazde' => ['required','numeric','min:0','max:50'],
+					'goluri_oaspeti' => ['required','numeric','min:0','max:50'],
+					'competitie_id'=> ['required','exists:competities,nume'],
+					'teren'=> ['min:5','max:50'],
+					'arbitru' => ['min:5','max:50'],
+				]);
+			}
+			else
+			{
+				$validat=request()->validate(['echipa_gazda_id' => ['required','different:echipa_oaspete_id'],
+					'data' => ['required'],
+					'echipa_oaspete_id' => ['required','different:echipa_gazda_id'],
+					'goluri_gazde' => ['min:0','max:50'],
+					'goluri_oaspeti' => ['min:0','max:50'],
+					'competitie_id'=> ['required','exists:competities,nume'],
+					'teren'=> ['min:5','max:50'],
+					'arbitru' => ['min:5','max:50'],
+				]);
+			}
 			$echipa_gazda_id = Tara::where('nume','=',request('echipa_gazda_id'))->value('id');
 			$echipa_oaspete_id = Tara::where('nume','=',request('echipa_oaspete_id'))->value('id');
 			$meci->nationala_gazda_id = $echipa_gazda_id;
@@ -119,7 +135,9 @@ class MeciController extends Controller
 		}
 		elseif(request('toggler') == "on") 	//cluburi
 		{
-			$validat=request()->validate(['echipa_gazda_id' => ['required','exists:echipas,nume','different:echipa_oaspete_id'],
+			if($dataaia[0] < date('Y-m-d'))
+			{
+				$validat=request()->validate(['echipa_gazda_id' => ['required','exists:echipas,nume','different:echipa_oaspete_id'],
 				'data' => ['required','date','before:tomorrow'],
 				'echipa_oaspete_id' => ['required','exists:echipas,nume','different:echipa_gazda_id'],
 				'goluri_gazde' => ['required','numeric','min:0','max:50'],
@@ -127,7 +145,21 @@ class MeciController extends Controller
 				'competitie_id'=> ['required','exists:competities,nume'],
 				'teren'=> ['min:5','max:50'],
 				'arbitru' => ['min:5','max:50'],
-			]);
+				]);
+			}
+			else
+			{
+				$validat=request()->validate(['echipa_gazda_id' => ['required','exists:echipas,nume','different:echipa_oaspete_id'],
+				'data' => ['required','date','before:tomorrow'],
+				'echipa_oaspete_id' => ['required','exists:echipas,nume','different:echipa_gazda_id'],
+				'goluri_gazde' => ['min:0','max:50'],
+				'goluri_oaspeti' => ['min:0','max:50'],
+				'competitie_id'=> ['required','exists:competities,nume'],
+				'teren'=> ['min:5','max:50'],
+				'arbitru' => ['min:5','max:50'],
+				]);
+			}
+
 			$echipa_gazda_id = Echipa::where('nume','=',request('echipa_gazda_id'))->value('id');
 			$echipa_oaspete_id = Echipa::where('nume','=',request('echipa_oaspete_id'))->value('id');
 			$meci->echipa_gazda_id = $echipa_gazda_id;

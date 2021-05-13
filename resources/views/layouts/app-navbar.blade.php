@@ -19,6 +19,7 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ asset('js/fullcalendar.js') }}"></script>
 
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -29,11 +30,13 @@
 
         <!-- Material icons -->
         <link rel="stylesheet" href="{{ asset('css/material-icons.min.css') }}" />
+        <link href="{{ asset('css/fullcalendar.css') }}" rel='stylesheet' />
+
     </head>
 	<body>
 
 		<nav class="navbar navbar-expand-md mb-5">
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand" href="{{ url('/echipa/mea') }}">
                 TeamAnalytics
                 <img style="padding-left:5px" src="/images/Logo.svg">
             </a>
@@ -47,6 +50,15 @@
                     <li class="nav-item {{ Request::path() == 'echipa/mea' ? 'active' : '' }}">
                         @php
                             $echipa = App\Echipa::where('user_id','=',auth()->id() )->value('nume');
+                            if(empty($echipa->nume))
+                            {
+                                $nationala = App\Nationala::where('user_id','=',auth()->id() )->get();
+                                if(!empty($nationala[0]->tara->nume))
+                                {
+                                    $echipa = App\Tara::where('id','=',$nationala[0]->id)->value('nume');
+                                }
+                                
+                            }
                         @endphp
                         <a class="nav-link" href="{{ url('/echipa/mea') }}" role="button">
                             @php
@@ -90,11 +102,11 @@
                     </li>
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">Autentificare</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">Inregistrare</a>
                                 </li>
                             @endif
                         @else

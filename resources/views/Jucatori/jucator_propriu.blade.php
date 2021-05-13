@@ -205,6 +205,7 @@
                 <th>@sortablelink('parade','Parade')</th>
                 <th>@sortablelink('iesiri_din_poarta','Iesiri poarta')</th>
                 <th>@sortablelink('boxari','Boxari')</th>
+                <th>@sortablelink('plonjari','Plonjari')</th>
             </tr>
         </thead>
         <tbody>
@@ -215,6 +216,7 @@
                     <td align="center">{{ $jucator->parade }}</td>
                     <td align="center">{{ $jucator->iesiri_din_poarta }}</td>
                     <td align="center">{{ $jucator->boxari }}</td>
+                    <td align="center">{{ $jucator->plonjari }}</td>
                 </tr>
             @endforeach
         </tbody>

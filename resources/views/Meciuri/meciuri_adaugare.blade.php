@@ -10,7 +10,7 @@
 	<div class="row">
 		<form method="POST" action="/meci" class="w-100">
 			{{ csrf_field() }}
-			<input name="toggler" id="toggler" type="checkbox" data-toggle="toggle" data-on="Cluburi" data-off="Nationale" checked>
+			<input name="toggler" id="toggler" type="checkbox" data-toggle="toggle" data-onstyle="toggle-cluburi" data-offstyle="toggle-nationale" data-on="Cluburi" data-off="Nationale" checked>
 			<div class="row m-0">
 				<div class="input-group mb-3 col-5">
 					<div class="input-group-prepend">
@@ -31,7 +31,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Data</span>
 					</div>
-					<input type="datetime-local" name="data" max="3000-12-31" min="1000-01-01" class="form-control" value="{{old('data')}}" required>
+					<input type="datetime-local" id="data" name="data" max="3000-12-31" min="1000-01-01" class="form-control" value="{{old('data')}}" required>
 				</div>
 				<div class="input-group mb-3 col-5 ml-auto">
 					<div class="input-group-prepend">
@@ -57,22 +57,22 @@
 				<a class="btn display_hidden" type="button" style="color:transparent">
 					<span class="material-icons">add_circle_outline</span>
 				</a>
-				<div class="input-group mb-3 col-5 col-4">
+				<div class="input-group mb-3 col-5 col-4 meciuriTrecute">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Goluri gazda</span>
 					</div>
-					<input id="goluri_gazde" min="0" type="number" class="form-control" name="goluri_gazde" value="{{old('goluri_gazde')}}" required>
+					<input id="goluri_gazde" min="0" type="number" class="form-control" name="goluri_gazde" value="{{old('goluri_gazde')}}">
 				</div>
-				<a id="adauga_marcatori_gazda" class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Adauga marcatori">
+				<a id="adauga_marcatori_gazda" class="btn meciuriTrecute" type="button" data-toggle="tooltip" data-placement="top" title="Adauga marcatori">
 					<span class="material-icons">add_circle_outline</span>
 				</a>
-				<div class="input-group mb-3 col-5 col-4 ml-auto">
+				<div class="input-group mb-3 col-5 col-4 ml-auto meciuriTrecute">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Goluri oaspeti</span>
 					</div>
-					<input id="goluri_oaspeti" min="0" type="number" class="form-control" name="goluri_oaspeti" value="{{old('goluri_oaspeti')}}" required>
+					<input id="goluri_oaspeti" min="0" type="number" class="form-control" name="goluri_oaspeti" value="{{old('goluri_oaspeti')}}">
 				</div>
-				<a id="adauga_marcatori_oaspeti" class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Adauga marcatori">
+				<a id="adauga_marcatori_oaspeti" class="btn meciuriTrecute" type="button" data-toggle="tooltip" data-placement="top" title="Adauga marcatori">
 					<span class="material-icons">add_circle_outline</span>
 				</a>
 			</div>
@@ -81,22 +81,22 @@
 				<div id="campuri_marcatori_oaspeti" class="col-6"></div>
 			</div>
 			<div class="row m-0">
-				<div class="input-group mb-3 col-5 col-4">
+				<div class="input-group mb-3 col-5 col-4 meciuriTrecute">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Cartonase gazda</span>
 					</div>
-					<input id="cartonase_gazde" min="0" type="number" class="form-control" name="cartonase_gazde" value="{{old('cartonase_gazde')}}" required>
+					<input id="cartonase_gazde" min="0" type="number" class="form-control" name="cartonase_gazde" value="{{old('cartonase_gazde')}}">
 				</div>
-				<a id="adauga_cartonase_gazda" class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Adauga cartonase">
+				<a id="adauga_cartonase_gazda" class="btn meciuriTrecute" type="button" data-toggle="tooltip" data-placement="top" title="Adauga cartonase">
 					<span class="material-icons">add_circle_outline</span>
 				</a>
-				<div class="input-group mb-3 col-5 col-4 ml-auto">
+				<div class="input-group mb-3 col-5 col-4 ml-auto meciuriTrecute">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Cartonase oaspeti</span>
 					</div>
-					<input id="cartonase_oaspeti" min="0" type="number" class="form-control" name="cartonase_oaspeti" value="{{old('cartonase_oaspeti')}}" required>
+					<input id="cartonase_oaspeti" min="0" type="number" class="form-control" name="cartonase_oaspeti" value="{{old('cartonase_oaspeti')}}">
 				</div>
-				<a id="adauga_cartonase_oaspeti" class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Adauga cartonase">
+				<a id="adauga_cartonase_oaspeti" class="btn meciuriTrecute" type="button" data-toggle="tooltip" data-placement="top" title="Adauga cartonase">
 					<span class="material-icons">add_circle_outline</span>
 				</a>
 			</div>
@@ -105,7 +105,7 @@
 				<div id="campuri_cartonase_oaspeti" class="col-6"></div>
 			</div>
 
-			<div class="text-center">
+			<div class="text-center mt-4">
 				<button class="btn btn-primary" type="submit">Salveaza</button>
 			</div>
 			@include('errors')
@@ -193,11 +193,24 @@
 	}
 
 	$(document).ready(function(){
+		$('.meciuriTrecute').css("display","none");
 		$('#toggler').on('change', function() {
 			if (this.checked) {
 				cautaCluburi();
 			} else {
 				cautaNationale();
+			}
+		});
+		$('#data').on('change', function() {
+			var data = $('#data').val();
+			var today = new Date();
+			if (data < today.toISOString()) 
+			{
+				$('.meciuriTrecute').css("display","flex");
+			}
+			else
+			{
+				$('.meciuriTrecute').css("display","none");
 			}
 		});
 		cautaCluburi();
@@ -443,6 +456,7 @@
 			$(this).closest("div.row").remove();
 		});
 	});
+
 </script>
 
 @endsection
